@@ -5,6 +5,9 @@
       <map>
         <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroid/app/src/main/res/layout/activity_main.xml" value="0.1953125" />
         <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroid/app/src/main/res/layout/recherche.xml" value="0.25" />
+        <entry key="..\:/Users/vince/Documents/GitHub/Projet-Android/ProjectAndroid/app/src/main/res/layout/activity_main.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/vince/Documents/GitHub/Projet-Android/ProjectAndroid/app/src/main/res/layout/connection.xml" value="0.5541666666666667" />
+        <entry key="..\:/Users/vince/Documents/GitHub/Projet-Android/ProjectAndroid/app/src/main/res/layout/recherche.xml" value="0.5541666666666667" />
       </map>
     </option>
   </component>
@@ -13,5 +16,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.5541666666666667" />
+      </ProjectState>
+    </option>
   </component>
 </project>
