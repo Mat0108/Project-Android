@@ -4,5 +4,11 @@
     <color name="CHAMP">#6539383D</color>   <!-- #11333333 11 transparant 33 color-->
     <color name="BOUTON">#4041477D</color>
     <color name="BARRE">#FF193B5C</color>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#4EBDB3</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 </resources>
