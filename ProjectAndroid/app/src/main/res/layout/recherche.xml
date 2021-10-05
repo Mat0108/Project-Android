@@ -4,30 +4,162 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/FONT"
-    >
+    android:background="@color/FONT">
 
-    <!-- Component 4 -->
     <RelativeLayout
-        android:id="@+id/component_4"
-        android:layout_width="250dp"
-        android:layout_height="50dp"
+        android:id="@+id/RelativeLayout"
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/rectangle1"
-        tools:layout_editor_absoluteX="80dp"
-        tools:layout_editor_absoluteY="52dp" />
+        <ImageView
+            android:id="@+id/Recherche"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="recherche"
+            android:translationY="40dp"
+            app:srcCompat="@drawable/recherche" />
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/barre"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-50dp" />
+        <TextView
+            android:id="@+id/RechercheText"
+            android:layout_width="277dp"
+            android:layout_height="38dp"
+            android:text="Recherche"
+            android:textColor="@color/TEXT"
+            android:textSize="20sp"
+            android:translationX="50dp"
+            android:translationY="95dp" />
 
+        <ImageView
+            android:id="@+id/MenuBas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="MenuBas"
+            android:translationY="680dp"
+            app:srcCompat="@drawable/menubas" />
 
+        <ImageView
+            android:id="@+id/MenuHaut"
+            android:layout_width="match_parent"
+            android:layout_height="63dp"
+            android:contentDescription="menuHaut"
+            app:srcCompat="@drawable/menuhaut" />
+
+        <TextView
+            android:id="@+id/MenuHautText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Recherche de profils"
+            android:textColor="@color/TEXT"
+            android:textSize="24sp"
+            android:translationX="100dp"
+            android:translationY="13dp" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/MenuHautButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:contentDescription="MenuHautButton"
+            android:focusable="auto"
+            android:translationY="5dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/BoutonMessagerie"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:contentDescription="BoutonMessagerie"
+            android:translationX="280dp"
+            android:translationY="680dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+        <TextView
+            android:id="@+id/ResultText"
+            android:layout_width="252dp"
+            android:layout_height="wrap_content"
+            android:text="126 résultats dans votre secteur"
+            android:textAlignment="center"
+            android:textColor="@color/TEXT"
+            android:textSize="16sp"
+            android:translationX="80dp"
+            android:translationY="640dp" />
+
+        <ScrollView
+            android:id="@+id/ResultScroll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:translationY="140dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/result0"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="result image"
+                        app:srcCompat="@drawable/result" />
+
+                    <ImageView
+                        android:id="@+id/result1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:contentDescription="result image"
+                        app:srcCompat="@drawable/result" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/result2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="result image"
+                        app:srcCompat="@drawable/result" />
+
+                    <ImageView
+                        android:id="@+id/result3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:contentDescription="result image"
+                        app:srcCompat="@drawable/result" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/result4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:contentDescription="result image"
+                        app:srcCompat="@drawable/result" />
+
+                    <ImageView
+                        android:id="@+id/result5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:contentDescription="result image"
+                        app:srcCompat="@drawable/result" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
