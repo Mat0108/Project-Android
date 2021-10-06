@@ -20,7 +20,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:contentDescription="recherche"
-            android:translationY="70"
+            android:translationY="80dp"
             app:srcCompat="@drawable/recherche" />
 
         <TextView
@@ -31,7 +31,7 @@
             android:textColor="@color/TEXT"
             android:textSize="20sp"
             android:translationX="50dp"
-            android:translationY="80dp" />
+            android:translationY="90dp" />
 
         <ImageView
             android:id="@+id/MenuBas"
