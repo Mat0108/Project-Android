@@ -10,16 +10,22 @@
         android:layout_height="match_parent">
 
         <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            app:srcCompat="@drawable/bar_recherche" />
+
+        <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:srcCompat="@drawable/bar_haut" />
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:srcCompat="@drawable/bar_recherche" />
+        <TextView
+            android:id="@+id/Messagerie"
+            android:layout_width="253dp"
+            android:layout_height="31dp"
+            android:text="Messagerie" />
 
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
