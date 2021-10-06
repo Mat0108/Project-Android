@@ -7,12 +7,12 @@
     android:background="@color/FONT">
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imageView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/google_pixel_2___3"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="0dp" />
+        app:srcCompat="@drawable/inscription"
+        tools:layout_editor_absoluteX="-179dp"
+        tools:layout_editor_absoluteY="160dp" />
 
     <Button
         android:id="@+id/button3"
@@ -117,11 +117,17 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="332dp"
-        android:layout_height="31dp"
-        android:background="#15202B"
-        tools:layout_editor_absoluteX="35dp"
-        tools:layout_editor_absoluteY="299dp" />
+        android:layout_width="321dp"
+        android:layout_height="26dp"
+        android:background="#2C2F37"
+        android:fontFamily="@font/montserrat"
+        android:text="Adresse email"
+        android:textAlignment="viewStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#79787E"
+        android:translationY="5dp"
+        tools:layout_editor_absoluteX="44dp"
+        tools:layout_editor_absoluteY="296dp" />
 
     <TextView
         android:id="@+id/textView3"
