@@ -97,7 +97,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:contentDescription="result image"
-                    app:srcCompat="@drawable/result" />
+                    app:srcCompat="@drawable/result2" />
 
                 <ImageView
                     android:id="@+id/result6"
@@ -105,7 +105,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:contentDescription="result image"
-                    app:srcCompat="@drawable/result" />
+                    app:srcCompat="@drawable/result2" />
 
                 <ImageView
                     android:id="@+id/result"
@@ -113,7 +113,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:contentDescription="result image"
-                    app:srcCompat="@drawable/result" />
+                    app:srcCompat="@drawable/result2" />
 
                 <ImageView
                     android:id="@+id/result3"
@@ -121,7 +121,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
                     android:contentDescription="result image"
-                    app:srcCompat="@drawable/result" />
+                    app:srcCompat="@drawable/result2" />
 
                 <ImageView
                     android:id="@+id/result4"
@@ -129,7 +129,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:contentDescription="result image"
-                    app:srcCompat="@drawable/result" />
+                    app:srcCompat="@drawable/result2" />
 
                 <ImageView
                     android:id="@+id/result5"
@@ -137,7 +137,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="10dp"
                     android:contentDescription="result image"
-                    app:srcCompat="@drawable/result" />
+                    app:srcCompat="@drawable/result2" />
 
             </LinearLayout>
         </ScrollView>
