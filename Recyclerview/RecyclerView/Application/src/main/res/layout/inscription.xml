@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/FONT">
+
+    <ImageView
+        android:id="@+id/inscriptionbas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/incription"
+        android:src="@drawable/inscriptionbas"
+        android:translationY="76dp" />
+
+    <ImageView
+        android:id="@+id/inscriptionhaut"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:contentDescription="@string/incription"
+        android:src="@drawable/inscriptionhaut" />
+
+    <EditText
+        android:id="@+id/inscriptionmail"
+        android:layout_width="322dp"
+        android:layout_height="34dp"
+        android:background="#00000000"
+        android:ems="10"
+        android:hint="@string/inscriptionmail"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/TEXT"
+        android:translationX="45dp"
+        android:translationY="297dp"
+        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+    <EditText
+        android:id="@+id/editTextTextPassword"
+        android:layout_width="323dp"
+        android:layout_height="34dp"
+        android:background="#00000000"
+        android:ems="10"
+        android:hint="@string/inscriptionmnom"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:textColor="@color/TEXT"
+        android:translationX="45dp"
+        android:translationY="345dp"
+        tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
+
+    <EditText
+        android:id="@+id/incriptionadresse"
+        android:layout_width="323dp"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:ems="10"
+        android:hint="@string/inscriptionadresse"
+        android:importantForAutofill="no"
+        android:inputType="textPersonName"
+        android:textColor="@color/TEXT"
+
+        android:translationX="45dp"
+        android:translationY="390dp"
+        tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
+
+    <EditText
+        android:id="@+id/inscriptionpassword1"
+        android:layout_width="323dp"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:ems="10"
+
+        android:hint="@string/inscriptionpassword1"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:textColor="@color/TEXT"
+
+        android:translationX="45dp"
+        android:translationY="440dp"
+        tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
+
+    <EditText
+        android:id="@+id/inscriptionpassword2"
+        android:layout_width="323dp"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:ems="10"
+
+        android:hint="@string/inscriptionpassword2"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:textColor="@color/TEXT"
+        android:translationX="45dp"
+        android:translationY="485dp"
+        tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
+
+    <Button
+        android:id="@+id/inscriptionback2"
+        android:layout_width="178dp"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:text="@string/incription"
+        android:textColor="@color/TEXT"
+        android:textSize="20sp"
+
+        tools:ignore="TextContrastCheck,DuplicateSpeakableTextCheck" />
+
+    <!--  <Button
+        android:id="@+id/inscriptionback"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/TEXT"
+        android:text="test"
+        android:textColor="#FFFFFF"
+        tools:ignore="SpeakableTextPresentCheck" />-->
+
+
+
+</RelativeLayout>

@@ -3,6 +3,10 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroid/app/src/main/res/layout/connection.xml" value="0.28396739130434784" />
+        <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroid/app/src/main/res/layout/inscription.xml" value="0.28396739130434784" />
+        <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroid/app/src/main/res/layout/messagerie.xml" value="0.28396739130434784" />
+        <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroid/app/src/main/res/layout/recherche.xml" value="0.28396739130434784" />
         <entry key="app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/drawable/ic_launcher_background.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.1" />

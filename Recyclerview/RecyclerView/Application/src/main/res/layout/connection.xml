@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/FONT">
+
+    <ImageView
+        android:id="@+id/connection"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/connection"
+        android:src="@drawable/connection" />
+
+    <EditText
+        android:id="@+id/connectionmail"
+        android:layout_width="318dp"
+        android:layout_height="48dp"
+        android:hint="@string/mailtext"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/TEXT"
+        android:translationX="40dp"
+        android:translationY="318dp"
+        tools:ignore="TextContrastCheck"
+        android:background="#00000000"
+        android:importantForAutofill="no" />
+
+    <EditText
+        android:id="@+id/connectionpassword"
+        android:layout_width="323dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/passwordtext"
+        android:importantForAutofill="no"
+        android:inputType="textPassword"
+        android:textColor="@color/TEXT"
+        android:minHeight="48dp"
+        android:translationX="40dp"
+        android:translationY="365dp"
+        android:background="#00000000"
+        tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
+
+    <Button
+        android:id="@+id/connectionbutton"
+        android:layout_width="275dp"
+        android:layout_height="64dp"
+        android:background="#00000000"
+        android:text="@string/connection"
+        android:textColor="@color/TEXT"
+        android:textSize="20sp"
+        android:translationX="67dp"
+        android:translationY="427dp"
+        tools:ignore="TextContrastCheck,DuplicateSpeakableTextCheck" />
+
+    <Button
+        android:id="@+id/inscriptionbutton"
+        android:layout_width="178dp"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:text="@string/incription"
+        android:textColor="@color/TEXT"
+        android:textSize="20sp"
+        android:translationX="120dp"
+        android:translationY="500dp"
+        tools:ignore="TextContrastCheck" />
+
+
+</RelativeLayout>
