@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\matth\\Documents\\Cours\\Android\\RecyclerView\\Application\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sw600dp-v13\\values-sw600dp-v13.xml",
+            "outputFile": "C:\\Users\\matth\\Documents\\GitHub\\Projet-Android\\Recyclerview\\RecyclerView\\Application\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-sw600dp-v13\\values-sw600dp-v13.xml",
             "map": [
                 {
                     "source": "C:\\Users\\matth\\.gradle\\caches\\transforms-2\\files-2.1\\06510b42cc268a7775197a511e376954\\res\\values-sw600dp-v13\\values-sw600dp-v13.xml",
@@ -14,32 +14,13 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\matth\\Documents\\Cours\\Android\\RecyclerView\\Application\\src\\main\\res\\values-sw600dp\\template-styles.xml",
-                    "from": {
-                        "startLines": "18",
-                        "startColumns": "4",
-                        "startOffsets": "621",
-                        "endLines": "22",
-                        "endColumns": "12",
-                        "endOffsets": "861"
-                    },
-                    "to": {
-                        "startLines": "28",
-                        "startColumns": "4",
-                        "startOffsets": "1682",
-                        "endLines": "32",
-                        "endColumns": "12",
-                        "endOffsets": "1922"
-                    }
-                },
-                {
-                    "source": "C:\\Users\\matth\\Documents\\Cours\\Android\\RecyclerView\\Application\\src\\main\\res\\values-sw600dp\\template-dimens.xml",
+                    "source": "C:\\Users\\matth\\Documents\\GitHub\\Projet-Android\\Recyclerview\\RecyclerView\\Application\\src\\main\\res\\values-sw600dp\\template-dimens.xml",
                     "from": {
                         "startLines": "20,21",
                         "startColumns": "4,4",
-                        "startOffsets": "656,724",
+                        "startOffsets": "676,745",
                         "endColumns": "67,67",
-                        "endOffsets": "719,787"
+                        "endOffsets": "739,808"
                     },
                     "to": {
                         "startLines": "19,22",
@@ -83,6 +64,25 @@
                         "startOffsets": "1241,1310",
                         "endColumns": "68,68",
                         "endOffsets": "1305,1374"
+                    }
+                },
+                {
+                    "source": "C:\\Users\\matth\\Documents\\GitHub\\Projet-Android\\Recyclerview\\RecyclerView\\Application\\src\\main\\res\\values-sw600dp\\template-styles.xml",
+                    "from": {
+                        "startLines": "18",
+                        "startColumns": "4",
+                        "startOffsets": "639",
+                        "endLines": "22",
+                        "endColumns": "12",
+                        "endOffsets": "883"
+                    },
+                    "to": {
+                        "startLines": "28",
+                        "startColumns": "4",
+                        "startOffsets": "1682",
+                        "endLines": "32",
+                        "endColumns": "12",
+                        "endOffsets": "1922"
                     }
                 }
             ]

@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\matth\\Documents\\Cours\\Android\\RecyclerView\\Application\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ur\\values-ur.xml",
+            "outputFile": "C:\\Users\\matth\\Documents\\GitHub\\Projet-Android\\Recyclerview\\RecyclerView\\Application\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-ur\\values-ur.xml",
             "map": [
                 {
                     "source": "C:\\Users\\matth\\.gradle\\caches\\transforms-2\\files-2.1\\72b7787ce551d05fa3ecc74b99a53ba5\\res\\values-ur\\values-ur.xml",
