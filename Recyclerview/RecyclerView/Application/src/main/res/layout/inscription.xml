@@ -7,19 +7,19 @@
     android:background="@color/FONT">
 
     <ImageView
-        android:id="@+id/inscriptionbas"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/incription"
-        android:src="@drawable/inscriptionbas"
-        android:translationY="76dp" />
-
-    <ImageView
         android:id="@+id/inscriptionhaut"
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:contentDescription="@string/incription"
         android:src="@drawable/inscriptionhaut" />
+
+    <ImageView
+        android:id="@+id/inscriptionbas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/incription"
+        android:src="@drawable/inscriptionbas"
+        android:translationY="0dp" />
 
     <EditText
         android:id="@+id/inscriptionmail"
@@ -104,7 +104,17 @@
         android:textColor="@color/TEXT"
         android:textSize="20sp"
 
+        android:translationX="10dp"
         tools:ignore="TextContrastCheck,DuplicateSpeakableTextCheck" />
+
+    <Button
+        android:id="@+id/inscription_ajouter_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/inscription_ajouter_image"
+        android:translationX="175dp"
+        android:translationY="138dp"
+        android:visibility="invisible" />
 
     <!--  <Button
         android:id="@+id/inscriptionback"

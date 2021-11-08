@@ -1539,6 +1539,7 @@ id ignoreRequest
 id image
 id incriptionadresse
 id info
+id inscription_ajouter_image
 id inscriptionback2
 id inscriptionbas
 id inscriptionbutton
@@ -1907,6 +1908,7 @@ string fab_transformation_sheet_behavior
 string grid_layout_manager
 string hide_bottom_view_on_scroll_behavior
 string incription
+string inscription_ajouter_image
 string inscriptionadresse
 string inscriptionmail
 string inscriptionmnom
