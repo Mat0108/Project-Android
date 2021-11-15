@@ -8,14 +8,6 @@
     android:background="@color/FONT">
 
 
-    <Button
-        android:id="@+id/rechercheback"
-        android:layout_width="53dp"
-        android:layout_height="58dp"
-        android:contentDescription="@string/recherchemenu"
-        tools:ignore="DuplicateSpeakableTextCheck"
-        tools:srcCompat="@drawable/recherchehautclick" />
-
     <ImageView
         android:id="@+id/recherchehaut"
         android:layout_width="match_parent"
@@ -32,6 +24,15 @@
         android:contentDescription="@string/recherchemenu"
         android:src="@drawable/recherchebas"
         android:translationY="605dp" />
+
+    <Button
+        android:id="@+id/rechercheback"
+        android:layout_width="53dp"
+        android:layout_height="58dp"
+        android:contentDescription="@string/recherchemenu"
+        android:visibility="invisible"
+        tools:ignore="DuplicateSpeakableTextCheck"
+        tools:srcCompat="@drawable/recherchehautclick" />
 
     <FrameLayout
         android:id="@+id/sample_content_fragment"

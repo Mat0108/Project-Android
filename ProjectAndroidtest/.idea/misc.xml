@@ -6,8 +6,10 @@
         <entry key="..\:/Users/matth/Desktop/ProjectAndroidtest/app/src/main/res/drawable/ic_launcher_background.xml" value="0.11614583333333334" />
         <entry key="..\:/Users/matth/Desktop/ProjectAndroidtest/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/Users/matth/Desktop/ProjectAndroidtest/app/src/main/res/layout/connection.xml" value="0.1" />
-        <entry key="..\:/Users/matth/Desktop/ProjectAndroidtest/app/src/main/res/layout/recherche.xml" value="0.1" />
+        <entry key="..\:/Users/matth/Desktop/ProjectAndroidtest/app/src/main/res/layout/recherche.xml" value="0.22" />
         <entry key="..\:/Users/matth/Desktop/ProjectAndroidtest/app/src/main/res/layout/recherche_result.xml" value="0.25" />
+        <entry key="..\:/Users/matth/Desktop/ProjectAndroidtest/app/src/main/res/layout/recycler_view.xml" value="0.10208333333333333" />
+        <entry key="..\:/Users/matth/Desktop/ProjectAndroidtest/app/src/main/res/layout/recycler_view2.xml" value="0.1" />
       </map>
     </option>
   </component>

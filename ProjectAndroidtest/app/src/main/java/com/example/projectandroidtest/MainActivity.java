@@ -26,8 +26,9 @@ public class MainActivity extends AppCompatActivity {
 
         public void LayoutRecherche(){
             if (getLayout() == R.layout.recherche){
-                /*
+
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
                 com.example.projectandroidtest.RecyclerViewFragment fragment = new com.example.projectandroidtest.RecyclerViewFragment();
                 transaction.replace(R.id.sample_content_fragment, fragment);
                 transaction.commit();
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
                         setlayout(R.layout.connection);
                         LayoutConnection();
                     }
-                });*/
+                });
             }
         }
         public void LayoutConnection(){
@@ -92,12 +93,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final varLayout layout;
-        layout = new varLayout(R.layout.recherche);
+        layout = new varLayout(R.layout.connection);
         setContentView(layout.getLayout());
         getSupportActionBar().hide();
-        //layout.LayoutConnection();
-        //layout.LayoutInscription();
-        //layout.LayoutRecherche();
+        layout.LayoutConnection();
+        layout.LayoutInscription();
+        layout.LayoutRecherche();
 
 
     }
