@@ -23,12 +23,14 @@
     <string name="recherchemenu">recherchemenu</string>
     <string name="incription">Inscription</string>
     <string name="connection">Connection</string>
-    <string name="mailtext">Entre votre mail</string>
+    <string name="mailtext">Entrez votre mail</string>
     <string name="passwordtext">Entrez votre password</string>
     <string name="inscriptionmail">Adresse mail</string>
     <string name="inscriptionmnom">Nom d\'utilisateur</string>
     <string name="inscriptionadresse">Adresse</string>
     <string name="inscriptionpassword1">Mot de passe</string>
     <string name="inscriptionpassword2">Confirmer votre mot de passe</string>
+    <string name="inscription_ajouter_image">Bouton</string>
+    <string name="inscription_bouton_confiramtion">Bouton_inscription</string>
 
 </resources>
