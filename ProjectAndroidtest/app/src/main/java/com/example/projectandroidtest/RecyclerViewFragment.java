@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 //import android.support.v7.widget.GridLayoutManager;
 //import android.support.v7.widget.LinearLayoutManager;
 //import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,9 +69,9 @@ public class RecyclerViewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+        Log.e("test", "onCreateView: test " );
         View rootView = inflater.inflate(R.layout.recycler_view, container, false);
-        rootView.setTag(TAG);
-
+        Log.e("test", "onCreateView: test 2" );
         // BEGIN_INCLUDE(initializeRecyclerView)
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
 
