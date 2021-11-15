@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/FONT">
+
+
+    <Button
+        android:id="@+id/rechercheback"
+        android:layout_width="53dp"
+        android:layout_height="58dp"
+        android:contentDescription="@string/recherchemenu"
+        tools:ignore="DuplicateSpeakableTextCheck"
+        tools:srcCompat="@drawable/recherchehautclick" />
+
+    <ImageView
+        android:id="@+id/recherchehaut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/recherchemenu"
+        android:src="@drawable/recherchehaut"
+
+        />
+
+    <ImageView
+        android:id="@+id/recherchebas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/recherchemenu"
+        android:src="@drawable/recherchebas"
+        android:translationY="605dp" />
+
+    <FrameLayout
+        android:id="@+id/sample_content_fragment"
+        android:layout_width="410dp"
+        android:layout_height="470dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="2dp"
+        android:translationY="140dp">
+
+    </FrameLayout>
+
+
+</RelativeLayout>
+
+

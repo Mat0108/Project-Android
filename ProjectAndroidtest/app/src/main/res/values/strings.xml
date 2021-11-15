@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">ProjectAndroidtest</string>
+    <string name="element_text">Element</string>
+    <string name="grid_layout_manager">Grid Layout Manager</string>
+    <string name="linear_layout_manager">Linear Layout Manager</string>
+    <string name="recherchemenu">recherchemenu</string>
+    <string name="incription">Inscription</string>
+    <string name="connection">Connection</string>
+    <string name="mailtext">Entre votre mail</string>
+    <string name="passwordtext">Entrez votre password</string>
+    <string name="inscriptionmail">Adresse mail</string>
+    <string name="inscriptionmnom">Nom d\'utilisateur</string>
+    <string name="inscriptionadresse">Adresse</string>
+    <string name="inscriptionpassword1">Mot de passe</string>
+    <string name="inscriptionpassword2">Confirmer votre mot de passe</string>
+</resources>
