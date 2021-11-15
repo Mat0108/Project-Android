@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/FONT">
+
+    <RelativeLayout
+        android:id="@+id/RelativeLayout"
+        android:layout_width="409dp"
+        android:layout_height="729dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:translationX="20dp"
+            android:translationY="673dp"
+            app:srcCompat="@drawable/baare_bas" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Debut discussion avec Toto"
+            android:translationY="450dp" />
+
+        <ImageView
+            android:id="@+id/MenuHaut"
+            android:layout_width="match_parent"
+            android:layout_height="63dp"
+            android:contentDescription="menuHaut"
+            app:srcCompat="@drawable/menuhaut" />
+
+        <TextView
+            android:id="@+id/MenuHautText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="toto"
+            android:textColor="@color/TEXT"
+            android:textSize="24sp"
+            android:translationX="145dp"
+            android:translationY="15dp"
+            android:visibility="visible" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/MenuHautButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:contentDescription="MenuHautButton"
+            android:focusable="auto"
+            android:translationY="5dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/BoutonRecherche"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:clickable="true"
+            android:contentDescription="BoutonMessagerie"
+            android:translationX="60dp"
+            android:translationY="680dp"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/ic_launcher_background" />
+
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
