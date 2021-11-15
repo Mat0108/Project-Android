@@ -13,4 +13,6 @@
     <string name="inscriptionadresse">Adresse</string>
     <string name="inscriptionpassword1">Mot de passe</string>
     <string name="inscriptionpassword2">Confirmer votre mot de passe</string>
+    <string name="inscription_ajouter_image">Bouton</string>
+    <string name="inscription_bouton_confiramtion">Bouton_inscription</string>
 </resources>
