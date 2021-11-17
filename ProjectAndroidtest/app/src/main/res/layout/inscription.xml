@@ -17,7 +17,8 @@
     <ImageView
         android:id="@+id/inscriptionhaut"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="69dp"
+        android:layout_marginBottom="59dp"
         android:contentDescription="@string/incription"
         android:src="@drawable/inscriptionhaut" />
 

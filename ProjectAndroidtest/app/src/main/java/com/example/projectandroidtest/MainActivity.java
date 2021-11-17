@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(layout.getLayout());
         getSupportActionBar().hide();
         layout.LayoutConnection();
-        layout.LayoutInscription();
+       // layout.LayoutInscription();
         layout.LayoutRecherche();
 
 
