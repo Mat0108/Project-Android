@@ -1,0 +1,493 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/FONT">
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="414dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/matiere"
+        android:textAlignment="center"
+        android:textColor="@color/TEXT"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioButton
+        android:id="@+id/radioButton2"
+        android:layout_width="101dp"
+        android:layout_height="31dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="8dp"
+        android:buttonTint="#FFFFFF"
+        android:clickable="false"
+        android:text="@string/matiereC2"
+        android:textColor="@color/TEXT"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/RecEx"
+        app:layout_constraintTop_toTopOf="@+id/RecEx"
+        tools:ignore="TextContrastCheck" />
+
+    <RadioButton
+        android:id="@+id/radioButton"
+        android:layout_width="133dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="4dp"
+        android:buttonTint="#FFFFFF"
+        android:clickable="false"
+        android:text="@string/matiereC1"
+        android:textColor="@color/TEXT"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/RecEx"
+        tools:ignore="TextContrastCheck" />
+
+    <View
+        android:id="@+id/RecEx"
+        android:layout_width="277dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/rectangle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+
+    <View
+        android:id="@+id/Fr_rectangle"
+        android:layout_width="277dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="@dimen/matiere2"
+        android:background="@drawable/rectangle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/RecEx" />
+
+    <TextView
+        android:id="@+id/Fr_text"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/matiere_1"
+        android:textAlignment="viewStart"
+        android:textColor="@color/TEXT"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/Fr_rectangle"
+        app:layout_constraintTop_toTopOf="@+id/Fr_rectangle" />
+
+    <RadioGroup
+        android:id="@+id/Fr_Group"
+        android:layout_width="108dp"
+        android:layout_height="42dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@id/Fr_rectangle"
+        app:layout_constraintTop_toTopOf="@id/Fr_rectangle">
+
+        <RadioButton
+            android:id="@+id/Fr_R"
+            android:layout_width="32dp"
+            android:layout_height="42dp"
+            android:buttonTint="#FFFFFF"
+            android:translationX="15dp"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
+        <RadioButton
+            android:id="@+id/Fr_M"
+            android:layout_width="32dp"
+            android:layout_height="42dp"
+            android:buttonTint="#FFFFFF"
+            android:translationX="30dp"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+    </RadioGroup>
+
+    <View
+        android:id="@+id/Mt_rectangle"
+        android:layout_width="277dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="@dimen/matiere2"
+        android:background="@drawable/rectangle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Fr_rectangle" />
+    <TextView
+        android:id="@+id/Mt_text"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/matiere_2"
+        android:textAlignment="viewStart"
+        android:textColor="@color/TEXT"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/Mt_rectangle"
+        app:layout_constraintTop_toTopOf="@+id/Mt_rectangle" />
+
+    <RadioGroup
+        android:id="@+id/Mt_Group"
+        android:layout_width="107dp"
+        android:layout_height="42dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@id/Mt_rectangle"
+        app:layout_constraintTop_toTopOf="@id/Mt_rectangle">
+
+        <RadioButton
+            android:id="@+id/Mt_R"
+            android:layout_width="32dp"
+            android:layout_height="42dp"
+            android:buttonTint="#FFFFFF"
+            android:translationX="15dp"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
+        <RadioButton
+            android:id="@+id/Mt_M"
+            android:layout_width="32dp"
+            android:layout_height="42dp"
+            android:buttonTint="#FFFFFF"
+            android:translationX="30dp"
+            tools:ignore="TouchTargetSizeCheck" />
+    </RadioGroup>
+
+    <View
+        android:id="@+id/Ph_rectangle"
+        android:layout_width="277dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="@dimen/matiere2"
+        android:background="@drawable/rectangle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Mt_rectangle" />
+    <TextView
+        android:id="@+id/Ph_text"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/matiere_3"
+        android:textAlignment="viewStart"
+        android:textColor="@color/TEXT"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/Ph_rectangle"
+        app:layout_constraintTop_toTopOf="@+id/Ph_rectangle" />
+
+    <RadioGroup
+        android:id="@+id/Ph_group"
+        android:layout_width="108dp"
+        android:layout_height="42dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@id/Ph_rectangle"
+        app:layout_constraintTop_toTopOf="@id/Ph_rectangle">
+
+        <RadioButton
+            android:id="@+id/Ph_M"
+            android:layout_width="32dp"
+            android:layout_height="42dp"
+            android:buttonTint="#FFFFFF"
+            android:translationX="15dp"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
+        <RadioButton
+            android:id="@+id/Ph_R"
+            android:layout_width="32dp"
+            android:layout_height="42dp"
+            android:buttonTint="#FFFFFF"
+            android:translationX="30dp"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+    </RadioGroup>
+    <View
+        android:id="@+id/Ch_rectangle"
+        android:layout_width="277dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="@dimen/matiere2"
+        android:background="@drawable/rectangle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Ph_rectangle" />
+    <TextView
+        android:id="@+id/Ch_text"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/matiere_4"
+        android:textAlignment="viewStart"
+        android:textColor="@color/TEXT"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/Ch_rectangle"
+        app:layout_constraintTop_toTopOf="@+id/Ch_rectangle" />
+
+    <RadioGroup
+        android:id="@+id/Ch_group"
+        android:layout_width="108dp"
+        android:layout_height="42dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@id/Ch_rectangle"
+        app:layout_constraintTop_toTopOf="@id/Ch_rectangle">
+
+        <RadioButton
+            android:id="@+id/Ch_M"
+            android:layout_width="32dp"
+            android:layout_height="42dp"
+            android:buttonTint="#FFFFFF"
+            android:translationX="15dp"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
+        <RadioButton
+            android:id="@+id/Ch_R"
+            android:layout_width="32dp"
+            android:layout_height="42dp"
+            android:buttonTint="#FFFFFF"
+            android:translationX="30dp"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+    </RadioGroup>
+    <View
+        android:id="@+id/Hi_rectangle"
+        android:layout_width="277dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="@dimen/matiere2"
+        android:background="@drawable/rectangle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Ch_rectangle" />
+    <TextView
+        android:id="@+id/Hi_text"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/matiere_5"
+        android:textAlignment="viewStart"
+        android:textColor="@color/TEXT"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/Hi_rectangle"
+        app:layout_constraintTop_toTopOf="@+id/Hi_rectangle" />
+
+    <RadioGroup
+        android:id="@+id/Hi_group"
+        android:layout_width="108dp"
+        android:layout_height="42dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@id/Hi_rectangle"
+        app:layout_constraintTop_toTopOf="@id/Hi_rectangle">
+
+        <RadioButton
+            android:id="@+id/Hi_M"
+            android:layout_width="32dp"
+            android:layout_height="42dp"
+            android:buttonTint="#FFFFFF"
+            android:translationX="15dp"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
+        <RadioButton
+            android:id="@+id/Hi_R"
+            android:layout_width="32dp"
+            android:layout_height="42dp"
+            android:buttonTint="#FFFFFF"
+            android:translationX="30dp"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+    </RadioGroup>
+    <View
+        android:id="@+id/Ge_rectangle"
+        android:layout_width="277dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="@dimen/matiere2"
+        android:background="@drawable/rectangle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Hi_rectangle" />
+    <TextView
+        android:id="@+id/Ge_text"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/matiere_6"
+        android:textAlignment="viewStart"
+        android:textColor="@color/TEXT"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/Ge_rectangle"
+        app:layout_constraintTop_toTopOf="@+id/Ge_rectangle" />
+
+    <RadioGroup
+        android:id="@+id/Ge_Group"
+        android:layout_width="108dp"
+        android:layout_height="42dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@id/Ge_rectangle"
+        app:layout_constraintTop_toTopOf="@id/Ge_rectangle">
+
+        <RadioButton
+            android:id="@+id/Ge_M"
+            android:layout_width="32dp"
+            android:layout_height="42dp"
+            android:buttonTint="#FFFFFF"
+            android:translationX="15dp"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
+        <RadioButton
+            android:id="@+id/Ge_R"
+            android:layout_width="32dp"
+            android:layout_height="42dp"
+            android:buttonTint="#FFFFFF"
+            android:translationX="30dp"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+    </RadioGroup>
+    <View
+        android:id="@+id/An_rectangle"
+        android:layout_width="277dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="@dimen/matiere2"
+        android:background="@drawable/rectangle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Ge_rectangle" />
+    <TextView
+        android:id="@+id/An_text"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/matiere_7"
+        android:textAlignment="viewStart"
+        android:textColor="@color/TEXT"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/An_rectangle"
+        app:layout_constraintTop_toTopOf="@+id/An_rectangle" />
+
+    <RadioGroup
+        android:id="@+id/An_group"
+        android:layout_width="108dp"
+        android:layout_height="42dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@id/An_rectangle"
+        app:layout_constraintTop_toTopOf="@id/An_rectangle">
+
+        <RadioButton
+            android:id="@+id/An_M"
+            android:layout_width="32dp"
+            android:layout_height="42dp"
+            android:buttonTint="#FFFFFF"
+            android:translationX="15dp"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
+        <RadioButton
+            android:id="@+id/An_R"
+            android:layout_width="32dp"
+            android:layout_height="42dp"
+            android:buttonTint="#FFFFFF"
+            android:translationX="30dp"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+    </RadioGroup>
+    <View
+        android:id="@+id/Es_rectangle"
+        android:layout_width="277dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="@dimen/matiere2"
+        android:background="@drawable/rectangle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/An_rectangle" />
+    <TextView
+        android:id="@+id/Es_text"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/matiere_8"
+        android:textAlignment="viewStart"
+        android:textColor="@color/TEXT"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/Es_rectangle"
+        app:layout_constraintTop_toTopOf="@+id/Es_rectangle" />
+
+    <RadioGroup
+        android:id="@+id/Es_group"
+        android:layout_width="108dp"
+        android:layout_height="42dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@id/Es_rectangle"
+        app:layout_constraintTop_toTopOf="@id/Es_rectangle">
+
+        <RadioButton
+            android:id="@+id/Es_M"
+            android:layout_width="32dp"
+            android:layout_height="42dp"
+            android:buttonTint="#FFFFFF"
+            android:translationX="15dp"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
+        <RadioButton
+            android:id="@+id/Es_R"
+            android:layout_width="32dp"
+            android:layout_height="42dp"
+            android:buttonTint="#FFFFFF"
+            android:translationX="30dp"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+    </RadioGroup>
+    <View
+        android:id="@+id/Al_rectangle"
+        android:layout_width="277dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="67dp"
+        android:layout_marginTop="@dimen/matiere2"
+        android:background="@drawable/rectangle"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Es_rectangle" />
+    <TextView
+        android:id="@+id/Al_text"
+        android:layout_width="160dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginEnd="8dp"
+        android:text="@string/matiere_9"
+        android:textAlignment="viewStart"
+        android:textColor="@color/TEXT"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="@+id/Al_rectangle"
+        app:layout_constraintTop_toTopOf="@+id/Al_rectangle" />
+
+    <RadioGroup
+        android:id="@+id/Al_group"
+        android:layout_width="108dp"
+        android:layout_height="42dp"
+        android:orientation="horizontal"
+        app:layout_constraintStart_toStartOf="@id/Al_rectangle"
+        app:layout_constraintTop_toTopOf="@id/Al_rectangle">
+
+        <RadioButton
+            android:id="@+id/Al_M"
+            android:layout_width="32dp"
+            android:layout_height="42dp"
+            android:buttonTint="#FFFFFF"
+            android:translationX="15dp"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+
+        <RadioButton
+            android:id="@+id/Al_R"
+            android:layout_width="32dp"
+            android:layout_height="42dp"
+            android:buttonTint="#FFFFFF"
+            android:translationX="30dp"
+            tools:ignore="TouchTargetSizeCheck,DuplicateSpeakableTextCheck" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/Save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="139dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="@color/BOUTON"
+        android:text="@string/save"
+        android:textColor="@color/TEXT"
+        app:iconTint="#FFFFFF"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Al_rectangle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

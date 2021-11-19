@@ -5,10 +5,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.projectandroidtest.recyclerview.RecyclerViewFragment;
@@ -21,11 +24,21 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private int status;
-    public int getStatus() {return status;}
-    public void setStatus(int lestatus){status = lestatus;}
 
-    private void updateUI(FirebaseUser user) { }
-    private void reload() { }
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int lestatus) {
+        status = lestatus;
+    }
+
+    private void updateUI(FirebaseUser user) {
+    }
+
+    private void reload() {
+    }
+
     private void createAccount(String email, String password) {
         // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -56,13 +69,16 @@ public class MainActivity extends AppCompatActivity {
             this.layout = layout;
             setContentView(layout);
         }
-        public void setlayout(int lelayout){
+
+        public void setlayout(int lelayout) {
             this.layout = lelayout;
             setContentView(lelayout);
         }
-        public int getLayout(){
+
+        public int getLayout() {
             return this.layout;
         }
+
         public void signIn(String email, String password) {
 
             // [START sign_in_with_email]
@@ -87,8 +103,9 @@ public class MainActivity extends AppCompatActivity {
                     });
             // [END sign_in_with_email]
         }
-        public void LayoutRecherche(){
-            if (getLayout() == R.layout.recherche){
+
+        public void LayoutRecherche() {
+            if (getLayout() == R.layout.recherche) {
 
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
@@ -96,7 +113,7 @@ public class MainActivity extends AppCompatActivity {
                 transaction.replace(R.id.sample_content_fragment, fragment);
                 transaction.commit();
 
-                Button back = (Button)findViewById(R.id.rechercheback);
+                Button back = (Button) findViewById(R.id.rechercheback);
                 back.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -106,8 +123,9 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         }
-        public void LayoutConnection(){
-            if (getLayout() == R.layout.connection){
+
+        public void LayoutConnection() {
+            if (getLayout() == R.layout.connection) {
                 EditText Mail = (EditText) findViewById(R.id.connectionmail);
                 EditText Password = (EditText) findViewById(R.id.connectionpassword);
                 Button connection = (Button) findViewById(R.id.connectionbutton);
@@ -116,12 +134,11 @@ public class MainActivity extends AppCompatActivity {
                     public void onClick(View v) {
                         String email = Mail.getText().toString();
                         String password = Password.getText().toString();
-                        if (email.isEmpty() || password.isEmpty()){
+                        if (email.isEmpty() || password.isEmpty()) {
                             Toast.makeText(MainActivity.this, "Merci de remplir les zones de textes",
                                     Toast.LENGTH_SHORT).show();
-                        }
-                        else{
-                            signIn(email,password);
+                        } else {
+                            signIn(email, password);
                         }
                     }
 
@@ -138,7 +155,8 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-        public void LayoutInscription(){
+
+        public void LayoutInscription() {
             if (getLayout() == R.layout.inscription) {
 
                 Button inscription = (Button) findViewById(R.id.inscriptionback2);
@@ -157,18 +175,66 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+
     }
 
 
+    public void OnClickMatiere() {
+        Matiere matiere = new Matiere();
+        RadioGroup Fr = (RadioGroup) findViewById(R.id.Fr_Group);
+        if (Fr.getCheckedRadioButtonId() == R.id.Fr_R){matiere.setFrancais(1);}
+        else if(Fr.getCheckedRadioButtonId()==R.id.Fr_M){matiere.setFrancais(2);}
+        else {matiere.setFrancais(0);}
 
+        RadioGroup Maths = (RadioGroup) findViewById(R.id.Mt_Group);
+        if (Maths.getCheckedRadioButtonId() == R.id.Mt_R){matiere.setMaths(1);}
+        else if(Maths.getCheckedRadioButtonId()==R.id.Mt_M){matiere.setMaths(2);}
+        else {matiere.setMaths(0);}
 
+        RadioGroup Physique = (RadioGroup) findViewById(R.id.Ph_group);
+        if (Physique.getCheckedRadioButtonId() == R.id.Ph_R){matiere.setPhysique(1);}
+        else if(Physique.getCheckedRadioButtonId()==R.id.Ph_M){matiere.setPhysique(2);}
+        else {matiere.setPhysique(0);}
+
+        RadioGroup Chemie = (RadioGroup) findViewById(R.id.Ch_group);
+        if (Chemie.getCheckedRadioButtonId() == R.id.Ch_R){matiere.setChemie(1);}
+        else if(Chemie.getCheckedRadioButtonId()==R.id.Ch_M){matiere.setChemie(2);}
+        else {matiere.setChemie(0);}
+
+        RadioGroup Histoire = (RadioGroup) findViewById(R.id.Hi_group);
+        if (Histoire.getCheckedRadioButtonId() == R.id.Hi_R){matiere.setHistoire(1);}
+        else if(Histoire.getCheckedRadioButtonId()==R.id.Hi_M){matiere.setHistoire(2);}
+        else {matiere.setHistoire(0);}
+
+        RadioGroup Geo = (RadioGroup) findViewById(R.id.Ge_Group);
+        if (Geo.getCheckedRadioButtonId() == R.id.Ge_R){matiere.setGeographie(1);}
+        else if(Geo.getCheckedRadioButtonId()==R.id.Ge_M){matiere.setGeographie(2);}
+        else {matiere.setGeographie(0);}
+
+        RadioGroup Anglais = (RadioGroup) findViewById(R.id.An_group);
+        if (Anglais.getCheckedRadioButtonId() == R.id.An_R){matiere.setAnglais(1);}
+        else if(Anglais.getCheckedRadioButtonId()==R.id.An_M){matiere.setAnglais(2);}
+        else {matiere.setAnglais(0);}
+
+        RadioGroup Espagnol = (RadioGroup) findViewById(R.id.Es_group);
+        if (Espagnol.getCheckedRadioButtonId() == R.id.Es_R){matiere.setEspagnol(1);}
+        else if(Espagnol.getCheckedRadioButtonId()==R.id.Es_M){matiere.setEspagnol(2);}
+        else {matiere.setEspagnol(0);}
+
+        RadioGroup Allemand = (RadioGroup) findViewById(R.id.Al_group);
+        if (Allemand.getCheckedRadioButtonId() == R.id.Al_R){matiere.setAllemand(1);}
+        else if(Allemand.getCheckedRadioButtonId()==R.id.Al_M){matiere.setAllemand(2);}
+        else {matiere.setAllemand(0);}
+        Log.i("onclick", matiere.toString());
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         final varLayout layout;
-        layout = new varLayout(R.layout.connection);
+        layout = new varLayout(R.layout.matiere);
         setContentView(layout.getLayout());
         getSupportActionBar().hide();
         layout.LayoutConnection();
@@ -180,6 +246,13 @@ public class MainActivity extends AppCompatActivity {
         if(currentUser != null){
             reload();
         }
+        Button inscription = (Button) findViewById(R.id.Save);
+        inscription.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                OnClickMatiere();
+            }
+        });
 
     }
 }

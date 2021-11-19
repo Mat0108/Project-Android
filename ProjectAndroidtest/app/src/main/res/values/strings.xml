@@ -15,4 +15,20 @@
     <string name="inscriptionpassword2">Confirmer votre mot de passe</string>
     <string name="inscription_ajouter_image">Bouton</string>
     <string name="inscription_bouton_confiramtion">Bouton_inscription</string>
+
+    <string name="matiere">Choix matiere </string>
+    <string name="matiereC1">Retravailler</string>
+    <string name="matiereC2">Maitriser</string>
+    <string name="matiere_1">Français</string>
+    <string name="matiere_2">Maths</string>
+    <string name="matiere_3">Physique</string>
+    <string name="matiere_4">Chemie</string>
+    <string name="matiere_5">Histoire</string>
+    <string name="matiere_6">Geographie</string>
+    <string name="matiere_7">Anglais</string>
+    <string name="matiere_8">Espagnol</string>
+    <string name="matiere_9">Allemand</string>
+    <string name="save">Sauvegarde</string>
+
+
 </resources>
