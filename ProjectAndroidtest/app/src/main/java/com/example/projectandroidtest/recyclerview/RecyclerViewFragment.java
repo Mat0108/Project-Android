@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package com.example.projectandroidtest;
+package com.example.projectandroidtest.recyclerview;
 
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
@@ -30,6 +30,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+
+import com.example.projectandroidtest.R;
 
 /**
  * Demonstrates the use of {@link RecyclerView} with a {@link LinearLayoutManager} and a

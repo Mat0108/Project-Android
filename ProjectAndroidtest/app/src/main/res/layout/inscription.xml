@@ -12,7 +12,6 @@
         android:id="@+id/inscriptionhaut"
         android:layout_width="match_parent"
         android:layout_height="69dp"
-        android:layout_marginEnd="match parent"
         android:layout_marginBottom="59dp"
         android:contentDescription="@string/incription"
         android:src="@drawable/inscriptionhaut"
