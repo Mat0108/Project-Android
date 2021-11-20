@@ -20,18 +20,16 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GetTokenResult;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    private int status;
-
-    public int getStatus() {
-        return status;
-    }
-
-    public void setStatus(int lestatus) {
-        status = lestatus;
-    }
+    private FirebaseUser mUser;
+    private DatabaseReference mDatabase;
+    public Matiere matiere = new Matiere();
+    public User user = new User();
 
     private void updateUI(FirebaseUser user) {
     }
@@ -59,9 +57,72 @@ public class MainActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+
         // [END create_user_with_email]
+
     }
 
+    public void OnClickMatiere() {
+
+        RadioGroup Fr = (RadioGroup) findViewById(R.id.Fr_Group);
+
+        if (Fr.getCheckedRadioButtonId() == R.id.Fr_R){matiere.setFrancais(1);}
+        else if(Fr.getCheckedRadioButtonId()==R.id.Fr_M){matiere.setFrancais(2);}
+        else {matiere.setFrancais(0);}
+
+        RadioGroup Maths = (RadioGroup) findViewById(R.id.Mt_Group);
+        if (Maths.getCheckedRadioButtonId() == R.id.Mt_R){matiere.setMaths(1);}
+        else if(Maths.getCheckedRadioButtonId()==R.id.Mt_M){matiere.setMaths(2);}
+        else {matiere.setMaths(0);}
+
+        RadioGroup Physique = (RadioGroup) findViewById(R.id.Ph_group);
+        if (Physique.getCheckedRadioButtonId() == R.id.Ph_R){matiere.setPhysique(1);}
+        else if(Physique.getCheckedRadioButtonId()==R.id.Ph_M){matiere.setPhysique(2);}
+        else {matiere.setPhysique(0);}
+
+        RadioGroup Chemie = (RadioGroup) findViewById(R.id.Ch_group);
+        if (Chemie.getCheckedRadioButtonId() == R.id.Ch_R){matiere.setChemie(1);}
+        else if(Chemie.getCheckedRadioButtonId()==R.id.Ch_M){matiere.setChemie(2);}
+        else {matiere.setChemie(0);}
+
+        RadioGroup Histoire = (RadioGroup) findViewById(R.id.Hi_group);
+        if (Histoire.getCheckedRadioButtonId() == R.id.Hi_R){matiere.setHistoire(1);}
+        else if(Histoire.getCheckedRadioButtonId()==R.id.Hi_M){matiere.setHistoire(2);}
+        else {matiere.setHistoire(0);}
+
+        RadioGroup Geo = (RadioGroup) findViewById(R.id.Ge_Group);
+        if (Geo.getCheckedRadioButtonId() == R.id.Ge_R){matiere.setGeographie(1);}
+        else if(Geo.getCheckedRadioButtonId()==R.id.Ge_M){matiere.setGeographie(2);}
+        else {matiere.setGeographie(0);}
+
+        RadioGroup Anglais = (RadioGroup) findViewById(R.id.An_group);
+        if (Anglais.getCheckedRadioButtonId() == R.id.An_R){matiere.setAnglais(1);}
+        else if(Anglais.getCheckedRadioButtonId()==R.id.An_M){matiere.setAnglais(2);}
+        else {matiere.setAnglais(0);}
+
+        RadioGroup Espagnol = (RadioGroup) findViewById(R.id.Es_group);
+        if (Espagnol.getCheckedRadioButtonId() == R.id.Es_R){matiere.setEspagnol(1);}
+        else if(Espagnol.getCheckedRadioButtonId()==R.id.Es_M){matiere.setEspagnol(2);}
+        else {matiere.setEspagnol(0);}
+
+        RadioGroup Allemand = (RadioGroup) findViewById(R.id.Al_group);
+        if (Allemand.getCheckedRadioButtonId() == R.id.Al_R){matiere.setAllemand(1);}
+        else if(Allemand.getCheckedRadioButtonId()==R.id.Al_M){matiere.setAllemand(2);}
+        else {matiere.setAllemand(0);}
+        Log.i("onclick", matiere.toString());
+    }
+    public void writeUser(String mail,String password,String Nom,String Adresse){
+        OnClickMatiere();
+        createAccount(mail,password);
+        user.setAll(mail,password,Nom,Adresse);
+
+        String id = mAuth.getCurrentUser().getUid();
+        mDatabase.child("users").child(id).setValue(user);
+        mDatabase.child("matiere").child(id).setValue(matiere);
+
+
+    }
     public class varLayout {
         protected int layout;
 
@@ -101,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     });
+
             // [END sign_in_with_email]
         }
 
@@ -163,10 +225,10 @@ public class MainActivity extends AppCompatActivity {
                 inscription.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-
+                        //compte test
                         //String email = "test@test.com";
                         //String password = "test1234";
-                        //createAccount(email,password);
+
                         setlayout(R.layout.recherche);
                         LayoutRecherche();
 
@@ -174,60 +236,34 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         }
-
-
-    }
-
-
-    public void OnClickMatiere() {
-        Matiere matiere = new Matiere();
-        RadioGroup Fr = (RadioGroup) findViewById(R.id.Fr_Group);
-        if (Fr.getCheckedRadioButtonId() == R.id.Fr_R){matiere.setFrancais(1);}
-        else if(Fr.getCheckedRadioButtonId()==R.id.Fr_M){matiere.setFrancais(2);}
-        else {matiere.setFrancais(0);}
-
-        RadioGroup Maths = (RadioGroup) findViewById(R.id.Mt_Group);
-        if (Maths.getCheckedRadioButtonId() == R.id.Mt_R){matiere.setMaths(1);}
-        else if(Maths.getCheckedRadioButtonId()==R.id.Mt_M){matiere.setMaths(2);}
-        else {matiere.setMaths(0);}
-
-        RadioGroup Physique = (RadioGroup) findViewById(R.id.Ph_group);
-        if (Physique.getCheckedRadioButtonId() == R.id.Ph_R){matiere.setPhysique(1);}
-        else if(Physique.getCheckedRadioButtonId()==R.id.Ph_M){matiere.setPhysique(2);}
-        else {matiere.setPhysique(0);}
-
-        RadioGroup Chemie = (RadioGroup) findViewById(R.id.Ch_group);
-        if (Chemie.getCheckedRadioButtonId() == R.id.Ch_R){matiere.setChemie(1);}
-        else if(Chemie.getCheckedRadioButtonId()==R.id.Ch_M){matiere.setChemie(2);}
-        else {matiere.setChemie(0);}
-
-        RadioGroup Histoire = (RadioGroup) findViewById(R.id.Hi_group);
-        if (Histoire.getCheckedRadioButtonId() == R.id.Hi_R){matiere.setHistoire(1);}
-        else if(Histoire.getCheckedRadioButtonId()==R.id.Hi_M){matiere.setHistoire(2);}
-        else {matiere.setHistoire(0);}
-
-        RadioGroup Geo = (RadioGroup) findViewById(R.id.Ge_Group);
-        if (Geo.getCheckedRadioButtonId() == R.id.Ge_R){matiere.setGeographie(1);}
-        else if(Geo.getCheckedRadioButtonId()==R.id.Ge_M){matiere.setGeographie(2);}
-        else {matiere.setGeographie(0);}
-
-        RadioGroup Anglais = (RadioGroup) findViewById(R.id.An_group);
-        if (Anglais.getCheckedRadioButtonId() == R.id.An_R){matiere.setAnglais(1);}
-        else if(Anglais.getCheckedRadioButtonId()==R.id.An_M){matiere.setAnglais(2);}
-        else {matiere.setAnglais(0);}
-
-        RadioGroup Espagnol = (RadioGroup) findViewById(R.id.Es_group);
-        if (Espagnol.getCheckedRadioButtonId() == R.id.Es_R){matiere.setEspagnol(1);}
-        else if(Espagnol.getCheckedRadioButtonId()==R.id.Es_M){matiere.setEspagnol(2);}
-        else {matiere.setEspagnol(0);}
-
-        RadioGroup Allemand = (RadioGroup) findViewById(R.id.Al_group);
-        if (Allemand.getCheckedRadioButtonId() == R.id.Al_R){matiere.setAllemand(1);}
-        else if(Allemand.getCheckedRadioButtonId()==R.id.Al_M){matiere.setAllemand(2);}
-        else {matiere.setAllemand(0);}
-        Log.i("onclick", matiere.toString());
+        public void LayoutMatiere(){
+            if (getLayout() == R.layout.matiere){
+                Button Save = (Button) findViewById(R.id.Save);
+                Save.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        String mail = "matthieubarnabe@gmail.com";
+                        String password = "Paris0108";
+                        String Adresse = "3 rue Daru,75008";
+                        String Nom = "Matthieu";
+                        OnClickMatiere();
+                        /*createAccount(mail,password);
+                        user.setAll(mail,password,Nom,Adresse);
+                        signIn(mail,password);
+                        String id = mAuth.getCurrentUser().getUid();
+                        mDatabase.child("users").child(id).setValue(user);
+                        mDatabase.child("matieres").child(id).setValue(matiere);
+                        */
+                    }
+                         
+                });
+            }
+        }
 
     }
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -240,19 +276,14 @@ public class MainActivity extends AppCompatActivity {
         layout.LayoutConnection();
         layout.LayoutInscription();
         layout.LayoutRecherche();
+        layout.LayoutMatiere();
         mAuth = FirebaseAuth.getInstance();
-
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
             reload();
         }
-        Button inscription = (Button) findViewById(R.id.Save);
-        inscription.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                OnClickMatiere();
-            }
-        });
+
 
     }
 }
