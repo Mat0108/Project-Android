@@ -61,6 +61,13 @@
             android:scrollbarSize="10dip"
             android:src="@drawable/inscriptionbas"
             android:translationY="0dp" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView"
+            tools:text="hgjhkjlkm" />
     </LinearLayout>
 
 
@@ -98,7 +105,7 @@
             android:textColor="@color/TEXT"
 
             android:translationX="9dp"
-            android:translationY="92dp"
+            android:translationY="87dp"
             tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
         <EditText
@@ -112,7 +119,7 @@
             android:inputType="textPassword"
             android:textColor="@color/TEXT"
             android:translationX="9dp"
-            android:translationY="80dp"
+            android:translationY="110dp"
             tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
         <EditText
@@ -127,7 +134,7 @@
             android:inputType="textPassword"
             android:textColor="@color/TEXT"
             android:translationX="9dp"
-            android:translationY="102dp"
+            android:translationY="129dp"
             tools:ignore="TouchTargetSizeCheck,TextContrastCheck" />
 
         <EditText
@@ -142,7 +149,7 @@
             android:textColor="@color/TEXT"
 
             android:translationX="9dp"
-            android:translationY="115dp"
+            android:translationY="153dp"
             tools:ignore="TouchTargetSizeCheck,TouchTargetSizeCheck,TextContrastCheck" />
 
         <EditText
@@ -156,21 +163,27 @@
             android:inputType="textEmailAddress"
             android:textColor="@color/TEXT"
             android:translationX="9dp"
-            android:translationY="125dp"
+            android:translationY="175dp"
             tools:ignore="TouchTargetSizeCheck" />
 
     </LinearLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="280dp"
+        android:layout_height="62dp"
+        android:layout_marginBottom="65dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteY="168dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
         <Button
             android:id="@+id/inscription_bouton_confiramtion"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/BOUTON_BACKGROUND"
+            android:backgroundTint="#27304C"
             android:text="Confirmation"
             android:translationX="0dp"
             android:translationY="0dp"
