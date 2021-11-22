@@ -30,15 +30,15 @@
         android:id="@+id/connectionpassword"
         android:layout_width="323dp"
         android:layout_height="wrap_content"
+        android:background="#00000000"
         android:ems="10"
         android:hint="@string/passwordtext"
         android:importantForAutofill="no"
         android:inputType="textPassword"
-        android:textColor="@color/TEXT"
         android:minHeight="48dp"
+        android:textColor="@color/TEXT"
         android:translationX="40dp"
         android:translationY="365dp"
-        android:background="#00000000"
         tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
 
     <Button
