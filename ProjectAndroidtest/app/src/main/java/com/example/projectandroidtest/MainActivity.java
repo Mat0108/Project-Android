@@ -5,12 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.provider.MediaStore;
+import android.renderscript.Allocation;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -140,7 +139,33 @@ public class MainActivity extends AppCompatActivity {
         public int getLayout() {
             return this.layout;
         }
+        public int barrebas(){
+            Button recherche = (Button) findViewById(R.id.bRecherche);
+            Button reglage = (Button) findViewById(R.id.bReglage);
+            Button messagerie = (Button) findViewById(R.id.bMessagerie);
+            recherche.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setlayout(R.layout.recherche);
+                    LayoutRecherche();
+                }
+            });
+            reglage.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setlayout(R.layout.matiere);
+                    LayoutMatiere();
+                }
+            });
+            messagerie.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    setlayout(R.layout.recherche);
+                    LayoutRecherche();
+                }
+            });
 
+        }
         public void signIn(String email, String password) {
 
             // [START sign_in_with_email]
@@ -184,6 +209,7 @@ public class MainActivity extends AppCompatActivity {
                         LayoutConnection();
                     }
                 });
+                barrebas();
             }
         }
 
@@ -273,14 +299,9 @@ public class MainActivity extends AppCompatActivity {
                 Save.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String mail = "matthieubarnabe@gmail.com";
-                        String password = "Paris0108";
-                        String Adresse = "3 rue Daru,75008";
-                        String Nom = "Matthieu";
                         OnClickMatiere();
-                        /*createAccount(mail,password);
-                        user.setAll(mail,password,Nom,Adresse);
-                        signIn(mail,password);
+                        createAccount(user.getMail(),user.getPassword());
+                        signIn(user.getMail(),user.getPassword());
                         String id = mAuth.getCurrentUser().getUid();
                         mDatabase.child("users").child(id).setValue(user);
                         mDatabase.child("matieres").child(id).setValue(matiere);

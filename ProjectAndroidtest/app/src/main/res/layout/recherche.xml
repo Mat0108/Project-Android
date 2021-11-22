@@ -22,8 +22,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/recherchemenu"
-        android:src="@drawable/recherchebas"
+        android:src="@drawable/barrebas"
         android:translationY="605dp" />
+
+    <Button
+        android:id="@+id/bRecherche"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:translationX="45dp"
+        android:translationY="625dp"
+        android:visibility="invisible"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/bReglage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:translationX="160dp"
+        android:translationY="625dp"
+        android:visibility="invisible"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/bMessagerie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:translationX="270dp"
+        android:translationY="625dp"
+        android:visibility="invisible"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/rechercheback"
