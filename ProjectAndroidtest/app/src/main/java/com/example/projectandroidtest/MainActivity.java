@@ -139,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
         public int getLayout() {
             return this.layout;
         }
-        public int barrebas(){
+        public void barrebas(){
             Button recherche = (Button) findViewById(R.id.bRecherche);
             Button reglage = (Button) findViewById(R.id.bReglage);
             Button messagerie = (Button) findViewById(R.id.bMessagerie);
