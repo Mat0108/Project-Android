@@ -27,6 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     public Matiere matiere = new Matiere();
     public User user = new User();
+    public String pass = new String();
 
     private void updateUI(FirebaseUser user) {
     }
@@ -264,10 +265,19 @@ public class MainActivity extends AppCompatActivity {
                             Toast.makeText(MainActivity.this, "Merci de remplir les zones de textes",
                                     Toast.LENGTH_SHORT).show();
                         } else {
-                            user.setAll(email, password, name, adresse);
+                            if (password0.equals(password)){
+                                user.setAll(email, name, adresse);
+                                pass = password;
+                                setlayout(R.layout.matiere);
+                                LayoutMatiere();
+                            }
+                            else{
+                                Toast.makeText(MainActivity.this, "Mot de passe different ",
+                                        Toast.LENGTH_SHORT).show();
+                            }
 
-                            setlayout(R.layout.matiere);
-                            LayoutMatiere();
+
+
                         }
 
                         //compte test
@@ -287,8 +297,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         OnClickMatiere();
-                        createAccount(user.getMail(),user.getPassword());
-                        signIn(user.getMail(),user.getPassword());
+                        createAccount(user.getMail(),pass);
+                        signIn(user.getMail(),pass);
                         String id = mAuth.getCurrentUser().getUid();
                         mDatabase.child("users").child(id).setValue(user);
                         mDatabase.child("matieres").child(id).setValue(matiere);
