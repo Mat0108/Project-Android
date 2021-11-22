@@ -29,35 +29,39 @@
         android:id="@+id/bRecherche"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#00000000"
         android:translationX="45dp"
-        android:translationY="625dp"
-        android:visibility="invisible"
+        android:translationY="620dp"
+        android:visibility="visible"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/bReglage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#00000000"
         android:translationX="160dp"
-        android:translationY="625dp"
-        android:visibility="invisible"
+        android:translationY="620dp"
+        android:visibility="visible"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/bMessagerie"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="#00000000"
         android:translationX="270dp"
-        android:translationY="625dp"
-        android:visibility="invisible"
+        android:translationY="620dp"
+        android:visibility="visible"
         tools:ignore="SpeakableTextPresentCheck" />
 
     <Button
         android:id="@+id/rechercheback"
         android:layout_width="53dp"
         android:layout_height="58dp"
+        android:background="#00000000"
         android:contentDescription="@string/recherchemenu"
-        android:visibility="invisible"
+        android:visibility="visible"
         tools:ignore="DuplicateSpeakableTextCheck"
         tools:srcCompat="@drawable/recherchehautclick" />
 
