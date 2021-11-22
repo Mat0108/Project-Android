@@ -235,7 +235,7 @@ public class MainActivity extends AppCompatActivity {
         public void LayoutInscription() {
             if (getLayout() == R.layout.inscription) {
 
-                Button inscription = (Button) findViewById(R.id.inscriptionback2);
+                Button inscription = (Button) findViewById(R.id.inscription_bouton_confiramtion);
                 Button retour = (Button) findViewById(R.id.retour);
                 
                 retour.setOnClickListener(new View.OnClickListener() {
