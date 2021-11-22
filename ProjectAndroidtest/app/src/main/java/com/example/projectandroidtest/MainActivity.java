@@ -14,6 +14,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+
 import com.example.projectandroidtest.recyclerview.RecyclerViewFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -222,15 +223,45 @@ public class MainActivity extends AppCompatActivity {
             if (getLayout() == R.layout.inscription) {
 
                 Button inscription = (Button) findViewById(R.id.inscriptionback2);
+                Button retour = (Button) findViewById(R.id.retour);
+                
+                retour.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setlayout(R.layout.connection);
+                        LayoutConnection();
+                    }
+                });
+                EditText Nom = (EditText) findViewById(R.id.editTextTextPassword);
+                EditText Password = (EditText) findViewById(R.id.inscriptionpassword1);
+                EditText Password_confirmed = (EditText) findViewById(R.id.inscriptionpassword2);
+                EditText Adresse = (EditText) findViewById(R.id.incriptionadresse);
+                EditText Email = (EditText) findViewById(R.id.inscriptionmail);
+
                 inscription.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+                        String name = Nom.getText().toString();
+                        String password0 = Password.getText().toString();
+                        String password = Password_confirmed.getText().toString();
+                        String adresse = Adresse.getText().toString();
+                        String email = Email.getText().toString();
+
+                        if (name.isEmpty() || password0.isEmpty() || password.isEmpty() || adresse.isEmpty() || email.isEmpty()) {
+                            Toast.makeText(MainActivity.this, "Merci de remplir les zones de textes",
+                                    Toast.LENGTH_SHORT).show();
+                        } else {
+                            user.setAll(email, password, name, adresse);
+
+                            setlayout(R.layout.matiere);
+                            LayoutMatiere();
+                        }
+
                         //compte test
                         //String email = "test@test.com";
                         //String password = "test1234";
 
-                        setlayout(R.layout.recherche);
-                        LayoutRecherche();
+
 
                     }
                 });
@@ -270,7 +301,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         final varLayout layout;
-        layout = new varLayout(R.layout.matiere);
+        layout = new varLayout(R.layout.connection);
         setContentView(layout.getLayout());
         getSupportActionBar().hide();
         layout.LayoutConnection();
