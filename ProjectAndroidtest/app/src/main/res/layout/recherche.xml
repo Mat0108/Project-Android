@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:contentDescription="@string/recherchemenu"
         android:src="@drawable/barrebas"
-        android:translationY="605dp" />
+        android:translationY="600dp" />
 
     <Button
         android:id="@+id/bRecherche"

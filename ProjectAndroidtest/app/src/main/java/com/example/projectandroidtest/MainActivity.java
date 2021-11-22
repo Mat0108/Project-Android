@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.renderscript.Allocation;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,13 +19,11 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.GetTokenResult;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
-    private FirebaseUser mUser;
     private DatabaseReference mDatabase;
     public Matiere matiere = new Matiere();
     public User user = new User();
@@ -112,17 +109,7 @@ public class MainActivity extends AppCompatActivity {
         else {matiere.setAllemand(0);}
         Log.i("onclick", matiere.toString());
     }
-    public void writeUser(String mail,String password,String Nom,String Adresse){
-        OnClickMatiere();
-        createAccount(mail,password);
-        user.setAll(mail,password,Nom,Adresse);
 
-        String id = mAuth.getCurrentUser().getUid();
-        mDatabase.child("users").child(id).setValue(user);
-        mDatabase.child("matiere").child(id).setValue(matiere);
-
-
-    }
     public class varLayout {
         protected int layout;
 
@@ -160,8 +147,8 @@ public class MainActivity extends AppCompatActivity {
             messagerie.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    setlayout(R.layout.recherche);
-                    LayoutRecherche();
+                    setlayout(R.layout.messagerie);
+                    
                 }
             });
 
