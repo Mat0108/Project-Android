@@ -292,7 +292,8 @@ public class MainActivity extends AppCompatActivity {
                         String id = mAuth.getCurrentUser().getUid();
                         mDatabase.child("users").child(id).setValue(user);
                         mDatabase.child("matieres").child(id).setValue(matiere);
-
+                        setlayout(R.layout.recherche);
+                        LayoutRecherche();
                     }
                          
                 });
