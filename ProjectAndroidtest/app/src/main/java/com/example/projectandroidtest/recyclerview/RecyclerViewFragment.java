@@ -16,21 +16,20 @@
 
 package com.example.projectandroidtest.recyclerview;
 
+
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
-//import android.support.v4.app.Fragment;
-//import android.support.v7.widget.GridLayoutManager;
-//import android.support.v7.widget.LinearLayoutManager;
-//import android.support.v7.widget.RecyclerView;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 
+import com.example.projectandroidtest.BDD;
 import com.example.projectandroidtest.Matiere;
 import com.example.projectandroidtest.R;
 import com.example.projectandroidtest.User;
@@ -43,7 +42,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 /**
@@ -58,8 +56,6 @@ public class RecyclerViewFragment extends Fragment {
     private int DATASET_COUNT = 60;
 
 
-    public ArrayList<User> users = new ArrayList<User>();
-    public ArrayList<Matiere> matieres = new ArrayList<Matiere>();
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();;
@@ -184,64 +180,10 @@ public class RecyclerViewFragment extends Fragment {
      * from a local content provider or remote server.
      */
     private void initDataset() {
+        BDD bdd = new BDD();
+        bdd.UserTab();
 
 
-        DatabaseReference usersRef = mDatabase.child("users");
-        ValueEventListener userEvent = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                    String name = ds.child("nom").getValue(String.class);
-                    String mail = ds.child("mail").getValue(String.class);
-                    String adresse = ds.child("adresse").getValue(String.class);
-                    Log.d("initDataset name", name);
-                    Log.d("initDataset mail", mail);
-                    Log.d("initDataset adresse", adresse);
-                    User user = new User(mail,name,adresse);
-                    Log.d("initDataset 2", user.toString());
-                    users.add(user);
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        };
-        usersRef.addListenerForSingleValueEvent(userEvent);
-    /*
-        DatabaseReference matiereRef = mDatabase.child("matieres");
-        ValueEventListener matiereEvent = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-
-                   // int francais = (int) ds.child("francais").getValue();
-                    //Log.d("initDataset",String.valueOf(francais));
-                    /*int maths = ds.child("maths").getValue(int.class);
-                    int physique = ds.child("physique").getValue(int.class);
-                    int chemie = ds.child("chemie").getValue(int.class);
-                    int histoire = ds.child("histoire").getValue(int.class);
-                    int geographie = ds.child("geographie").getValue(int.class);
-                    int anglais = ds.child("anglais").getValue(int.class);
-                    int espagnol = ds.child("espagnol").getValue(int.class);
-                    int allemand = ds.child("allemand").getValue(int.class);
-                    matieres.add(new Matiere(francais,maths,physique,chemie,histoire,geographie,anglais,espagnol,allemand));
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        };
-        matiereRef.addListenerForSingleValueEvent(matiereEvent);*/
-
-        for (int i = 0 ; i < users.size();i++){
-            Log.d("test","test");
-            Log.d("initDataset", users.get(i).toString());
-            //Log.d("initDataset", matieres.get(i).toString());
-
-        }
 
         mDataset = new String[DATASET_COUNT];
         for (int i = 0; i < DATASET_COUNT; i++) {

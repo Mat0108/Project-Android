@@ -22,7 +22,7 @@
             android:background="@color/FONT"
             android:translationX="165dp"
             android:translationY="570dp"
-            app:srcCompat="@drawable/NewNEWButton"
+            app:srcCompat="@drawable/newbutton"
             tools:ignore="SpeakableTextPresentCheck" />
 
         <ImageView

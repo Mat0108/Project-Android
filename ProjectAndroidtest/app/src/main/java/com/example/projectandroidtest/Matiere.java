@@ -1,5 +1,17 @@
 package com.example.projectandroidtest;
 
+import android.util.Log;
+
+import androidx.core.math.MathUtils;
+
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+
 public class Matiere {
     public int francais;
     public int maths;
@@ -51,5 +63,67 @@ public class Matiere {
         this.anglais = anglais;
         this.espagnol = espagnol;
         this.allemand = allemand;
+    }
+
+    @Override
+    public String toString() {
+        return "Matiere{" +
+                "francais=" + francais +
+                ", maths=" + maths +
+                ", physique=" + physique +
+                ", chemie=" + chemie +
+                ", histoire=" + histoire +
+                ", geographie=" + geographie +
+                ", anglais=" + anglais +
+                ", espagnol=" + espagnol +
+                ", allemand=" + allemand +
+                '}';
+    }
+
+    public ArrayList<Matiere> MatiereTab(){
+        ArrayList<Matiere> matieres = new ArrayList<Matiere>();
+        Matiere matiere = new Matiere(0,0,0,0,0,0,0,0,0);
+        DatabaseReference matieresRef = FirebaseDatabase.getInstance().getReference().child("matieres");
+        ValueEventListener matieresEvent = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    try{matiere.setFrancais(ds.child("francais").getValue(Long.class).intValue());
+                    }catch (Exception e){matiere.setFrancais(0);}
+
+                    try{matiere.setMaths(ds.child("maths").getValue(Long.class).intValue());
+                    }catch (Exception e){matiere.setMaths(0);}
+
+                    try{matiere.setPhysique(ds.child("physique").getValue(Long.class).intValue());
+                    }catch (Exception e){matiere.setPhysique(0);}
+
+                    try{matiere.setChemie(ds.child("chemie").getValue(Long.class).intValue());
+                    }catch (Exception e){matiere.setChemie(0);}
+
+                    try{matiere.setHistoire(ds.child("histoire").getValue(Long.class).intValue());
+                    }catch (Exception e){matiere.setHistoire(0);}
+
+                    try{matiere.setGeographie(ds.child("geographie").getValue(Long.class).intValue());
+                    }catch (Exception e){matiere.setGeographie(0);}
+
+                    try{matiere.setAnglais(ds.child("anglais").getValue(Long.class).intValue());
+                    }catch (Exception e){matiere.setAnglais(0);}
+
+                    try{matiere.setEspagnol(ds.child("espagnol").getValue(Long.class).intValue());
+                    }catch (Exception e){matiere.setEspagnol(0);}
+
+                    try{matiere.setAllemand(ds.child("allemand").getValue(Long.class).intValue());
+                    }catch (Exception e){matiere.setAllemand(0);}
+
+                }
+                for (Matiere matiere2 : matieres) {
+                    Log.d("initDataset",matiere2.toString());
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        };
+        matieresRef.addListenerForSingleValueEvent(matieresEvent);
+        return (matieres);
     }
 }
