@@ -212,14 +212,13 @@ public class MainActivity extends AppCompatActivity {
                         String email = Mail.getText().toString();
                         String password = Password.getText().toString();
                         if (email.isEmpty() || password.isEmpty()) {
-                            Toast.makeText(MainActivity.this, "Merci de remplir les zones de textes",
-                                    Toast.LENGTH_SHORT).show();
-                        } else {
-                            signIn(email, password);
+                                Toast.makeText(MainActivity.this, "Merci de remplir les zones de textes",
+                                        Toast.LENGTH_SHORT).show();
+                            } else {
+                                signIn(email, password);
+                            }
                         }
-                    }
-
-                });
+                    });
                 Button inscription = (Button) findViewById(R.id.inscriptionbutton);
                 inscription.setOnClickListener(new View.OnClickListener() {
                     @Override
