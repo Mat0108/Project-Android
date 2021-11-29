@@ -31,9 +31,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
 
+import com.example.projectandroidtest.Matiere;
 import com.example.projectandroidtest.R;
+import com.example.projectandroidtest.User;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUserMetadata;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+
 
 /**
  * Demonstrates the use of {@link RecyclerView} with a {@link LinearLayoutManager} and a
@@ -46,8 +57,12 @@ public class RecyclerViewFragment extends Fragment {
     private static final int SPAN_COUNT = 2;
     private int DATASET_COUNT = 60;
 
+
+    public ArrayList<User> users = new ArrayList<User>();
+    public ArrayList<Matiere> matieres = new ArrayList<Matiere>();
+
     private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();;
 
     public int getDATASET_COUNT() {
         return DATASET_COUNT;
@@ -84,9 +99,7 @@ public class RecyclerViewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        Log.e("test", "onCreateView: test " );
         View rootView = inflater.inflate(R.layout.recycler_view, container, false);
-        Log.e("test", "onCreateView: test 2" );
         // BEGIN_INCLUDE(initializeRecyclerView)
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.recyclerView);
 
@@ -171,6 +184,64 @@ public class RecyclerViewFragment extends Fragment {
      * from a local content provider or remote server.
      */
     private void initDataset() {
+
+
+        DatabaseReference usersRef = mDatabase.child("users");
+        ValueEventListener userEvent = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    String name = ds.child("nom").getValue(String.class);
+                    String mail = ds.child("mail").getValue(String.class);
+                    String adresse = ds.child("adresse").getValue(String.class);
+                    Log.d("initDataset name", name);
+                    Log.d("initDataset mail", mail);
+                    Log.d("initDataset adresse", adresse);
+                    User user = new User(mail,name,adresse);
+                    Log.d("initDataset 2", user.toString());
+                    users.add(user);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        };
+        usersRef.addListenerForSingleValueEvent(userEvent);
+    /*
+        DatabaseReference matiereRef = mDatabase.child("matieres");
+        ValueEventListener matiereEvent = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                   // int francais = (int) ds.child("francais").getValue();
+                    //Log.d("initDataset",String.valueOf(francais));
+                    /*int maths = ds.child("maths").getValue(int.class);
+                    int physique = ds.child("physique").getValue(int.class);
+                    int chemie = ds.child("chemie").getValue(int.class);
+                    int histoire = ds.child("histoire").getValue(int.class);
+                    int geographie = ds.child("geographie").getValue(int.class);
+                    int anglais = ds.child("anglais").getValue(int.class);
+                    int espagnol = ds.child("espagnol").getValue(int.class);
+                    int allemand = ds.child("allemand").getValue(int.class);
+                    matieres.add(new Matiere(francais,maths,physique,chemie,histoire,geographie,anglais,espagnol,allemand));
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        };
+        matiereRef.addListenerForSingleValueEvent(matiereEvent);*/
+
+        for (int i = 0 ; i < users.size();i++){
+            Log.d("test","test");
+            Log.d("initDataset", users.get(i).toString());
+            //Log.d("initDataset", matieres.get(i).toString());
+
+        }
 
         mDataset = new String[DATASET_COUNT];
         for (int i = 0; i < DATASET_COUNT; i++) {

@@ -25,4 +25,13 @@ public class User {
     public void setNom(String nom) {Nom = nom;}
     public String getAdresse() {return Adresse;}
     public void setAdresse(String adresse) {Adresse = adresse; }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "Mail='" + Mail + '\'' +
+                ", Nom='" + Nom + '\'' +
+                ", Adresse='" + Adresse + '\'' +
+                '}';
+    }
 }
