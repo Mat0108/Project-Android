@@ -32,6 +32,8 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 
 import com.example.projectandroidtest.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
 
 /**
  * Demonstrates the use of {@link RecyclerView} with a {@link LinearLayoutManager} and a
@@ -42,7 +44,18 @@ public class RecyclerViewFragment extends Fragment {
     private static final String TAG = "RecyclerViewFragment";
     private static final String KEY_LAYOUT_MANAGER = "layoutManager";
     private static final int SPAN_COUNT = 2;
-    private static final int DATASET_COUNT = 60;
+    private int DATASET_COUNT = 60;
+
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase;
+
+    public int getDATASET_COUNT() {
+        return DATASET_COUNT;
+    }
+
+    public void setDATASET_COUNT(int DATASET_COUNT) {
+        this.DATASET_COUNT = DATASET_COUNT;
+    }
 
     private enum LayoutManagerType {
         GRID_LAYOUT_MANAGER,
@@ -158,6 +171,7 @@ public class RecyclerViewFragment extends Fragment {
      * from a local content provider or remote server.
      */
     private void initDataset() {
+
         mDataset = new String[DATASET_COUNT];
         for (int i = 0; i < DATASET_COUNT; i++) {
             mDataset[i] = "element " + i;

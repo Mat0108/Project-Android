@@ -41,4 +41,15 @@ public class Matiere {
     public void setEspagnol(int espagnol) {this.espagnol = espagnol;}
     public int getAllemand() {return allemand; }
     public void setAllemand(int allemand) {this.allemand = allemand;}
+    public void setAll(int francais, int maths, int physique, int chemie, int histoire, int geographie, int anglais, int espagnol, int allemand) {
+        this.francais = francais;
+        this.maths = maths;
+        this.physique = physique;
+        this.chemie = chemie;
+        this.histoire = histoire;
+        this.geographie = geographie;
+        this.anglais = anglais;
+        this.espagnol = espagnol;
+        this.allemand = allemand;
+    }
 }
