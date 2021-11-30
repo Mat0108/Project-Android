@@ -182,6 +182,7 @@ public class RecyclerViewFragment extends Fragment {
     private void initDataset() {
         BDD bdd = new BDD();
         bdd.UserTab();
+        Log.d("InitDatabase",bdd.getUsers().toString());
 
 
 

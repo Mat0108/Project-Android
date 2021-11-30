@@ -15,32 +15,35 @@ import java.util.ArrayList;
 
 public class BDD {
     private static final String TAG = "BDD";
-    protected User[] users;
-    protected Matiere[] matieres;
     protected int lenght;
+    protected final int MaxInt = 50;
+    private ArrayList<User> users;
 
-    public int len() {
-        lenght = 0;
-        DatabaseReference matieresRef = FirebaseDatabase.getInstance().getReference().child("matieres");
-        ValueEventListener matieresEvent = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    lenght++;
-                }
+    private Matiere[] matieres;
 
-            }
+    public ArrayList<User> getUsers() {return users; }
+    public void setUsers(ArrayList<User> users) {this.users = users;}
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-            }
-        };
-        return lenght;
+    public Matiere[] getMatieres() {return matieres;}
+    public void setMatieres(Matiere[] matieres) {this.matieres = matieres; }
 
+    public BDD(){
+        this.users = new ArrayList<User>(MaxInt);
+        this.matieres = new Matiere[MaxInt];
     }
-    public User[] UserTab(){
-        final int[] l = {0};
-        users = new User[lenght];
+
+    public void addUsers(User user){
+        this.users.add(user);
+    }
+
+    @Override
+    public String toString() {
+        return "BDD{" +
+                "users=" + users +
+                '}';
+    }
+
+    public void UserTab(){
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
         ValueEventListener userEvent = new ValueEventListener() {
             @Override
@@ -50,17 +53,17 @@ public class BDD {
                     String mail = ds.child("mail").getValue(String.class);
                     String adresse = ds.child("adresse").getValue(String.class);
                     User user = new User(mail,name,adresse);
-                    users[l[0]] = user;
-                    l[0]++;
+                    addUsers(user);
                     Log.d("test",user.toString());
                 }
             }
+
 
             @Override
             public void onCancelled(DatabaseError databaseError) {}
         };
 
         usersRef.addListenerForSingleValueEvent(userEvent);
-        return users;
+
     }
 }
