@@ -19,17 +19,13 @@ public class BDD {
     protected final int MaxInt = 50;
     private ArrayList<User> users;
 
-    private Matiere[] matieres;
-
     public ArrayList<User> getUsers() {return users; }
     public void setUsers(ArrayList<User> users) {this.users = users;}
 
-    public Matiere[] getMatieres() {return matieres;}
-    public void setMatieres(Matiere[] matieres) {this.matieres = matieres; }
+
 
     public BDD(){
         this.users = new ArrayList<User>(MaxInt);
-        this.matieres = new Matiere[MaxInt];
     }
 
     public void addUsers(User user){
@@ -38,6 +34,7 @@ public class BDD {
 
     @Override
     public String toString() {
+
         return "BDD{" +
                 "users=" + users +
                 '}';
@@ -53,8 +50,11 @@ public class BDD {
                     String mail = ds.child("mail").getValue(String.class);
                     String adresse = ds.child("adresse").getValue(String.class);
                     User user = new User(mail,name,adresse);
-                    addUsers(user);
+
+                    users.add(user);
                     Log.d("test",user.toString());
+                    Log.d("test3 ",String.valueOf(users.size()));
+
                 }
             }
 
