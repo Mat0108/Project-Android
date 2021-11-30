@@ -13,14 +13,18 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 
-import com.example.projectandroidtest.recyclerview.RecyclerViewFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -28,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     public Matiere matiere = new Matiere();
     public User user = new User();
     public String pass = new String();
+    public BDD bdd = new BDD();
 
     private void updateUI(FirebaseUser user) {
     }
@@ -65,49 +70,49 @@ public class MainActivity extends AppCompatActivity {
 
         RadioGroup Fr = (RadioGroup) findViewById(R.id.Fr_Group);
 
-        if (Fr.getCheckedRadioButtonId() == R.id.Fr_R){matiere.setFrancais(1);}
-        else if(Fr.getCheckedRadioButtonId()==R.id.Fr_M){matiere.setFrancais(2);}
-        else {matiere.setFrancais(0);}
+        if (Fr.getCheckedRadioButtonId() == R.id.Fr_R){matiere.setFrancais(1L);}
+        else if(Fr.getCheckedRadioButtonId()==R.id.Fr_M){matiere.setFrancais(2L);}
+        else {matiere.setFrancais(0L);}
 
         RadioGroup Maths = (RadioGroup) findViewById(R.id.Mt_Group);
-        if (Maths.getCheckedRadioButtonId() == R.id.Mt_R){matiere.setMaths(1);}
-        else if(Maths.getCheckedRadioButtonId()==R.id.Mt_M){matiere.setMaths(2);}
-        else {matiere.setMaths(0);}
+        if (Maths.getCheckedRadioButtonId() == R.id.Mt_R){matiere.setMaths(1L);}
+        else if(Maths.getCheckedRadioButtonId()==R.id.Mt_M){matiere.setMaths(2L);}
+        else {matiere.setMaths(0L);}
 
         RadioGroup Physique = (RadioGroup) findViewById(R.id.Ph_group);
-        if (Physique.getCheckedRadioButtonId() == R.id.Ph_R){matiere.setPhysique(1);}
-        else if(Physique.getCheckedRadioButtonId()==R.id.Ph_M){matiere.setPhysique(2);}
-        else {matiere.setPhysique(0);}
+        if (Physique.getCheckedRadioButtonId() == R.id.Ph_R){matiere.setPhysique(1L);}
+        else if(Physique.getCheckedRadioButtonId()==R.id.Ph_M){matiere.setPhysique(2L);}
+        else {matiere.setPhysique(0L);}
 
         RadioGroup Chemie = (RadioGroup) findViewById(R.id.Ch_group);
-        if (Chemie.getCheckedRadioButtonId() == R.id.Ch_R){matiere.setChemie(1);}
-        else if(Chemie.getCheckedRadioButtonId()==R.id.Ch_M){matiere.setChemie(2);}
-        else {matiere.setChemie(0);}
+        if (Chemie.getCheckedRadioButtonId() == R.id.Ch_R){matiere.setChemie(1L);}
+        else if(Chemie.getCheckedRadioButtonId()==R.id.Ch_M){matiere.setChemie(2L);}
+        else {matiere.setChemie(0L);}
 
         RadioGroup Histoire = (RadioGroup) findViewById(R.id.Hi_group);
-        if (Histoire.getCheckedRadioButtonId() == R.id.Hi_R){matiere.setHistoire(1);}
-        else if(Histoire.getCheckedRadioButtonId()==R.id.Hi_M){matiere.setHistoire(2);}
-        else {matiere.setHistoire(0);}
+        if (Histoire.getCheckedRadioButtonId() == R.id.Hi_R){matiere.setHistoire(1L);}
+        else if(Histoire.getCheckedRadioButtonId()==R.id.Hi_M){matiere.setHistoire(2L);}
+        else {matiere.setHistoire(0L);}
 
         RadioGroup Geo = (RadioGroup) findViewById(R.id.Ge_Group);
-        if (Geo.getCheckedRadioButtonId() == R.id.Ge_R){matiere.setGeographie(1);}
-        else if(Geo.getCheckedRadioButtonId()==R.id.Ge_M){matiere.setGeographie(2);}
-        else {matiere.setGeographie(0);}
+        if (Geo.getCheckedRadioButtonId() == R.id.Ge_R){matiere.setGeographie(1L);}
+        else if(Geo.getCheckedRadioButtonId()==R.id.Ge_M){matiere.setGeographie(2L);}
+        else {matiere.setGeographie(0L);}
 
         RadioGroup Anglais = (RadioGroup) findViewById(R.id.An_group);
-        if (Anglais.getCheckedRadioButtonId() == R.id.An_R){matiere.setAnglais(1);}
-        else if(Anglais.getCheckedRadioButtonId()==R.id.An_M){matiere.setAnglais(2);}
-        else {matiere.setAnglais(0);}
+        if (Anglais.getCheckedRadioButtonId() == R.id.An_R){matiere.setAnglais(1L);}
+        else if(Anglais.getCheckedRadioButtonId()==R.id.An_M){matiere.setAnglais(2L);}
+        else {matiere.setAnglais(0L);}
 
         RadioGroup Espagnol = (RadioGroup) findViewById(R.id.Es_group);
-        if (Espagnol.getCheckedRadioButtonId() == R.id.Es_R){matiere.setEspagnol(1);}
-        else if(Espagnol.getCheckedRadioButtonId()==R.id.Es_M){matiere.setEspagnol(2);}
-        else {matiere.setEspagnol(0);}
+        if (Espagnol.getCheckedRadioButtonId() == R.id.Es_R){matiere.setEspagnol(1L);}
+        else if(Espagnol.getCheckedRadioButtonId()==R.id.Es_M){matiere.setEspagnol(2L);}
+        else {matiere.setEspagnol(0L);}
 
         RadioGroup Allemand = (RadioGroup) findViewById(R.id.Al_group);
-        if (Allemand.getCheckedRadioButtonId() == R.id.Al_R){matiere.setAllemand(1);}
-        else if(Allemand.getCheckedRadioButtonId()==R.id.Al_M){matiere.setAllemand(2);}
-        else {matiere.setAllemand(0);}
+        if (Allemand.getCheckedRadioButtonId() == R.id.Al_R){matiere.setAllemand(1L);}
+        else if(Allemand.getCheckedRadioButtonId()==R.id.Al_M){matiere.setAllemand(2L);}
+        else {matiere.setAllemand(0L);}
         Log.i("onclick", matiere.toString());
     }
 
@@ -182,10 +187,11 @@ public class MainActivity extends AppCompatActivity {
 
         public void LayoutRecherche() {
             if (getLayout() == R.layout.recherche) {
+                bdd.print();
 
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
-                RecyclerViewFragment fragment = new RecyclerViewFragment();
+                RecyclerViewFragment fragment = new RecyclerViewFragment(bdd);
                 transaction.replace(R.id.sample_content_fragment, fragment);
                 transaction.commit();
 
@@ -314,7 +320,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -333,7 +338,59 @@ public class MainActivity extends AppCompatActivity {
         if(currentUser != null){
             reload();
         }
+        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
+        ValueEventListener usersEvent = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                        String name = ds.child("nom").getValue(String.class);
+                        String mail = ds.child("mail").getValue(String.class);
+                        String adresse = ds.child("adresse").getValue(String.class);
+                        User user = new User(mail, name, adresse);
+                        bdd.addUsers(user);
+                        //Log.d("test", user.toString());
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        };
+        usersRef.addListenerForSingleValueEvent(usersEvent);
+        DatabaseReference matieresRef = FirebaseDatabase.getInstance().getReference().child("matieres");
+        ValueEventListener matieresEvent = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
 
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Matiere matiere3 = new Matiere();
+                    try {matiere3.setFrancais(ds.child("francais").getValue(long.class));}
+                    catch (Exception e){matiere3.setFrancais(0);}
+                    try {matiere3.setMaths(ds.child("maths").getValue(long.class));}
+                    catch (Exception e){matiere3.setMaths(0);}
+                    try {matiere3.setPhysique(ds.child("physique").getValue(long.class));}
+                    catch (Exception e){matiere3.setPhysique(0);}
+                    try {matiere3.setChemie(ds.child("chemie").getValue(long.class));}
+                    catch (Exception e){matiere3.setChemie(0);}
+                    try {matiere3.setHistoire(ds.child("histoire").getValue(long.class));}
+                    catch (Exception e){matiere3.setHistoire(0);}
+                    try {matiere3.setGeographie(ds.child("geographie").getValue(long.class));}
+                    catch (Exception e){matiere3.setGeographie(0);}
+                    try {matiere3.setAnglais(ds.child("anglais").getValue(long.class));}
+                    catch (Exception e){matiere3.setAnglais(0);}
+                    try {matiere3.setEspagnol(ds.child("espagnol").getValue(long.class));}
+                    catch (Exception e){matiere3.setEspagnol(0);}
+                    try {matiere3.setAllemand(ds.child("allemand").getValue(long.class));}
+                    catch (Exception e){matiere3.setAllemand(0);}
+                    bdd.getMatieres().add(matiere3);
+
+
+                    //Log.d("matieresEvent",matiere3.toString());
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        };
+        matieresRef.addListenerForSingleValueEvent(matieresEvent);
 
     }
 }

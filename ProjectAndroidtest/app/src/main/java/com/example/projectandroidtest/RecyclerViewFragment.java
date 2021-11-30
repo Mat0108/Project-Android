@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package com.example.projectandroidtest.recyclerview;
+package com.example.projectandroidtest;
 
 
 import android.os.Bundle;
@@ -54,8 +54,11 @@ public class RecyclerViewFragment extends Fragment {
     private static final String KEY_LAYOUT_MANAGER = "layoutManager";
     private static final int SPAN_COUNT = 2;
     private int DATASET_COUNT = 60;
+    public BDD bdd = new BDD();
 
-
+    public RecyclerViewFragment(BDD bdd) {
+        this.bdd = bdd;
+    }
 
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();;
@@ -82,7 +85,7 @@ public class RecyclerViewFragment extends Fragment {
     protected com.example.projectandroidtest.CustomAdapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;
     protected String[] mDataset;
-
+    protected String[] mDataset2;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,7 +116,7 @@ public class RecyclerViewFragment extends Fragment {
         }
         setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
 
-        mAdapter = new com.example.projectandroidtest.CustomAdapter(mDataset);
+        mAdapter = new com.example.projectandroidtest.CustomAdapter(mDataset,mDataset2);
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
         // END_INCLUDE(initializeRecyclerView)
@@ -180,15 +183,19 @@ public class RecyclerViewFragment extends Fragment {
      * from a local content provider or remote server.
      */
     private void initDataset() {
-        BDD bdd = new BDD();
-        bdd.UserTab();
-        Log.d("InitDatabase",String.valueOf(bdd.getUsers().size()));
-
-
-
+        ArrayList<String> liste = bdd.UsertoString();
+        ArrayList<String> liste2 = bdd.MatieretoString();
         mDataset = new String[DATASET_COUNT];
+        mDataset2 = new String[DATASET_COUNT];
         for (int i = 0; i < DATASET_COUNT; i++) {
-            mDataset[i] = "element " + i;
+            if (i < liste.size()){
+                mDataset[i] = liste.get(i);
+                mDataset2[i] = liste2.get(i);
+            }
+            else {
+                mDataset[i] = "element " + i;
+                mDataset2[i] = "element 1\nelement 2";
+            }
         }
     }
 }

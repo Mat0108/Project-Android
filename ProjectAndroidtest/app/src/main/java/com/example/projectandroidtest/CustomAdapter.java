@@ -35,6 +35,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     private static final String TAG = "CustomAdapter";
 
     private String[] mDataSet;
+    private String[] mDataSet2;
 
     // BEGIN_INCLUDE(recyclerViewSampleViewHolder)
     /**
@@ -74,8 +75,9 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
      *
      * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
      */
-    public CustomAdapter(String[] dataSet) {
+    public CustomAdapter(String[] dataSet,String[] dataSet2) {
         mDataSet = dataSet;
+        mDataSet2 = dataSet2;
     }
 
     // BEGIN_INCLUDE(recyclerViewOnCreateViewHolder)
@@ -99,7 +101,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         // Get element from your dataset at this position and replace the contents of the view
         // with that element
         viewHolder.getName().setText(mDataSet[position]);
-        viewHolder.getMatiere().setText("Matière 1\nMatière 2");
+        viewHolder.getMatiere().setText(mDataSet2[position]);
         viewHolder.getFont().setImageResource(R.drawable.rechercheresult);
         viewHolder.getPhoto().setImageResource(R.drawable.rechercheprofile2);
         viewHolder.getMask().setImageResource(R.drawable.rechercheprofile1);
