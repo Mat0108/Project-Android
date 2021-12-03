@@ -33,6 +33,7 @@ public class BDD {
         this.matieres = new ArrayList<Matiere>(MaxInt);
     }
 
+
     public void addUsers(User user){
         this.users.add(user);
     }
@@ -74,55 +75,37 @@ public class BDD {
         }
     }
     public void update(BDD bdd){
-        this.users = bdd.getUsers();
-        this.matieres = bdd.getMatieres();
+        this.users = (ArrayList<User>) bdd.getUsers().clone();
+        this.matieres = (ArrayList<Matiere>) bdd.getMatieres().clone();
+
     }
-    public BDD Selected(String matiere){
-        BDD bdd = new BDD();
-        Log.i("text matiere",matiere);
+    public void Selected(String matiere){
+        int selected;
+        Log.d("Selected",matiere);
+        Log.d("Selected","before traitement");
+        this.print(1);
         for (int i = 0;i<this.users.size();i++) {
-            if (matiere == "Francais" && this.matieres.get(i).getFrancais() == 2){
-                bdd.addUsers(this.users.get(i));
-                bdd.addMatieres(this.matieres.get(i));
+            selected = 0;
+            if (matiere.equals("Francais") && this.matieres.get(i).getFrancais() == 2){selected = 1;}
+            if (matiere.equals("Maths") && this.matieres.get(i).getMaths() == 2) {selected = 1;}
+            if (matiere.equals("Physique") && this.matieres.get(i).getPhysique() == 2) {selected = 1;}
+            if (matiere.equals("Chemie") && this.matieres.get(i).getChemie() == 2) {selected = 1;}
+            if (matiere.equals("Histoire" )&& this.matieres.get(i).getHistoire() == 2) {selected = 1;}
+            if (matiere.equals("Geographie") && this.matieres.get(i).getGeographie() == 2) {selected = 1;}
+            if (matiere.equals("Anglais") && this.matieres.get(i).getAnglais() == 2) {selected = 1;}
+            if (matiere.equals("Espagnol") && this.matieres.get(i).getEspagnol() == 2) {selected = 1;}
+            if (matiere.equals("Allemand") && this.matieres.get(i).getAllemand() == 2) {selected = 1;}
+            if(matiere.equals("Tout")){selected = 1;}
+
+            Log.d("Selected",String.valueOf(selected));
+            if (selected == 0){
+                this.users.remove(i);
+                this.matieres.remove(i);
+
             }
-            if (matiere == "Maths" && this.matieres.get(i).getMaths() == 2) {
-                bdd.addUsers(this.users.get(i));
-                bdd.addMatieres(this.matieres.get(i));
-            }
-            if (matiere == "Physique" && this.matieres.get(i).getPhysique() == 2) {
-                bdd.addUsers(this.users.get(i));
-                bdd.addMatieres(this.matieres.get(i));
-            }
-            if (matiere == "Chemie" && this.matieres.get(i).getChemie() == 2) {
-                bdd.addUsers(this.users.get(i));
-                bdd.addMatieres(this.matieres.get(i));
-            }
-            if (matiere == "Histoire" && this.matieres.get(i).getHistoire() == 2) {
-                bdd.addUsers(this.users.get(i));
-                bdd.addMatieres(this.matieres.get(i));
-            }
-            if (matiere == "Geographie" && this.matieres.get(i).getGeographie() == 2) {
-                bdd.addUsers(this.users.get(i));
-                bdd.addMatieres(this.matieres.get(i));
-            }
-            if (matiere == "Anglais" && this.matieres.get(i).getAnglais() == 2) {
-                bdd.addUsers(this.users.get(i));
-                bdd.addMatieres(this.matieres.get(i));
-            }
-            if (matiere == "Espagnol" && this.matieres.get(i).getEspagnol() == 2) {
-                bdd.addUsers(this.users.get(i));
-                bdd.addMatieres(this.matieres.get(i));
-            }
-            if (matiere == "Allemand" && this.matieres.get(i).getAllemand() == 2) {
-                bdd.addUsers(this.users.get(i));
-                bdd.addMatieres(this.matieres.get(i));
-            }
-            if(matiere == " "){
-                bdd.addUsers(this.users.get(i));
-                bdd.addMatieres(this.matieres.get(i));
-            }
+
         }
-        bdd.print(2);
-        return bdd;
+        Log.d("Selected","after traitement");
+        this.print(1);
     }
 }

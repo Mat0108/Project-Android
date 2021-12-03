@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -215,15 +216,10 @@ public class MainActivity extends AppCompatActivity {
                         // An spinnerItem was selected. You can retrieve the selected item using
                         // parent.getItemAtPosition(pos)
                         String text = (String) parent.getItemAtPosition(pos);
-                        bdd.print(1);
-
-                        Log.d("test2",text);
                         BDD bdd2 = new BDD();
-                        bdd2.setUsers(bdd.Selected(text).getUsers());
-                        bdd2.setMatieres(bdd.Selected(text).getMatieres());
-                        bdd2.print(1);
-
-                        Toast.makeText(MainActivity.this, text,Toast.LENGTH_SHORT).show();
+                        bdd2.update(bdd);
+                        bdd2.Selected(text);
+                        fragment.updateDataset(bdd2);
 
                     }
 
@@ -375,6 +371,10 @@ public class MainActivity extends AppCompatActivity {
         if(currentUser != null){
             reload();
         }
+        EditText Mail = (EditText) findViewById(R.id.connectionmail);
+        EditText Password = (EditText) findViewById(R.id.connectionpassword);
+        Mail.setText("test@test.com");
+        Password.setText("test1234");
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
         ValueEventListener usersEvent = new ValueEventListener() {
             @Override

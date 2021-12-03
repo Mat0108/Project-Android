@@ -32,7 +32,7 @@
     <string name="save">Sauvegarde</string>
 
     <string-array name="Matiere">
-        <item></item>
+        <item>Tout</item>
         <item>Francais</item>
         <item>Maths</item>
         <item>Physique</item>

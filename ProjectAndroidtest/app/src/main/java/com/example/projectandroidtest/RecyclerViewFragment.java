@@ -198,4 +198,20 @@ public class RecyclerViewFragment extends Fragment {
             }
         }
     }
+    public void updateDataset(BDD bdd2){
+        Log.e("test","modif");
+        ArrayList<String> liste = bdd2.UsertoString();
+        ArrayList<String> liste2 = bdd2.MatieretoString();
+        for (int i = 0; i < DATASET_COUNT; i++) {
+            if (i < liste.size()){
+                mDataset[i] = liste.get(i);
+                mDataset2[i] = liste2.get(i);
+            }
+            else {
+                mDataset[i] = "element " + i;
+                mDataset2[i] = "element 1\nelement 2";
+            }
+        }
+        mAdapter.notifyDataSetChanged();
+    }
 }
