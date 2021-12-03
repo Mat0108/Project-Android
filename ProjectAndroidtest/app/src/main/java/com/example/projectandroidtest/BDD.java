@@ -63,36 +63,66 @@ public class BDD {
         }
         return listematiere;
     }
-    public void print(){
-        for (int i = 0;i<this.users.size();i++) {
-            Log.d("BDD print",this.users.get(i).toString());
-            Log.d("BDD print",this.matieres.get(i).toString());
+    public void print(int choix){
+        if (choix == 1){
+            Log.d("BDD print",String.valueOf(this.users.size()));
+        }else {
+            for (int i = 0; i < this.users.size(); i++) {
+                Log.d("BDD print", this.users.get(i).toString());
+                Log.d("BDD print", this.matieres.get(i).toString());
+            }
         }
     }
-    /*public void UserTab(){
-        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
-        ValueEventListener userEvent = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String name = ds.child("nom").getValue(String.class);
-                    String mail = ds.child("mail").getValue(String.class);
-                    String adresse = ds.child("adresse").getValue(String.class);
-                    User user = new User(mail,name,adresse);
-
-                    users.add(user);
-                    Log.d("test",user.toString());
-                    Log.d("test3 ",String.valueOf(users.size()));
-
-                }
+    public void update(BDD bdd){
+        this.users = bdd.getUsers();
+        this.matieres = bdd.getMatieres();
+    }
+    public BDD Selected(String matiere){
+        BDD bdd = new BDD();
+        Log.i("text matiere",matiere);
+        for (int i = 0;i<this.users.size();i++) {
+            if (matiere == "Francais" && this.matieres.get(i).getFrancais() == 2){
+                bdd.addUsers(this.users.get(i));
+                bdd.addMatieres(this.matieres.get(i));
             }
-
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        };
-
-        usersRef.addListenerForSingleValueEvent(userEvent);
-
-    }*/
+            if (matiere == "Maths" && this.matieres.get(i).getMaths() == 2) {
+                bdd.addUsers(this.users.get(i));
+                bdd.addMatieres(this.matieres.get(i));
+            }
+            if (matiere == "Physique" && this.matieres.get(i).getPhysique() == 2) {
+                bdd.addUsers(this.users.get(i));
+                bdd.addMatieres(this.matieres.get(i));
+            }
+            if (matiere == "Chemie" && this.matieres.get(i).getChemie() == 2) {
+                bdd.addUsers(this.users.get(i));
+                bdd.addMatieres(this.matieres.get(i));
+            }
+            if (matiere == "Histoire" && this.matieres.get(i).getHistoire() == 2) {
+                bdd.addUsers(this.users.get(i));
+                bdd.addMatieres(this.matieres.get(i));
+            }
+            if (matiere == "Geographie" && this.matieres.get(i).getGeographie() == 2) {
+                bdd.addUsers(this.users.get(i));
+                bdd.addMatieres(this.matieres.get(i));
+            }
+            if (matiere == "Anglais" && this.matieres.get(i).getAnglais() == 2) {
+                bdd.addUsers(this.users.get(i));
+                bdd.addMatieres(this.matieres.get(i));
+            }
+            if (matiere == "Espagnol" && this.matieres.get(i).getEspagnol() == 2) {
+                bdd.addUsers(this.users.get(i));
+                bdd.addMatieres(this.matieres.get(i));
+            }
+            if (matiere == "Allemand" && this.matieres.get(i).getAllemand() == 2) {
+                bdd.addUsers(this.users.get(i));
+                bdd.addMatieres(this.matieres.get(i));
+            }
+            if(matiere == " "){
+                bdd.addUsers(this.users.get(i));
+                bdd.addMatieres(this.matieres.get(i));
+            }
+        }
+        bdd.print(2);
+        return bdd;
+    }
 }

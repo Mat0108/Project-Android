@@ -4,12 +4,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 
@@ -24,6 +28,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.DatabaseMetaData;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -176,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
                             } else {
                                 // If sign in fails, display a message to the user.
                                 Log.d("TAG", "signInWithEmail:failure", task.getException());
+                                Toast.makeText(MainActivity.this, "user not found",Toast.LENGTH_SHORT).show();
                                 updateUI(null);
 
                             }
@@ -187,14 +193,45 @@ public class MainActivity extends AppCompatActivity {
 
         public void LayoutRecherche() {
             if (getLayout() == R.layout.recherche) {
-                bdd.print();
-
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-
                 RecyclerViewFragment fragment = new RecyclerViewFragment(bdd);
                 transaction.replace(R.id.sample_content_fragment, fragment);
                 transaction.commit();
 
+                Spinner choix = (Spinner) findViewById(R.id.choix);
+                String matiere[] = {"Francais","Maths","Physique","Chemie","Histoire","Geographie","Anglais","Espagnol","Allemand"};
+
+                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(MainActivity.this,
+                        R.array.Matiere, R.layout.spinner);
+                adapter.setDropDownViewResource(R.layout.spinnerdropdown);
+
+                choix.setAdapter(adapter);
+                choix.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    /**
+                     * Called when a new item is selected (in the Spinner)
+                     */
+                    public void onItemSelected(AdapterView<?> parent, View view,
+                                               int pos, long id) {
+                        // An spinnerItem was selected. You can retrieve the selected item using
+                        // parent.getItemAtPosition(pos)
+                        String text = (String) parent.getItemAtPosition(pos);
+                        bdd.print(1);
+
+                        Log.d("test2",text);
+                        BDD bdd2 = new BDD();
+                        bdd2.setUsers(bdd.Selected(text).getUsers());
+                        bdd2.setMatieres(bdd.Selected(text).getMatieres());
+                        bdd2.print(1);
+
+                        Toast.makeText(MainActivity.this, text,Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    public void onNothingSelected(AdapterView<?> parent) {
+                        // Do nothing, just another required interface callback
+                    }
+
+                });
                 Button back = (Button) findViewById(R.id.rechercheback);
                 back.setOnClickListener(new View.OnClickListener() {
                     @Override

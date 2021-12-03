@@ -31,5 +31,16 @@
     <string name="matiere_9">Allemand</string>
     <string name="save">Sauvegarde</string>
 
-
+    <string-array name="Matiere">
+        <item></item>
+        <item>Francais</item>
+        <item>Maths</item>
+        <item>Physique</item>
+        <item>Chemie</item>
+        <item>Histoire</item>
+        <item>Geographie</item>
+        <item>Anglais</item>
+        <item>Espagnol</item>
+        <item>Allemand</item>
+    </string-array>
 </resources>

@@ -5,6 +5,7 @@
     <color name="BOUTON">#4041477D</color>
     <color name="BARRE">#FF193B5C</color>
     <color name="TEXT">#99FFFFFF</color>
+    <color name="SELECTED">#FF2C2F37</color>
     <color name="teal_200">#4EBDB3</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
