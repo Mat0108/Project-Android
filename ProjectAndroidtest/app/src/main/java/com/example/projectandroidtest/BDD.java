@@ -77,10 +77,17 @@ public class BDD {
     public void update(BDD bdd){
         this.users = (ArrayList<User>) bdd.getUsers().clone();
         this.matieres = (ArrayList<Matiere>) bdd.getMatieres().clone();
-
     }
+    public int getSize(){
+        return this.users.size();
+    }
+
+
     public void Selected(String matiere){
+        ArrayList<User> users =  (ArrayList<User>) this.getUsers().clone();
+        ArrayList<Matiere> matieres = (ArrayList<Matiere>) this.getMatieres().clone();
         int selected;
+        int remove = 0;
         Log.d("Selected",matiere);
         Log.d("Selected","before traitement");
         this.print(1);
@@ -99,13 +106,17 @@ public class BDD {
 
             Log.d("Selected",String.valueOf(selected));
             if (selected == 0){
-                this.users.remove(i);
-                this.matieres.remove(i);
-
+                users.remove(i - remove);
+                matieres.remove(i - remove);
+                remove++;
             }
 
+
         }
+        this.setUsers(users);
+        this.setMatieres(matieres);
         Log.d("Selected","after traitement");
         this.print(1);
     }
+
 }

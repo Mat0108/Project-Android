@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package com.example.projectandroidtest;
+package com.example.projectandroidtest.recyclerview;
 
 
 
@@ -27,6 +27,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.example.projectandroidtest.R;
 
 /**
  * Provide views to RecyclerView with data from mDataSet.
@@ -57,6 +59,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
             font = (ImageView) v.findViewById(R.id.font);
             photo = (ImageView) v.findViewById(R.id.photo);
             mask = (ImageView) v.findViewById(R.id.mask);
+
 
         }
 
@@ -107,7 +110,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         viewHolder.getMask().setImageResource(R.drawable.rechercheprofile1);
     }
     // END_INCLUDE(recyclerViewOnBindViewHolder)
-
+    
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {

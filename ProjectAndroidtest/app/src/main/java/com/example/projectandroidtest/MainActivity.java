@@ -3,8 +3,8 @@ package com.example.projectandroidtest;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,12 +12,14 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 
+import com.example.projectandroidtest.recyclerview.ItemClickSupport;
+import com.example.projectandroidtest.recyclerview.RecyclerViewFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -29,9 +31,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.sql.DatabaseMetaData;
-import java.util.ArrayList;
-
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -39,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     public User user = new User();
     public String pass = new String();
     public BDD bdd = new BDD();
+    public User globallastclik = new User("test","test","test");
 
     private void updateUI(FirebaseUser user) {
     }
@@ -192,6 +192,16 @@ public class MainActivity extends AppCompatActivity {
             // [END sign_in_with_email]
         }
 
+        public void configureOnClickRecyclerView(RecyclerView view){
+            ItemClickSupport.addTo(view, R.layout.recherche_result)
+                    .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                        @Override
+                        public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                            Log.e("TAG", "Position : "+position);
+                        }
+                    });
+        }
+
         public void LayoutRecherche() {
             if (getLayout() == R.layout.recherche) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -208,9 +218,6 @@ public class MainActivity extends AppCompatActivity {
 
                 choix.setAdapter(adapter);
                 choix.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                    /**
-                     * Called when a new item is selected (in the Spinner)
-                     */
                     public void onItemSelected(AdapterView<?> parent, View view,
                                                int pos, long id) {
                         // An spinnerItem was selected. You can retrieve the selected item using
@@ -237,8 +244,17 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 barrebas();
+                Button layout = (Button) findViewById(R.id.recherchebutton);
+                layout.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d("test",fragment.getLastclick().toString());
+                    }
+                });
+
             }
         }
+
 
         public void LayoutConnection() {
             if (getLayout() == R.layout.connection) {
@@ -375,6 +391,7 @@ public class MainActivity extends AppCompatActivity {
         EditText Password = (EditText) findViewById(R.id.connectionpassword);
         Mail.setText("test@test.com");
         Password.setText("test1234");
+
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
         ValueEventListener usersEvent = new ValueEventListener() {
             @Override

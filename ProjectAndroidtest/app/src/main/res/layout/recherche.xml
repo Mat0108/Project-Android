@@ -87,6 +87,12 @@
         android:translationY="80dp"
         tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
+    <Button
+        android:id="@+id/recherchebutton"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible" />
+
 
 </RelativeLayout>
 

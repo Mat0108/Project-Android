@@ -14,7 +14,7 @@
 * limitations under the License.
 */
 
-package com.example.projectandroidtest;
+package com.example.projectandroidtest.recyclerview;
 
 
 import android.os.Bundle;
@@ -30,16 +30,14 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 
 import com.example.projectandroidtest.BDD;
-import com.example.projectandroidtest.Matiere;
+import com.example.projectandroidtest.MainActivity;
 import com.example.projectandroidtest.R;
 import com.example.projectandroidtest.User;
+import com.example.projectandroidtest.recyclerview.CustomAdapter;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUserMetadata;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+
 
 import java.util.ArrayList;
 
@@ -82,10 +80,15 @@ public class RecyclerViewFragment extends Fragment {
     protected RadioButton mGridLayoutRadioButton;
 
     protected RecyclerView mRecyclerView;
-    protected com.example.projectandroidtest.CustomAdapter mAdapter;
+    protected CustomAdapter mAdapter;
     protected RecyclerView.LayoutManager mLayoutManager;
     protected String[] mDataset;
     protected String[] mDataset2;
+    protected User lastclick = new User("","","");
+
+    public User getLastclick() {return lastclick;}
+    public void setLastclick(User lastclick) {this.lastclick = lastclick;}
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,9 +119,11 @@ public class RecyclerViewFragment extends Fragment {
         }
         setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
 
-        mAdapter = new com.example.projectandroidtest.CustomAdapter(mDataset,mDataset2);
+        mAdapter = new CustomAdapter(mDataset,mDataset2);
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
+        this.configureOnClickRecyclerView();
+
         // END_INCLUDE(initializeRecyclerView)
         /*
         mLinearLayoutRadioButton = (RadioButton) rootView.findViewById(R.id.linear_layout_rb);
@@ -177,7 +182,21 @@ public class RecyclerViewFragment extends Fragment {
         savedInstanceState.putSerializable(KEY_LAYOUT_MANAGER, mCurrentLayoutManagerType);
         super.onSaveInstanceState(savedInstanceState);
     }
-
+    private void configureOnClickRecyclerView(){
+        ItemClickSupport.addTo(mRecyclerView, R.layout.recherche_result)
+                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                    @Override
+                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                        if (position < bdd.getSize()) {
+                            Log.d("TAG", "" + bdd.getUsers().get(position).toString());
+                            setLastclick(bdd.getUsers().get(position));
+                      }
+                        else{
+                            Log.d("TAG","Position : "+position);
+                        }
+                        }
+                });
+    }
     /**
      * Generates Strings for RecyclerView's adapter. This data would usually come
      * from a local content provider or remote server.

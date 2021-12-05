@@ -10,6 +10,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class User {
     private String Mail;
@@ -43,29 +44,13 @@ public class User {
                 ", Adresse='" + Adresse + '\'' +
                 '}';
     }
-    public ArrayList<User> UserTab(){
-        ArrayList<User> users = new ArrayList<User>(20);
-        DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
-        ValueEventListener userEvent = new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                    String name = ds.child("nom").getValue(String.class);
-                    String mail = ds.child("mail").getValue(String.class);
-                    String adresse = ds.child("adresse").getValue(String.class);
-                    User user = new User(mail,name,adresse);
-                    users.add(user);
-                    Log.d("test",user.toString());
-                }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {}
-        };
-        for (User user : users) {
-            Log.d("initDataset",user.toString());
+
+    public boolean compare(User user) {
+        if (Mail.equals(user.getMail()) && Nom.equals(user.getNom()) && Adresse.equals(user.getAdresse())) {
+            return true;
+        } else {
+            return false;
         }
-        usersRef.addListenerForSingleValueEvent(userEvent);
-        return users;
     }
 }
