@@ -7,12 +7,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -36,9 +38,13 @@ public class MainActivity extends AppCompatActivity {
     private DatabaseReference mDatabase;
     public Matiere matiere = new Matiere();
     public User user = new User();
-    public String pass = new String();
+    public String pass;
     public BDD bdd = new BDD();
     public User globallastclik = new User("test","test","test");
+
+    public RecyclerView recyclerView;
+    public RecyclerView getRecyclerView() {return recyclerView;}
+    public void setRecyclerView(RecyclerView recyclerView) {this.recyclerView = recyclerView;}
 
     private void updateUI(FirebaseUser user) {
     }
@@ -55,8 +61,11 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+
+                            FirebaseUser mUser = mAuth.getCurrentUser();
+                            updateUI(mUser);
+
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
@@ -74,48 +83,48 @@ public class MainActivity extends AppCompatActivity {
 
     public void OnClickMatiere() {
 
-        RadioGroup Fr = (RadioGroup) findViewById(R.id.Fr_Group);
+        RadioGroup Fr = findViewById(R.id.Fr_Group);
 
         if (Fr.getCheckedRadioButtonId() == R.id.Fr_R){matiere.setFrancais(1L);}
         else if(Fr.getCheckedRadioButtonId()==R.id.Fr_M){matiere.setFrancais(2L);}
         else {matiere.setFrancais(0L);}
 
-        RadioGroup Maths = (RadioGroup) findViewById(R.id.Mt_Group);
+        RadioGroup Maths = findViewById(R.id.Mt_Group);
         if (Maths.getCheckedRadioButtonId() == R.id.Mt_R){matiere.setMaths(1L);}
         else if(Maths.getCheckedRadioButtonId()==R.id.Mt_M){matiere.setMaths(2L);}
         else {matiere.setMaths(0L);}
 
-        RadioGroup Physique = (RadioGroup) findViewById(R.id.Ph_group);
+        RadioGroup Physique = findViewById(R.id.Ph_group);
         if (Physique.getCheckedRadioButtonId() == R.id.Ph_R){matiere.setPhysique(1L);}
         else if(Physique.getCheckedRadioButtonId()==R.id.Ph_M){matiere.setPhysique(2L);}
         else {matiere.setPhysique(0L);}
 
-        RadioGroup Chemie = (RadioGroup) findViewById(R.id.Ch_group);
+        RadioGroup Chemie = findViewById(R.id.Ch_group);
         if (Chemie.getCheckedRadioButtonId() == R.id.Ch_R){matiere.setChemie(1L);}
         else if(Chemie.getCheckedRadioButtonId()==R.id.Ch_M){matiere.setChemie(2L);}
         else {matiere.setChemie(0L);}
 
-        RadioGroup Histoire = (RadioGroup) findViewById(R.id.Hi_group);
+        RadioGroup Histoire = findViewById(R.id.Hi_group);
         if (Histoire.getCheckedRadioButtonId() == R.id.Hi_R){matiere.setHistoire(1L);}
         else if(Histoire.getCheckedRadioButtonId()==R.id.Hi_M){matiere.setHistoire(2L);}
         else {matiere.setHistoire(0L);}
 
-        RadioGroup Geo = (RadioGroup) findViewById(R.id.Ge_Group);
+        RadioGroup Geo = findViewById(R.id.Ge_Group);
         if (Geo.getCheckedRadioButtonId() == R.id.Ge_R){matiere.setGeographie(1L);}
         else if(Geo.getCheckedRadioButtonId()==R.id.Ge_M){matiere.setGeographie(2L);}
         else {matiere.setGeographie(0L);}
 
-        RadioGroup Anglais = (RadioGroup) findViewById(R.id.An_group);
+        RadioGroup Anglais = findViewById(R.id.An_group);
         if (Anglais.getCheckedRadioButtonId() == R.id.An_R){matiere.setAnglais(1L);}
         else if(Anglais.getCheckedRadioButtonId()==R.id.An_M){matiere.setAnglais(2L);}
         else {matiere.setAnglais(0L);}
 
-        RadioGroup Espagnol = (RadioGroup) findViewById(R.id.Es_group);
+        RadioGroup Espagnol = findViewById(R.id.Es_group);
         if (Espagnol.getCheckedRadioButtonId() == R.id.Es_R){matiere.setEspagnol(1L);}
         else if(Espagnol.getCheckedRadioButtonId()==R.id.Es_M){matiere.setEspagnol(2L);}
         else {matiere.setEspagnol(0L);}
 
-        RadioGroup Allemand = (RadioGroup) findViewById(R.id.Al_group);
+        RadioGroup Allemand = findViewById(R.id.Al_group);
         if (Allemand.getCheckedRadioButtonId() == R.id.Al_R){matiere.setAllemand(1L);}
         else if(Allemand.getCheckedRadioButtonId()==R.id.Al_M){matiere.setAllemand(2L);}
         else {matiere.setAllemand(0L);}
@@ -153,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     setlayout(R.layout.matiere);
-                    LayoutMatiere();
+                    LayoutReglage();
                 }
             });
             messagerie.setOnClickListener(new View.OnClickListener() {
@@ -175,8 +184,15 @@ public class MainActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("TAG", "signInWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                updateUI(user);
+                                FirebaseUser mUser = mAuth.getCurrentUser();
+                                updateUI(mUser);
+                                user.setMail(mUser.getEmail());
+                                for (int i = 0; i < bdd.getSize(); i++) {
+                                    if (bdd.getUsers().get(i).compareMail(user.getMail())){
+                                        user.setAll2(bdd.getUsers().get(i));
+                                        matiere.setAll2(bdd.getMatieres().get(i));
+                                    }
+                                }
                                 setlayout(R.layout.recherche);
                                 LayoutRecherche();
                             } else {
@@ -192,22 +208,15 @@ public class MainActivity extends AppCompatActivity {
             // [END sign_in_with_email]
         }
 
-        public void configureOnClickRecyclerView(RecyclerView view){
-            ItemClickSupport.addTo(view, R.layout.recherche_result)
-                    .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-                        @Override
-                        public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                            Log.e("TAG", "Position : "+position);
-                        }
-                    });
-        }
-
         public void LayoutRecherche() {
             if (getLayout() == R.layout.recherche) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
                 RecyclerViewFragment fragment = new RecyclerViewFragment(bdd);
+                setRecyclerView(fragment.getmRecyclerView());
                 transaction.replace(R.id.sample_content_fragment, fragment);
                 transaction.commit();
+
+
 
                 Spinner choix = (Spinner) findViewById(R.id.choix);
                 String matiere[] = {"Francais","Maths","Physique","Chemie","Histoire","Geographie","Anglais","Espagnol","Allemand"};
@@ -244,13 +253,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 barrebas();
-                Button layout = (Button) findViewById(R.id.recherchebutton);
-                layout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.d("test",fragment.getLastclick().toString());
-                    }
-                });
+
 
             }
         }
@@ -344,6 +347,7 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         }
+
         public void LayoutMatiere(){
             if (getLayout() == R.layout.matiere){
                 Button Save = (Button) findViewById(R.id.Save);
@@ -365,6 +369,93 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        public void LayoutReglage(){
+            if (getLayout() == R.layout.matiere){
+                if (matiere.getFrancais() == 1L){
+                    RadioButton radio = findViewById(R.id.Fr_R);
+                    radio.setChecked(true);
+                }
+                if (matiere.getFrancais() == 2L){
+                    RadioButton radio = findViewById(R.id.Fr_M);
+                    radio.setChecked(true);
+                }
+                if (matiere.getMaths() == 1L){
+                    RadioButton radio = findViewById(R.id.Mt_R);
+                    radio.setChecked(true);
+                }
+                if (matiere.getMaths() == 2L){
+                    RadioButton radio = findViewById(R.id.Mt_M);
+                    radio.setChecked(true);
+                }
+                if (matiere.getPhysique() == 1L){
+                    RadioButton radio = findViewById(R.id.Ph_R);
+                    radio.setChecked(true);
+                }
+                if (matiere.getPhysique() == 2L){
+                    RadioButton radio = findViewById(R.id.Ph_M);
+                    radio.setChecked(true);
+                }
+                if (matiere.getChemie() == 1L){
+                    RadioButton radio = findViewById(R.id.Ch_R);
+                    radio.setChecked(true);
+                }
+                if (matiere.getChemie() == 2L){
+                    RadioButton radio = findViewById(R.id.Ch_M);
+                    radio.setChecked(true);
+                }
+                if (matiere.getHistoire() == 1L){
+                    RadioButton radio = findViewById(R.id.Hi_R);
+                    radio.setChecked(true);
+                }
+                if (matiere.getHistoire() == 2L){
+                    RadioButton radio = findViewById(R.id.Hi_M);
+                    radio.setChecked(true);
+                }
+                if (matiere.getGeographie() == 1L){
+                    RadioButton radio = findViewById(R.id.Ge_R);
+                    radio.setChecked(true);
+                }
+                if (matiere.getGeographie() == 2L){
+                    RadioButton radio = findViewById(R.id.Ge_M);
+                    radio.setChecked(true);
+                }
+                if (matiere.getAnglais() == 1L){
+                    RadioButton radio = findViewById(R.id.An_R);
+                    radio.setChecked(true);
+                }
+                if (matiere.getAnglais() == 2L){
+                    RadioButton radio = findViewById(R.id.An_M);
+                    radio.setChecked(true);
+                }
+                if (matiere.getAllemand() == 1L){
+                    RadioButton radio = findViewById(R.id.An_R);
+                    radio.setChecked(true);
+                }
+                if (matiere.getAllemand() == 2L){
+                    RadioButton radio = findViewById(R.id.Al_M);
+                    radio.setChecked(true);
+                }
+                if (matiere.getEspagnol() == 1L){
+                    RadioButton radio = findViewById(R.id.Es_R);
+                    radio.setChecked(true);
+                }
+                if (matiere.getEspagnol() == 2L){
+                    RadioButton radio = findViewById(R.id.Es_M);
+                    radio.setChecked(true);
+                }
+                Button Save = findViewById(R.id.Save);
+                Save.setText("Mise à jour");
+                Save.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setlayout(R.layout.recherche);
+                        LayoutRecherche();
+                    }
+
+                });
+            }
+
+        }
     }
 
 
@@ -372,7 +463,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         final varLayout layout;
         layout = new varLayout(R.layout.connection);
         setContentView(layout.getLayout());
@@ -381,6 +471,7 @@ public class MainActivity extends AppCompatActivity {
         layout.LayoutInscription();
         layout.LayoutRecherche();
         layout.LayoutMatiere();
+        layout.LayoutReglage();
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseUser currentUser = mAuth.getCurrentUser();
@@ -447,4 +538,6 @@ public class MainActivity extends AppCompatActivity {
         matieresRef.addListenerForSingleValueEvent(matieresEvent);
 
     }
+
+
 }

@@ -53,6 +53,7 @@ public class RecyclerViewFragment extends Fragment {
     private static final int SPAN_COUNT = 2;
     private int DATASET_COUNT = 60;
     public BDD bdd = new BDD();
+    public BDD bdds = new BDD();
 
     public RecyclerViewFragment(BDD bdd) {
         this.bdd = bdd;
@@ -84,10 +85,11 @@ public class RecyclerViewFragment extends Fragment {
     protected RecyclerView.LayoutManager mLayoutManager;
     protected String[] mDataset;
     protected String[] mDataset2;
-    protected User lastclick = new User("","","");
 
-    public User getLastclick() {return lastclick;}
-    public void setLastclick(User lastclick) {this.lastclick = lastclick;}
+
+    public RecyclerView getmRecyclerView() {return mRecyclerView;}
+
+    public void setmRecyclerView(RecyclerView mRecyclerView) {this.mRecyclerView = mRecyclerView;}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -120,6 +122,7 @@ public class RecyclerViewFragment extends Fragment {
         setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
 
         mAdapter = new CustomAdapter(mDataset,mDataset2);
+
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
         this.configureOnClickRecyclerView();
@@ -182,15 +185,16 @@ public class RecyclerViewFragment extends Fragment {
         savedInstanceState.putSerializable(KEY_LAYOUT_MANAGER, mCurrentLayoutManagerType);
         super.onSaveInstanceState(savedInstanceState);
     }
+
     private void configureOnClickRecyclerView(){
         ItemClickSupport.addTo(mRecyclerView, R.layout.recherche_result)
                 .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                     @Override
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        if (position < bdd.getSize()) {
-                            Log.d("TAG", "" + bdd.getUsers().get(position).toString());
-                            setLastclick(bdd.getUsers().get(position));
-                      }
+                        if (position < bdds.getSize()) {
+                            Log.d("TAG", "" + bdds.getUsers().get(position).toString());
+
+                        }
                         else{
                             Log.d("TAG","Position : "+position);
                         }
@@ -202,6 +206,7 @@ public class RecyclerViewFragment extends Fragment {
      * from a local content provider or remote server.
      */
     private void initDataset() {
+        this.bdds.update(this.bdd);
         ArrayList<String> liste = bdd.UsertoString();
         ArrayList<String> liste2 = bdd.MatieretoString();
         mDataset = new String[DATASET_COUNT];
@@ -218,7 +223,7 @@ public class RecyclerViewFragment extends Fragment {
         }
     }
     public void updateDataset(BDD bdd2){
-        Log.e("test","modif");
+        this.bdds.update(bdd2);
         ArrayList<String> liste = bdd2.UsertoString();
         ArrayList<String> liste2 = bdd2.MatieretoString();
         for (int i = 0; i < DATASET_COUNT; i++) {

@@ -54,7 +54,8 @@ public class ItemClickSupport {
     }
 
     public static ItemClickSupport addTo(RecyclerView view, int itemID) {
-        ItemClickSupport support = (ItemClickSupport) view.getTag(itemID);
+
+        ItemClickSupport support = (ItemClickSupport) view.getTag();
         if (support == null) {
             support = new ItemClickSupport(view, itemID);
         }

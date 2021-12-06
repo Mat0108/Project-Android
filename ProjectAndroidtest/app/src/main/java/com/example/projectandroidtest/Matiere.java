@@ -64,6 +64,17 @@ public class Matiere {
         this.espagnol = espagnol;
         this.allemand = allemand;
     }
+    public void setAll2(Matiere matiere){
+        this.francais = matiere.getFrancais();
+        this.maths = matiere.getMaths();
+        this.physique = matiere.getPhysique();
+        this.chemie = matiere.getChemie();
+        this.histoire = matiere.getHistoire();
+        this.geographie = matiere.getGeographie();
+        this.anglais = matiere.getAnglais();
+        this.espagnol = matiere.getEspagnol();
+        this.allemand = matiere.getAllemand();
+    }
 
     @Override
     public String toString() {
