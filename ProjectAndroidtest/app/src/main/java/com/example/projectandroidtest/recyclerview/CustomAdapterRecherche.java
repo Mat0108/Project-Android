@@ -33,7 +33,7 @@ import com.example.projectandroidtest.R;
 /**
  * Provide views to RecyclerView with data from mDataSet.
  */
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
+public class CustomAdapterRecherche extends RecyclerView.Adapter<CustomAdapterRecherche.ViewHolder> {
     private static final String TAG = "CustomAdapter";
 
     private String[] mDataSet;
@@ -80,7 +80,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
      *
      * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
      */
-    public CustomAdapter(String[] dataSet,String[] dataSet2) {
+    public CustomAdapterRecherche(String[] dataSet, String[] dataSet2) {
         mDataSet = dataSet;
         mDataSet2 = dataSet2;
     }

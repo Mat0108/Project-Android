@@ -34,7 +34,6 @@ import com.example.projectandroidtest.BDD;
 import com.example.projectandroidtest.MainActivity;
 import com.example.projectandroidtest.R;
 import com.example.projectandroidtest.User;
-import com.example.projectandroidtest.recyclerview.CustomAdapter;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -53,12 +52,14 @@ public class RecyclerViewFragment extends Fragment {
     private static final String KEY_LAYOUT_MANAGER = "layoutManager";
     private static final int SPAN_COUNT = 2;
     private int DATASET_COUNT = 60;
+    private FirebaseAuth mAuth;
+    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();;
     private BDD bdd = new BDD();
     private BDD bdds = new BDD();
     private Activity activity;
-    private User user;
-    private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();;
+    private User user = new User("","","");
+    private int layout;
+
 
     public User getUser() {return user;}
     public void setUser(User user) {this.user = user;}
@@ -73,10 +74,17 @@ public class RecyclerViewFragment extends Fragment {
     protected RadioButton mGridLayoutRadioButton;
 
     protected RecyclerView mRecyclerView;
-    protected CustomAdapter mAdapter;
+    protected CustomAdapterRecherche mAdapterR;
+    protected CustomAdapterMessagerie mAdapterM;
+
     protected RecyclerView.LayoutManager mLayoutManager;
     protected String[] mDataset;
     protected String[] mDataset2;
+    protected String[] mDataset3;
+
+
+
+    protected MainActivity.varLayout varLayout;
 
 
     private enum LayoutManagerType {
@@ -84,9 +92,11 @@ public class RecyclerViewFragment extends Fragment {
         LINEAR_LAYOUT_MANAGER
     }
 
-    public RecyclerViewFragment(BDD bdd,Activity activity) {
+    public RecyclerViewFragment(BDD bdd,Activity activity,int layout,MainActivity.varLayout varLayout) {
         this.bdd = bdd;
         this.activity = activity;
+        this.layout = layout;
+        this.varLayout = varLayout;
     }
 
     @Override
@@ -112,6 +122,19 @@ public class RecyclerViewFragment extends Fragment {
 
         mCurrentLayoutManagerType = LayoutManagerType.GRID_LAYOUT_MANAGER;
 
+
+        if (layout == R.layout.recherche_result){
+            mAdapterR = new CustomAdapterRecherche(mDataset,mDataset2);
+            mRecyclerView.setAdapter(mAdapterR);
+            this.configureOnClickRecyclerView(R.layout.recherche_result);
+            mCurrentLayoutManagerType = LayoutManagerType.GRID_LAYOUT_MANAGER;
+        }
+        if(layout == R.layout.messagerie_result){
+            mAdapterM = new CustomAdapterMessagerie(mDataset,mDataset2,mDataset3);
+            mRecyclerView.setAdapter(mAdapterM);
+            mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+
+        }
         if (savedInstanceState != null) {
             // Restore saved layout manager type.
             mCurrentLayoutManagerType = (LayoutManagerType) savedInstanceState
@@ -119,11 +142,6 @@ public class RecyclerViewFragment extends Fragment {
         }
         setRecyclerViewLayoutManager(mCurrentLayoutManagerType);
 
-        mAdapter = new CustomAdapter(mDataset,mDataset2);
-
-        // Set CustomAdapter as the adapter for RecyclerView.
-        mRecyclerView.setAdapter(mAdapter);
-        this.configureOnClickRecyclerView();
 
         // END_INCLUDE(initializeRecyclerView)
         /*
@@ -184,43 +202,71 @@ public class RecyclerViewFragment extends Fragment {
         super.onSaveInstanceState(savedInstanceState);
     }
 
-    private void configureOnClickRecyclerView(){
-        ItemClickSupport.addTo(mRecyclerView, R.layout.recherche_result)
-                .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-                    @Override
-                    public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                        if (position < bdds.getSize()) {
-                            Log.d("TAG", "" + bdds.getUsers().get(position).toString());
-                            user.setAll2(bdds.getUsers().get(position));
+    private void configureOnClickRecyclerView(int layout){
+        if (layout == R.layout.recherche_result){
+            ItemClickSupport.addTo(mRecyclerView, layout)
+                    .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+                        @Override
+                        public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                            if (position < bdds.getSize()) {
+                                Log.d("TAG", "" + bdds.getUsers().get(position).toString());
+                                user.setAll2(bdds.getUsers().get(position));
+                                //activity.setContentView(R.layout.messagerie);
+                                varLayout.setlayout(R.layout.messagerie);
+                                varLayout.LayoutMessagerie();
 
-                            activity.setContentView(R.layout.messagerie);
 
 
+                            }
+                            else{
+                                Log.d("TAG","Position : "+position);
+                            }
                         }
-                        else{
-                            Log.d("TAG","Position : "+position);
-                        }
-                        }
-                });
+                    });
+        }
+
     }
     /**
      * Generates Strings for RecyclerView's adapter. This data would usually come
      * from a local content provider or remote server.
      */
     private void initDataset() {
+
         this.bdds.update(this.bdd);
         ArrayList<String> liste = bdd.UsertoString();
         ArrayList<String> liste2 = bdd.MatieretoString();
         mDataset = new String[DATASET_COUNT];
         mDataset2 = new String[DATASET_COUNT];
+        mDataset3 = new String[DATASET_COUNT];
         for (int i = 0; i < DATASET_COUNT; i++) {
             if (i < liste.size()){
                 mDataset[i] = liste.get(i);
-                mDataset2[i] = liste2.get(i);
+                if(layout == R.layout.recherche_result){
+                    mDataset2[i] = liste2.get(i);
+                }
+                else{
+                    if (i  == 0){
+                        mDataset2[i] = "Un nouveau message !";
+                        mDataset3[i] = ".";
+                    }else{
+                        mDataset2[i] = "merci";
+                        mDataset3[i] = " ";
+                    }
+
+                }
+
+
             }
             else {
                 mDataset[i] = "element " + i;
-                mDataset2[i] = "element 1\nelement 2";
+                if(layout == R.layout.recherche_result){
+                    mDataset2[i] = "element 1\nelement 2";
+                }
+                else{
+                    mDataset2[i] = "text";
+                    mDataset3[i] = "";
+                }
+
             }
         }
     }
@@ -238,6 +284,6 @@ public class RecyclerViewFragment extends Fragment {
                 mDataset2[i] = "element 1\nelement 2";
             }
         }
-        mAdapter.notifyDataSetChanged();
+        mAdapterR.notifyDataSetChanged();
     }
 }

@@ -43,6 +43,12 @@ public class MainActivity extends AppCompatActivity {
     public BDD bdd = new BDD();
     public User globallastclik = new User("test","test","test");
 
+    public varLayout varLayout;
+
+    public MainActivity.varLayout getVarLayout() {return varLayout;}
+
+    public void setVarLayout(MainActivity.varLayout varLayout) {this.varLayout = varLayout;}
+
     public Activity activity ;
 
     private void updateUI(FirebaseUser user) {
@@ -143,6 +149,13 @@ public class MainActivity extends AppCompatActivity {
             setContentView(lelayout);
         }
 
+        @Override
+        public String toString() {
+            return "varLayout{" +
+                    "layout=" + layout +
+                    '}';
+        }
+
         public int getLayout() {
             return this.layout;
         }
@@ -168,6 +181,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     setlayout(R.layout.messagerie);
+                    LayoutMessagerie();
 
                 }
             });
@@ -210,7 +224,7 @@ public class MainActivity extends AppCompatActivity {
         public void LayoutRecherche() {
             if (getLayout() == R.layout.recherche) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                RecyclerViewFragment fragment = new RecyclerViewFragment(bdd,activity);
+                RecyclerViewFragment fragment = new RecyclerViewFragment(bdd,activity,R.layout.recherche_result,varLayout);
                 transaction.replace(R.id.sample_content_fragment, fragment);
                 transaction.commit();
 
@@ -454,6 +468,19 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
+
+        public void LayoutMessagerie(){
+            Log.d("test","test3");
+            if (getLayout() == R.layout.messagerie) {
+
+                FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
+                RecyclerViewFragment fragment2 = new RecyclerViewFragment(bdd, activity, R.layout.messagerie_result,varLayout);
+
+                transaction2.replace(R.id.sample_content_fragment, fragment2);
+                transaction2.commit();
+                barrebas();
+            }
+        }
     }
 
 
@@ -461,16 +488,17 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        final varLayout layout;
+
         activity = this;
-        layout = new varLayout(R.layout.connection);
-        setContentView(layout.getLayout());
+        varLayout = new varLayout(R.layout.connection);
+        setContentView(varLayout.getLayout());
         getSupportActionBar().hide();
-        layout.LayoutConnection();
-        layout.LayoutInscription();
-        layout.LayoutRecherche();
-        layout.LayoutMatiere();
-        layout.LayoutReglage();
+        varLayout.LayoutConnection();
+        varLayout.LayoutInscription();
+        varLayout.LayoutRecherche();
+        varLayout.LayoutMatiere();
+        varLayout.LayoutReglage();
+        varLayout.LayoutMessagerie();
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseUser currentUser = mAuth.getCurrentUser();
