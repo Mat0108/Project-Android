@@ -17,6 +17,7 @@
 package com.example.projectandroidtest.recyclerview;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
@@ -52,27 +53,18 @@ public class RecyclerViewFragment extends Fragment {
     private static final String KEY_LAYOUT_MANAGER = "layoutManager";
     private static final int SPAN_COUNT = 2;
     private int DATASET_COUNT = 60;
-    public BDD bdd = new BDD();
-    public BDD bdds = new BDD();
-
-    public RecyclerViewFragment(BDD bdd) {
-        this.bdd = bdd;
-    }
-
+    private BDD bdd = new BDD();
+    private BDD bdds = new BDD();
+    private Activity activity;
+    private User user;
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference();;
 
-    public int getDATASET_COUNT() {
-        return DATASET_COUNT;
-    }
-
+    public User getUser() {return user;}
+    public void setUser(User user) {this.user = user;}
+    public int getDATASET_COUNT() {return DATASET_COUNT;}
     public void setDATASET_COUNT(int DATASET_COUNT) {
         this.DATASET_COUNT = DATASET_COUNT;
-    }
-
-    private enum LayoutManagerType {
-        GRID_LAYOUT_MANAGER,
-        LINEAR_LAYOUT_MANAGER
     }
 
     protected LayoutManagerType mCurrentLayoutManagerType;
@@ -87,9 +79,15 @@ public class RecyclerViewFragment extends Fragment {
     protected String[] mDataset2;
 
 
-    public RecyclerView getmRecyclerView() {return mRecyclerView;}
+    private enum LayoutManagerType {
+        GRID_LAYOUT_MANAGER,
+        LINEAR_LAYOUT_MANAGER
+    }
 
-    public void setmRecyclerView(RecyclerView mRecyclerView) {this.mRecyclerView = mRecyclerView;}
+    public RecyclerViewFragment(BDD bdd,Activity activity) {
+        this.bdd = bdd;
+        this.activity = activity;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -193,6 +191,10 @@ public class RecyclerViewFragment extends Fragment {
                     public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                         if (position < bdds.getSize()) {
                             Log.d("TAG", "" + bdds.getUsers().get(position).toString());
+                            user.setAll2(bdds.getUsers().get(position));
+
+                            activity.setContentView(R.layout.messagerie);
+
 
                         }
                         else{

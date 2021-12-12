@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -42,9 +43,7 @@ public class MainActivity extends AppCompatActivity {
     public BDD bdd = new BDD();
     public User globallastclik = new User("test","test","test");
 
-    public RecyclerView recyclerView;
-    public RecyclerView getRecyclerView() {return recyclerView;}
-    public void setRecyclerView(RecyclerView recyclerView) {this.recyclerView = recyclerView;}
+    public Activity activity ;
 
     private void updateUI(FirebaseUser user) {
     }
@@ -211,8 +210,7 @@ public class MainActivity extends AppCompatActivity {
         public void LayoutRecherche() {
             if (getLayout() == R.layout.recherche) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                RecyclerViewFragment fragment = new RecyclerViewFragment(bdd);
-                setRecyclerView(fragment.getmRecyclerView());
+                RecyclerViewFragment fragment = new RecyclerViewFragment(bdd,activity);
                 transaction.replace(R.id.sample_content_fragment, fragment);
                 transaction.commit();
 
@@ -464,6 +462,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final varLayout layout;
+        activity = this;
         layout = new varLayout(R.layout.connection);
         setContentView(layout.getLayout());
         getSupportActionBar().hide();
