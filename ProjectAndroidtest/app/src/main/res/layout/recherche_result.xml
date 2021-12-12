@@ -23,7 +23,7 @@
         android:contentDescription="photo"
         android:translationX="9dp"
         android:translationY="21dp"
-        app:srcCompat="@drawable/rechercheprofile2" />
+        app:srcCompat="@drawable/recherchephoto" />
 
     <ImageView
         android:id="@+id/mask"
@@ -32,7 +32,7 @@
         android:contentDescription="photo"
         android:translationX="9dp"
         android:translationY="21dp"
-        app:srcCompat="@drawable/rechercheprofile1" />
+        app:srcCompat="@drawable/recherchemask" />
 
     <TextView
         android:id="@+id/name"

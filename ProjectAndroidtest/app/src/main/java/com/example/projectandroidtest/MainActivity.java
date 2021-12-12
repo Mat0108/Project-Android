@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -133,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
         if (Allemand.getCheckedRadioButtonId() == R.id.Al_R){matiere.setAllemand(1L);}
         else if(Allemand.getCheckedRadioButtonId()==R.id.Al_M){matiere.setAllemand(2L);}
         else {matiere.setAllemand(0L);}
-        Log.i("onclick", matiere.toString());
     }
 
     public class varLayout {
@@ -306,7 +306,7 @@ public class MainActivity extends AppCompatActivity {
             if (getLayout() == R.layout.inscription) {
 
                 Button inscription = (Button) findViewById(R.id.inscription_bouton_confiramtion);
-                Button retour = (Button) findViewById(R.id.retour);
+                ImageButton retour = (ImageButton) findViewById(R.id.retour);
                 
                 retour.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -383,6 +383,15 @@ public class MainActivity extends AppCompatActivity {
 
         public void LayoutReglage(){
             if (getLayout() == R.layout.matiere){
+                ImageButton retour = (ImageButton) findViewById(R.id.retour4);
+                retour.setVisibility(View.VISIBLE);
+                retour.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setlayout(R.layout.recherche);
+                        LayoutRecherche();
+                    }
+                });
                 if (matiere.getFrancais() == 1L){
                     RadioButton radio = findViewById(R.id.Fr_R);
                     radio.setChecked(true);
@@ -470,8 +479,16 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void LayoutMessagerie(){
-            Log.d("test","test3");
             if (getLayout() == R.layout.messagerie) {
+                ImageButton retour = (ImageButton) findViewById(R.id.retour2);
+
+                retour.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setlayout(R.layout.recherche);
+                        LayoutRecherche();
+                    }
+                });
 
                 FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
                 RecyclerViewFragment fragment2 = new RecyclerViewFragment(bdd, activity, R.layout.messagerie_result,varLayout);
@@ -479,6 +496,25 @@ public class MainActivity extends AppCompatActivity {
                 transaction2.replace(R.id.sample_content_fragment, fragment2);
                 transaction2.commit();
                 barrebas();
+            }
+        }
+        public void LayoutChat(){
+            if (getLayout() == R.layout.chat) {
+                ImageButton retour = (ImageButton) findViewById(R.id.retour3);
+
+                retour.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setlayout(R.layout.messagerie);
+                        LayoutMessagerie();
+                    }
+                });
+                FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
+                RecyclerViewFragment fragment3 = new RecyclerViewFragment(bdd, activity, R.layout.chat_result,varLayout);
+
+                transaction3.replace(R.id.sample_content_fragment, fragment3);
+                transaction3.commit();
+
             }
         }
     }
@@ -499,6 +535,7 @@ public class MainActivity extends AppCompatActivity {
         varLayout.LayoutMatiere();
         varLayout.LayoutReglage();
         varLayout.LayoutMessagerie();
+        varLayout.LayoutChat();
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseUser currentUser = mAuth.getCurrentUser();

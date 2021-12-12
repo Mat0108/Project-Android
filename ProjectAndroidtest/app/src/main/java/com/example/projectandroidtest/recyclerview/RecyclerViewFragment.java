@@ -40,6 +40,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
 
 
 /**
@@ -76,11 +77,13 @@ public class RecyclerViewFragment extends Fragment {
     protected RecyclerView mRecyclerView;
     protected CustomAdapterRecherche mAdapterR;
     protected CustomAdapterMessagerie mAdapterM;
+    protected CustomAdapterChat mAdapterC;
 
     protected RecyclerView.LayoutManager mLayoutManager;
     protected String[] mDataset;
     protected String[] mDataset2;
     protected String[] mDataset3;
+    protected String[] mDataset4;
 
 
 
@@ -132,6 +135,13 @@ public class RecyclerViewFragment extends Fragment {
         if(layout == R.layout.messagerie_result){
             mAdapterM = new CustomAdapterMessagerie(mDataset,mDataset2,mDataset3);
             mRecyclerView.setAdapter(mAdapterM);
+            this.configureOnClickRecyclerView(R.layout.messagerie_result);
+            mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+
+        }
+        if(layout == R.layout.chat_result){
+            mAdapterC = new CustomAdapterChat(mDataset4);
+            mRecyclerView.setAdapter(mAdapterC);
             mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
 
         }
@@ -203,27 +213,29 @@ public class RecyclerViewFragment extends Fragment {
     }
 
     private void configureOnClickRecyclerView(int layout){
-        if (layout == R.layout.recherche_result){
+
             ItemClickSupport.addTo(mRecyclerView, layout)
                     .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
                         @Override
                         public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                            if (position < bdds.getSize()) {
-                                Log.d("TAG", "" + bdds.getUsers().get(position).toString());
-                                user.setAll2(bdds.getUsers().get(position));
-                                //activity.setContentView(R.layout.messagerie);
-                                varLayout.setlayout(R.layout.messagerie);
-                                varLayout.LayoutMessagerie();
+                            if (layout == R.layout.recherche_result){
+                                if (position < bdds.getSize()) {
+                                    user.setAll2(bdds.getUsers().get(position));
+                                    varLayout.setlayout(R.layout.messagerie);
+                                    varLayout.LayoutMessagerie();
 
 
 
+                                }
                             }
-                            else{
-                                Log.d("TAG","Position : "+position);
+                            if (layout == R.layout.messagerie_result){
+                                varLayout.setlayout(R.layout.chat);
+                                varLayout.LayoutChat();
+
                             }
                         }
                     });
-        }
+
 
     }
     /**
@@ -238,37 +250,58 @@ public class RecyclerViewFragment extends Fragment {
         mDataset = new String[DATASET_COUNT];
         mDataset2 = new String[DATASET_COUNT];
         mDataset3 = new String[DATASET_COUNT];
-        for (int i = 0; i < DATASET_COUNT; i++) {
-            if (i < liste.size()){
-                mDataset[i] = liste.get(i);
-                if(layout == R.layout.recherche_result){
-                    mDataset2[i] = liste2.get(i);
+        mDataset4 = new String[10*2+1];
+        if (layout == R.layout.chat_result){
+
+            String text;
+            for(int i = 0;i< 10*2+1;i++){
+                    int jmax = ThreadLocalRandom.current().nextInt(0,4);
+                    text = "Text message ................. .....................................\n";
+
+                    for (int j = 0;j<jmax;j++){
+                        text = text + "............ ................. .....................................\n";
+                    }
+                    mDataset4[i] = text;
+            }
+
+        }
+        else{
+            for (int i = 0; i < DATASET_COUNT; i++) {
+                if (i < liste.size()){
+                    mDataset[i] = liste.get(i);
+                    if(layout == R.layout.recherche_result){
+                        mDataset2[i] = liste2.get(i);
+                    }
+                    if(layout == R.layout.messagerie_result){
+                        if (i  == 0){
+                            mDataset2[i] = "Un nouveau message !";
+                            mDataset3[i] = ".";
+                        }else{
+                            mDataset2[i] = "merci";
+                            mDataset3[i] = " ";
+                        }
+
+                    }
+                    if (layout == R.layout.chat_result){
+
+                    }
+
+
                 }
-                else{
-                    if (i  == 0){
-                        mDataset2[i] = "Un nouveau message !";
-                        mDataset3[i] = ".";
-                    }else{
-                        mDataset2[i] = "merci";
-                        mDataset3[i] = " ";
+                else {
+                    mDataset[i] = "element " + i;
+                    if(layout == R.layout.recherche_result){
+                        mDataset2[i] = "element 1\nelement 2";
+                    }
+                    else{
+                        mDataset2[i] = "text";
+                        mDataset3[i] = "";
                     }
 
                 }
-
-
-            }
-            else {
-                mDataset[i] = "element " + i;
-                if(layout == R.layout.recherche_result){
-                    mDataset2[i] = "element 1\nelement 2";
-                }
-                else{
-                    mDataset2[i] = "text";
-                    mDataset3[i] = "";
-                }
-
             }
         }
+
     }
     public void updateDataset(BDD bdd2){
         this.bdds.update(bdd2);

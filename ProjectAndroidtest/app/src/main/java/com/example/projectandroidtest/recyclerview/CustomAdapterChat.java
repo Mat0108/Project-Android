@@ -21,23 +21,27 @@ package com.example.projectandroidtest.recyclerview;
 
 
 //import android.support.v7.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView;
+
+import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.projectandroidtest.R;
 
 /**
  * Provide views to RecyclerView with data from mDataSet.
  */
-public class CustomAdapterRecherche extends RecyclerView.Adapter<CustomAdapterRecherche.ViewHolder> {
+public class CustomAdapterChat extends RecyclerView.Adapter<CustomAdapterChat.ViewHolder> {
     private static final String TAG = "CustomAdapter";
 
     private String[] mDataSet;
-    private String[] mDataSet2;
 
     // BEGIN_INCLUDE(recyclerViewSampleViewHolder)
     /**
@@ -45,32 +49,25 @@ public class CustomAdapterRecherche extends RecyclerView.Adapter<CustomAdapterRe
      */
     public static class ViewHolder extends RecyclerView.ViewHolder  {
 
-        private final TextView name;
-        private final TextView matiere;
-        private final ImageView font;
-        private final ImageView photo;
-        private final ImageView mask;
+        private final TextView chat;
+        private final RelativeLayout chat_layout;
+
 
         public ViewHolder(View v) {
             super(v);
             // Define click listener for the ViewHolder's View.
 
-            name = (TextView) v.findViewById(R.id.name);
-            matiere = (TextView) v.findViewById(R.id.matiere);
-            font = (ImageView) v.findViewById(R.id.font);
-            photo = (ImageView) v.findViewById(R.id.photo);
-            mask = (ImageView) v.findViewById(R.id.mask);
+            chat = (TextView) v.findViewById(R.id.chat);
+            chat_layout = (RelativeLayout) v.findViewById(R.id.chat_layout);
+
 
 
         }
 
-        public TextView getName() {
-            return name;
+        public TextView getChat() {
+            return chat;
         }
-        public TextView getMatiere(){return matiere;}
-        public ImageView getFont(){return font;}
-        public ImageView getPhoto(){return photo;}
-        public ImageView getMask(){return mask;}
+        public RelativeLayout getLayout(){return chat_layout;}
 
     }
     // END_INCLUDE(recyclerViewSampleViewHolder)
@@ -80,9 +77,8 @@ public class CustomAdapterRecherche extends RecyclerView.Adapter<CustomAdapterRe
      *
      * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
      */
-    public CustomAdapterRecherche(String[] dataSet, String[] dataSet2) {
+    public CustomAdapterChat(String[] dataSet) {
         mDataSet = dataSet;
-        mDataSet2 = dataSet2;
     }
 
     // BEGIN_INCLUDE(recyclerViewOnCreateViewHolder)
@@ -91,7 +87,7 @@ public class CustomAdapterRecherche extends RecyclerView.Adapter<CustomAdapterRe
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         // Create a new view.
         View v = LayoutInflater.from(viewGroup.getContext())
-                .inflate(R.layout.recherche_result, viewGroup, false);
+                .inflate(R.layout.chat_result, viewGroup, false);
 
 
         return new ViewHolder(v);
@@ -107,11 +103,24 @@ public class CustomAdapterRecherche extends RecyclerView.Adapter<CustomAdapterRe
 
         // Get element from your dataset at this position and replace the contents of the view
         // with that element
-        viewHolder.getName().setText(mDataSet[position]);
-        viewHolder.getMatiere().setText(mDataSet2[position]);
-        viewHolder.getFont().setImageResource(R.drawable.rechercheresult);
-        viewHolder.getPhoto().setImageResource(R.drawable.recherchephoto);
-        viewHolder.getMask().setImageResource(R.drawable.recherchemask);
+        ViewGroup.LayoutParams layoutParams = viewHolder.getLayout().getLayoutParams();
+        layoutParams.height = (int)((mDataSet[position].length()/68.0)*30+200);
+        viewHolder.getLayout().setLayoutParams(layoutParams);
+        if (position % 2 == 0){
+            viewHolder.getLayout().setLayoutParams(layoutParams);
+            viewHolder.getChat().setBackgroundColor(Color.parseColor("#7DABA9"));
+            viewHolder.getChat().setText(mDataSet[position]);
+            ViewGroup.MarginLayoutParams layoutParams1 = (ViewGroup.MarginLayoutParams) viewHolder.getLayout().getLayoutParams();
+            layoutParams1.setMargins(270, 0,0,0);
+            viewHolder.getLayout().setLayoutParams(layoutParams1);
+
+        }
+        else{
+            viewHolder.getChat().setBackgroundColor(Color.parseColor("#80AB7D"));
+            viewHolder.getChat().setText(mDataSet[position]);
+        }
+
+
     }
     // END_INCLUDE(recyclerViewOnBindViewHolder)
     

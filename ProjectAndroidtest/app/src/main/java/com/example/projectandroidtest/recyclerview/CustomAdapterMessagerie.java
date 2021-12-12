@@ -24,7 +24,6 @@ package com.example.projectandroidtest.recyclerview;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -72,9 +71,7 @@ public class CustomAdapterMessagerie extends RecyclerView.Adapter<CustomAdapterM
 
         }
 
-        public TextView getName2() {
-            return name2;
-        }
+        public TextView getName2() {return name2;}
         public TextView getMessages(){return messages;}
         public TextView getPoint(){return point;}
         public ImageView getFont(){return font;}
@@ -124,10 +121,11 @@ public class CustomAdapterMessagerie extends RecyclerView.Adapter<CustomAdapterM
         if(mDataset3[position].contains(".")){
             viewHolder.getName2().setTextColor(Color.parseColor("#FFFFFF"));
             viewHolder.getMessages().setTextColor(Color.parseColor("#FFFFFF"));
+
         }
         viewHolder.getFont().setImageResource(R.drawable.messagerieresult);
-        viewHolder.getPhoto().setImageResource(R.drawable.rechercheprofile2);
-        viewHolder.getMask().setImageResource(R.drawable.rechercheprofile1);
+        viewHolder.getPhoto().setImageResource(R.drawable.recherchephoto);
+        viewHolder.getMask().setImageResource(R.drawable.recherchemask);
     }
     // END_INCLUDE(recyclerViewOnBindViewHolder)
     

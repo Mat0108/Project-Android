@@ -18,14 +18,14 @@
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:contentDescription="photo"
-        app:srcCompat="@drawable/rechercheprofile2" />
+        app:srcCompat="@drawable/recherchephoto" />
 
     <ImageView
         android:id="@+id/mask2"
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:contentDescription="mask"
-        app:srcCompat="@drawable/rechercheprofile1" />
+        app:srcCompat="@drawable/recherchemask" />
 
     <TextView
         android:id="@+id/name2"

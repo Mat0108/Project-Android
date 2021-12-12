@@ -88,7 +88,6 @@ public class BDD {
         ArrayList<Matiere> matieres = (ArrayList<Matiere>) this.getMatieres().clone();
         int selected;
         int remove = 0;
-        this.print(1);
         for (int i = 0;i<this.users.size();i++) {
             selected = 0;
             if (matiere.equals("Francais") && this.matieres.get(i).getFrancais() == 2){selected = 1;}
