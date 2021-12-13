@@ -106,8 +106,9 @@ public class CustomAdapterChat extends RecyclerView.Adapter<CustomAdapterChat.Vi
         ViewGroup.LayoutParams layoutParams = viewHolder.getLayout().getLayoutParams();
         layoutParams.height = (int)((mDataSet[position].length()/68.0)*30+200);
         viewHolder.getLayout().setLayoutParams(layoutParams);
+        Log.d("position",String.valueOf(position));
         if (position % 2 == 0){
-            viewHolder.getLayout().setLayoutParams(layoutParams);
+            //viewHolder.getLayout().setLayoutParams(layoutParams);
             viewHolder.getChat().setBackgroundColor(Color.parseColor("#7DABA9"));
             viewHolder.getChat().setText(mDataSet[position]);
             ViewGroup.MarginLayoutParams layoutParams1 = (ViewGroup.MarginLayoutParams) viewHolder.getLayout().getLayoutParams();
@@ -118,6 +119,9 @@ public class CustomAdapterChat extends RecyclerView.Adapter<CustomAdapterChat.Vi
         else{
             viewHolder.getChat().setBackgroundColor(Color.parseColor("#80AB7D"));
             viewHolder.getChat().setText(mDataSet[position]);
+            ViewGroup.MarginLayoutParams layoutParams1 = (ViewGroup.MarginLayoutParams) viewHolder.getLayout().getLayoutParams();
+            layoutParams1.setMargins(0, 0,0,0);
+            viewHolder.getLayout().setLayoutParams(layoutParams1);
         }
 
 

@@ -19,6 +19,7 @@ import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -138,6 +139,9 @@ public class MainActivity extends AppCompatActivity {
 
     public class varLayout {
         protected int layout;
+        protected int userid;
+
+
 
         public varLayout(int layout) {
             this.layout = layout;
@@ -148,7 +152,8 @@ public class MainActivity extends AppCompatActivity {
             this.layout = lelayout;
             setContentView(lelayout);
         }
-
+        public int getUserid() {return userid;}
+        public void setUserid(int userid) {this.userid = userid;}
         @Override
         public String toString() {
             return "varLayout{" +
@@ -500,8 +505,9 @@ public class MainActivity extends AppCompatActivity {
         }
         public void LayoutChat(){
             if (getLayout() == R.layout.chat) {
+                TextView text = (TextView) findViewById(R.id.Contact);
+                text.setText(bdd.getUsers().get(getUserid()).getNom());
                 ImageButton retour = (ImageButton) findViewById(R.id.retour3);
-
                 retour.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -557,7 +563,6 @@ public class MainActivity extends AppCompatActivity {
                         String adresse = ds.child("adresse").getValue(String.class);
                         User user = new User(mail, name, adresse);
                         bdd.addUsers(user);
-                        //Log.d("test", user.toString());
                 }
             }
             @Override

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/relativeLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/FONT">
@@ -11,26 +12,32 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:contentDescription="@string/connection"
-        android:src="@drawable/connection" />
+        android:src="@drawable/connection"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/connectionmail"
-        android:layout_width="318dp"
-        android:layout_height="48dp"
+        android:layout_width="330dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="325dp"
         android:background="#00000000"
         android:hint="@string/mailtext"
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
         android:textColor="@color/TEXT"
         android:textColorHint="#4DFFFFFF"
-        android:translationX="40dp"
-        android:translationY="325dp"
-        tools:ignore="TextContrastCheck" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
     <EditText
         android:id="@+id/connectionpassword"
-        android:layout_width="323dp"
-        android:layout_height="wrap_content"
+        android:layout_width="331dp"
+        android:layout_height="38dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="12dp"
         android:background="#00000000"
         android:ems="10"
         android:hint="@string/passwordtext"
@@ -39,33 +46,37 @@
         android:minHeight="48dp"
         android:textColor="@color/TEXT"
         android:textColorHint="#4DFFFFFF"
-        android:translationX="40dp"
-        android:translationY="370dp"
-        tools:ignore="SpeakableTextPresentCheck,TextContrastCheck" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/connectionmail"
+        tools:ignore="SpeakableTextPresentCheck,TextContrastCheck,TouchTargetSizeCheck" />
 
     <Button
         android:id="@+id/connectionbutton"
         android:layout_width="275dp"
         android:layout_height="64dp"
+        android:layout_marginStart="70dp"
+        android:layout_marginTop="18dp"
         android:background="#00000000"
         android:text="@string/connection"
         android:textColor="@color/TEXT"
         android:textSize="20sp"
-        android:translationX="67dp"
-        android:translationY="427dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/connectionpassword"
         tools:ignore="TextContrastCheck,DuplicateSpeakableTextCheck" />
 
     <Button
         android:id="@+id/inscriptionbutton"
-        android:layout_width="178dp"
-        android:layout_height="wrap_content"
+        android:layout_width="192dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="110dp"
+        android:layout_marginTop="12dp"
         android:background="#00000000"
         android:text="@string/incription"
         android:textColor="@color/TEXT"
         android:textSize="20sp"
-        android:translationX="120dp"
-        android:translationY="500dp"
-        tools:ignore="TextContrastCheck" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/connectionbutton"
+        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

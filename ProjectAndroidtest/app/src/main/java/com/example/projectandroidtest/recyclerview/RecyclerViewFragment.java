@@ -29,6 +29,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
+import android.widget.TextView;
 
 import com.example.projectandroidtest.BDD;
 import com.example.projectandroidtest.MainActivity;
@@ -144,6 +145,9 @@ public class RecyclerViewFragment extends Fragment {
             mRecyclerView.setAdapter(mAdapterC);
             mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
 
+            Log.d("test",bdd.getUsers().get(varLayout.getUserid()).toString());
+
+
         }
         if (savedInstanceState != null) {
             // Restore saved layout manager type.
@@ -222,6 +226,7 @@ public class RecyclerViewFragment extends Fragment {
                                 if (position < bdds.getSize()) {
                                     user.setAll2(bdds.getUsers().get(position));
                                     varLayout.setlayout(R.layout.messagerie);
+
                                     varLayout.LayoutMessagerie();
 
 
@@ -230,6 +235,7 @@ public class RecyclerViewFragment extends Fragment {
                             }
                             if (layout == R.layout.messagerie_result){
                                 varLayout.setlayout(R.layout.chat);
+                                varLayout.setUserid(position);
                                 varLayout.LayoutChat();
 
                             }
