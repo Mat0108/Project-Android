@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     android:background="@color/FONT">
 
+    <ImageButton
+        android:id="@+id/retour4"
+        android:layout_width="63dp"
+        android:layout_height="66dp"
+        android:background="@color/FONT"
+        android:contentDescription="@string/retour"
+        android:visibility="invisible"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/fleche"/>
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="414dp"

@@ -12,14 +12,18 @@
         <entry key="..\:/Users/matth/Desktop/ProjectAndroidtest/app/src/main/res/layout/recycler_view2.xml" value="0.1" />
         <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroidtest/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.11614583333333334" />
         <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroidtest/app/src/main/res/drawable/barrebas.xml" value="0.17708333333333334" />
+        <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroidtest/app/src/main/res/drawable/discussion.xml" value="0.27708333333333335" />
         <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroidtest/app/src/main/res/drawable/rectangle.xml" value="0.25" />
         <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroidtest/app/src/main/res/layout/appareil_photo.xml" value="0.2609375" />
+        <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroidtest/app/src/main/res/layout/chat.xml" value="0.33" />
         <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroidtest/app/src/main/res/layout/connection.xml" value="0.2715466351829988" />
-        <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroidtest/app/src/main/res/layout/inscription.xml" value="0.1" />
-        <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroidtest/app/src/main/res/layout/matiere.xml" value="0.17760416666666667" />
-        <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroidtest/app/src/main/res/layout/messagerie.xml" value="0.25" />
+        <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroidtest/app/src/main/res/layout/inscription.xml" value="0.4607366226546213" />
+        <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroidtest/app/src/main/res/layout/matiere.xml" value="0.75" />
+        <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroidtest/app/src/main/res/layout/messagerie.xml" value="0.67" />
+        <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroidtest/app/src/main/res/layout/messagerie_result.xml" value="0.67" />
         <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroidtest/app/src/main/res/layout/recherche.xml" value="0.49076517150395776" />
-        <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroidtest/app/src/main/res/layout/recherche_result.xml" value="0.19375" />
+        <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroidtest/app/src/main/res/layout/recherche_result.xml" value="0.22" />
+        <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroidtest/app/src/main/res/layout/recycler_view.xml" value="0.25729166666666664" />
         <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroidtest/app/src/main/res/layout/sample_matiere.xml" value="0.5" />
         <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroidtest/app/src/main/res/layout/spinner.xml" value="0.19375" />
         <entry key="..\:/Users/matth/Documents/GitHub/Projet-Android/ProjectAndroidtest/app/src/main/res/layout/spinnerdropdown.xml" value="0.19375" />

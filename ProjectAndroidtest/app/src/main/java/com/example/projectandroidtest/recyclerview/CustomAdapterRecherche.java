@@ -33,7 +33,7 @@ import com.example.projectandroidtest.R;
 /**
  * Provide views to RecyclerView with data from mDataSet.
  */
-public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder> {
+public class CustomAdapterRecherche extends RecyclerView.Adapter<CustomAdapterRecherche.ViewHolder> {
     private static final String TAG = "CustomAdapter";
 
     private String[] mDataSet;
@@ -43,7 +43,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     /**
      * Provide a reference to the type of views that you are using (custom ViewHolder)
      */
-    public static class ViewHolder extends RecyclerView.ViewHolder {
+    public static class ViewHolder extends RecyclerView.ViewHolder  {
+
         private final TextView name;
         private final TextView matiere;
         private final ImageView font;
@@ -70,6 +71,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         public ImageView getFont(){return font;}
         public ImageView getPhoto(){return photo;}
         public ImageView getMask(){return mask;}
+
     }
     // END_INCLUDE(recyclerViewSampleViewHolder)
 
@@ -78,7 +80,7 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
      *
      * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
      */
-    public CustomAdapter(String[] dataSet,String[] dataSet2) {
+    public CustomAdapterRecherche(String[] dataSet, String[] dataSet2) {
         mDataSet = dataSet;
         mDataSet2 = dataSet2;
     }
@@ -91,9 +93,11 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         View v = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.recherche_result, viewGroup, false);
 
+
         return new ViewHolder(v);
     }
     // END_INCLUDE(recyclerViewOnCreateViewHolder)
+
 
     // BEGIN_INCLUDE(recyclerViewOnBindViewHolder)
     // Replace the contents of a view (invoked by the layout manager)
@@ -106,8 +110,8 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
         viewHolder.getName().setText(mDataSet[position]);
         viewHolder.getMatiere().setText(mDataSet2[position]);
         viewHolder.getFont().setImageResource(R.drawable.rechercheresult);
-        viewHolder.getPhoto().setImageResource(R.drawable.rechercheprofile2);
-        viewHolder.getMask().setImageResource(R.drawable.rechercheprofile1);
+        viewHolder.getPhoto().setImageResource(R.drawable.recherchephoto);
+        viewHolder.getMask().setImageResource(R.drawable.recherchemask);
     }
     // END_INCLUDE(recyclerViewOnBindViewHolder)
     
@@ -116,4 +120,5 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.ViewHolder
     public int getItemCount() {
         return mDataSet.length;
     }
+
 }

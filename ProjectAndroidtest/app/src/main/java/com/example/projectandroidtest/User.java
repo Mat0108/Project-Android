@@ -29,6 +29,11 @@ public class User {
         Nom = nom;
         Adresse = adresse;
     }
+    public void setAll2(User user){
+        Mail = user.getMail();
+        Nom = user.getNom();
+        Adresse = user.getAdresse();
+    }
     public String getMail() {return Mail;}
     public void setMail(String mail) {Mail = mail;}
     public String getNom() {return Nom;}
@@ -50,6 +55,14 @@ public class User {
         if (Mail.equals(user.getMail()) && Nom.equals(user.getNom()) && Adresse.equals(user.getAdresse())) {
             return true;
         } else {
+            return false;
+        }
+    }
+    public boolean compareMail(String mail){
+        if (Mail.equals(mail)){
+            return true;
+        }
+        else{
             return false;
         }
     }

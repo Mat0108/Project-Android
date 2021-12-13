@@ -88,9 +88,6 @@ public class BDD {
         ArrayList<Matiere> matieres = (ArrayList<Matiere>) this.getMatieres().clone();
         int selected;
         int remove = 0;
-        Log.d("Selected",matiere);
-        Log.d("Selected","before traitement");
-        this.print(1);
         for (int i = 0;i<this.users.size();i++) {
             selected = 0;
             if (matiere.equals("Francais") && this.matieres.get(i).getFrancais() == 2){selected = 1;}
@@ -103,8 +100,6 @@ public class BDD {
             if (matiere.equals("Espagnol") && this.matieres.get(i).getEspagnol() == 2) {selected = 1;}
             if (matiere.equals("Allemand") && this.matieres.get(i).getAllemand() == 2) {selected = 1;}
             if(matiere.equals("Tout")){selected = 1;}
-
-            Log.d("Selected",String.valueOf(selected));
             if (selected == 0){
                 users.remove(i - remove);
                 matieres.remove(i - remove);
@@ -115,8 +110,6 @@ public class BDD {
         }
         this.setUsers(users);
         this.setMatieres(matieres);
-        Log.d("Selected","after traitement");
-        this.print(1);
     }
 
 }

@@ -8,34 +8,25 @@
     android:background="@color/FONT"
     android:orientation="vertical">
 
-    <Button
+    <ImageButton
         android:id="@+id/retour"
-        android:layout_width="36dp"
-        android:layout_height="39dp"
-        android:layout_marginEnd="355dp"
-        android:layout_marginBottom="70dp"
-        android:text="@string/retour"
-        android:textSize="18sp"
-        android:translationX="0dp"
-        android:translationY="5dp"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="63dp"
+        android:layout_height="66dp"
+        android:background="@color/FONT"
+        android:contentDescription="@string/retour"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/inscriptionhaut"
-        />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/fleche"
+        tools:ignore="SpeakableTextPresentCheck" />
 
     <ImageView
         android:id="@+id/inscriptionhaut"
         android:layout_width="match_parent"
         android:layout_height="69dp"
-        android:layout_marginBottom="59dp"
         android:contentDescription="@string/incription"
         android:src="@drawable/inscriptionhaut"
         android:translationY="0dp"
         android:translationZ="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout4"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/inscriptionhaut" />
@@ -45,16 +36,12 @@
         android:layout_width="178dp"
         android:layout_height="wrap_content"
 
-        android:layout_marginEnd="230dp"
-        android:layout_marginBottom="18dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="8dp"
         android:background="#00000000"
         android:text="@string/incription"
         android:textColor="@color/TEXT"
         android:textSize="20sp"
-        android:translationX="30dp"
-        android:translationY="0dp"
-        app:layout_constraintBottom_toBottomOf="@+id/inscriptionhaut"
-        app:layout_constraintEnd_toEndOf="@id/inscriptionhaut"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -117,7 +104,8 @@
             android:textColor="#4DFFFFFF"
             android:textColorHint="#4DFFFFFF"
             android:translationX="120dp"
-            android:translationY="5dp" />
+            android:translationY="5dp"
+            tools:ignore="TextContrastCheck" />
 
         <EditText
             android:id="@+id/editTextTextPassword"

@@ -1,29 +1,22 @@
 package com.example.projectandroidtest;
 
-import static android.provider.MediaStore.ACTION_IMAGE_CAPTURE;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
+import android.app.Activity;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -42,74 +35,22 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
     public Matiere matiere = new Matiere();
     public User user = new User();
-    public String pass = new String();
+    public String pass;
     public BDD bdd = new BDD();
     public User globallastclik = new User("test","test","test");
-    private ImageButton btnPrendrePhoto;
-    private ImageView imgAffichePhoto;
-    private String photoPath = null;
 
-    private static final int RETOUR_PRENDRE_PHOTO = 1;
+    public varLayout varLayout;
 
-    private void photoActivity(){//récupération des objets graphiques et gérer les evenements
-        btnPrendrePhoto = (ImageButton)findViewById(R.id.btnPrendrePhoto);
-        imgAffichePhoto  = (ImageView)findViewById(R.id.imgAffichePhoto);
-    }
+    public MainActivity.varLayout getVarLayout() {return varLayout;}
 
-    private void creatOnclickPrendrePhoto(){
-        btnPrendrePhoto.setOnClickListener(new ImageButton.OnClickListener(){
+    public void setVarLayout(MainActivity.varLayout varLayout) {this.varLayout = varLayout;}
 
-            @Override
-            public void onClick(View view) {
-                prendreUnePhoto();
-            }
-        });
-
-    }
-
-    private void prendreUnePhoto(){//accès appareil photo et a la memoire
-        Intent intent = new Intent(ACTION_IMAGE_CAPTURE);
-        if(intent.resolveActivity(getPackageManager()) != null ){//on verifie l'accés à lappareil photo et si il y en a un
-            //creation nom de fichier
-            String time = new SimpleDateFormat( "yyyyMMdd_HHmmss").format(new Date());
-            File photoDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);//direction du fichier
-            try{
-                File photoFile = File.createTempFile("photo"+time, ".jpg",photoDir);
-                photoPath = photoFile.getAbsolutePath();//on enregistre le chemin complet
-                Uri photoUri = FileProvider.getUriForFile( MainActivity.this,  MainActivity.this.getApplicationContext().getPackageName()+".provider", photoFile);
-                intent.putExtra(MediaStore.EXTRA_OUTPUT,photoUri);
-                startActivityForResult(intent,  RETOUR_PRENDRE_PHOTO);
-            }catch (IOException e){
-                e.printStackTrace();
-            }
-
-
-
-        }
-
-    }
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data){
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode==RETOUR_PRENDRE_PHOTO && resultCode==RESULT_OK){
-            //si le code de retour est bon, on affiche l'image
-            Bitmap image= BitmapFactory.decodeFile(photoPath);
-            imgAffichePhoto.setImageBitmap(image);
-
-        }
-    }
-
-
+    public Activity activity ;
 
     private void updateUI(FirebaseUser user) {
     }
@@ -126,8 +67,11 @@ public class MainActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "createUserWithEmail:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
+
+                            FirebaseUser mUser = mAuth.getCurrentUser();
+                            updateUI(mUser);
+
+
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
@@ -145,52 +89,51 @@ public class MainActivity extends AppCompatActivity {
 
     public void OnClickMatiere() {
 
-        RadioGroup Fr = (RadioGroup) findViewById(R.id.Fr_Group);
+        RadioGroup Fr = findViewById(R.id.Fr_Group);
 
         if (Fr.getCheckedRadioButtonId() == R.id.Fr_R){matiere.setFrancais(1L);}
         else if(Fr.getCheckedRadioButtonId()==R.id.Fr_M){matiere.setFrancais(2L);}
         else {matiere.setFrancais(0L);}
 
-        RadioGroup Maths = (RadioGroup) findViewById(R.id.Mt_Group);
+        RadioGroup Maths = findViewById(R.id.Mt_Group);
         if (Maths.getCheckedRadioButtonId() == R.id.Mt_R){matiere.setMaths(1L);}
         else if(Maths.getCheckedRadioButtonId()==R.id.Mt_M){matiere.setMaths(2L);}
         else {matiere.setMaths(0L);}
 
-        RadioGroup Physique = (RadioGroup) findViewById(R.id.Ph_group);
+        RadioGroup Physique = findViewById(R.id.Ph_group);
         if (Physique.getCheckedRadioButtonId() == R.id.Ph_R){matiere.setPhysique(1L);}
         else if(Physique.getCheckedRadioButtonId()==R.id.Ph_M){matiere.setPhysique(2L);}
         else {matiere.setPhysique(0L);}
 
-        RadioGroup Chemie = (RadioGroup) findViewById(R.id.Ch_group);
+        RadioGroup Chemie = findViewById(R.id.Ch_group);
         if (Chemie.getCheckedRadioButtonId() == R.id.Ch_R){matiere.setChemie(1L);}
         else if(Chemie.getCheckedRadioButtonId()==R.id.Ch_M){matiere.setChemie(2L);}
         else {matiere.setChemie(0L);}
 
-        RadioGroup Histoire = (RadioGroup) findViewById(R.id.Hi_group);
+        RadioGroup Histoire = findViewById(R.id.Hi_group);
         if (Histoire.getCheckedRadioButtonId() == R.id.Hi_R){matiere.setHistoire(1L);}
         else if(Histoire.getCheckedRadioButtonId()==R.id.Hi_M){matiere.setHistoire(2L);}
         else {matiere.setHistoire(0L);}
 
-        RadioGroup Geo = (RadioGroup) findViewById(R.id.Ge_Group);
+        RadioGroup Geo = findViewById(R.id.Ge_Group);
         if (Geo.getCheckedRadioButtonId() == R.id.Ge_R){matiere.setGeographie(1L);}
         else if(Geo.getCheckedRadioButtonId()==R.id.Ge_M){matiere.setGeographie(2L);}
         else {matiere.setGeographie(0L);}
 
-        RadioGroup Anglais = (RadioGroup) findViewById(R.id.An_group);
+        RadioGroup Anglais = findViewById(R.id.An_group);
         if (Anglais.getCheckedRadioButtonId() == R.id.An_R){matiere.setAnglais(1L);}
         else if(Anglais.getCheckedRadioButtonId()==R.id.An_M){matiere.setAnglais(2L);}
         else {matiere.setAnglais(0L);}
 
-        RadioGroup Espagnol = (RadioGroup) findViewById(R.id.Es_group);
+        RadioGroup Espagnol = findViewById(R.id.Es_group);
         if (Espagnol.getCheckedRadioButtonId() == R.id.Es_R){matiere.setEspagnol(1L);}
         else if(Espagnol.getCheckedRadioButtonId()==R.id.Es_M){matiere.setEspagnol(2L);}
         else {matiere.setEspagnol(0L);}
 
-        RadioGroup Allemand = (RadioGroup) findViewById(R.id.Al_group);
+        RadioGroup Allemand = findViewById(R.id.Al_group);
         if (Allemand.getCheckedRadioButtonId() == R.id.Al_R){matiere.setAllemand(1L);}
         else if(Allemand.getCheckedRadioButtonId()==R.id.Al_M){matiere.setAllemand(2L);}
         else {matiere.setAllemand(0L);}
-        Log.i("onclick", matiere.toString());
     }
 
     public class varLayout {
@@ -204,6 +147,13 @@ public class MainActivity extends AppCompatActivity {
         public void setlayout(int lelayout) {
             this.layout = lelayout;
             setContentView(lelayout);
+        }
+
+        @Override
+        public String toString() {
+            return "varLayout{" +
+                    "layout=" + layout +
+                    '}';
         }
 
         public int getLayout() {
@@ -224,13 +174,14 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     setlayout(R.layout.matiere);
-                    LayoutMatiere();
+                    LayoutReglage();
                 }
             });
             messagerie.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     setlayout(R.layout.messagerie);
+                    LayoutMessagerie();
 
                 }
             });
@@ -246,8 +197,15 @@ public class MainActivity extends AppCompatActivity {
                             if (task.isSuccessful()) {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("TAG", "signInWithEmail:success");
-                                FirebaseUser user = mAuth.getCurrentUser();
-                                updateUI(user);
+                                FirebaseUser mUser = mAuth.getCurrentUser();
+                                updateUI(mUser);
+                                user.setMail(mUser.getEmail());
+                                for (int i = 0; i < bdd.getSize(); i++) {
+                                    if (bdd.getUsers().get(i).compareMail(user.getMail())){
+                                        user.setAll2(bdd.getUsers().get(i));
+                                        matiere.setAll2(bdd.getMatieres().get(i));
+                                    }
+                                }
                                 setlayout(R.layout.recherche);
                                 LayoutRecherche();
                             } else {
@@ -263,22 +221,14 @@ public class MainActivity extends AppCompatActivity {
             // [END sign_in_with_email]
         }
 
-        public void configureOnClickRecyclerView(RecyclerView view){
-            ItemClickSupport.addTo(view, R.layout.recherche_result)
-                    .setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
-                        @Override
-                        public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                            Log.e("TAG", "Position : "+position);
-                        }
-                    });
-        }
-
         public void LayoutRecherche() {
             if (getLayout() == R.layout.recherche) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                RecyclerViewFragment fragment = new RecyclerViewFragment(bdd);
+                RecyclerViewFragment fragment = new RecyclerViewFragment(bdd,activity,R.layout.recherche_result,varLayout);
                 transaction.replace(R.id.sample_content_fragment, fragment);
                 transaction.commit();
+
+
 
                 Spinner choix = (Spinner) findViewById(R.id.choix);
                 String matiere[] = {"Francais","Maths","Physique","Chemie","Histoire","Geographie","Anglais","Espagnol","Allemand"};
@@ -315,13 +265,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 barrebas();
-                Button layout = (Button) findViewById(R.id.recherchebutton);
-                layout.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.d("test",fragment.getLastclick().toString());
-                    }
-                });
+
 
             }
         }
@@ -362,8 +306,8 @@ public class MainActivity extends AppCompatActivity {
             if (getLayout() == R.layout.inscription) {
 
                 Button inscription = (Button) findViewById(R.id.inscription_bouton_confiramtion);
-                Button retour = (Button) findViewById(R.id.retour);
-                Button image = (Button) findViewById(R.id.inscription_ajouter_image);
+                ImageButton retour = (ImageButton) findViewById(R.id.retour);
+                
                 retour.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -376,14 +320,6 @@ public class MainActivity extends AppCompatActivity {
                 EditText Password_confirmed = (EditText) findViewById(R.id.inscriptionpassword2);
                 EditText Adresse = (EditText) findViewById(R.id.incriptionadresse);
                 EditText Email = (EditText) findViewById(R.id.inscriptionmail);
-
-                image.setOnClickListener(new View.OnClickListener() {
-                                             @Override
-                                             public void onClick(View v) {
-                                                 setlayout(R.layout.appareil_photo);
-                                                 LayoutInscription();
-                                             }
-                                         });
 
                 inscription.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -423,6 +359,7 @@ public class MainActivity extends AppCompatActivity {
                 });
             }
         }
+
         public void LayoutMatiere(){
             if (getLayout() == R.layout.matiere){
                 Button Save = (Button) findViewById(R.id.Save);
@@ -444,6 +381,142 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
+        public void LayoutReglage(){
+            if (getLayout() == R.layout.matiere){
+                ImageButton retour = (ImageButton) findViewById(R.id.retour4);
+                retour.setVisibility(View.VISIBLE);
+                retour.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setlayout(R.layout.recherche);
+                        LayoutRecherche();
+                    }
+                });
+                if (matiere.getFrancais() == 1L){
+                    RadioButton radio = findViewById(R.id.Fr_R);
+                    radio.setChecked(true);
+                }
+                if (matiere.getFrancais() == 2L){
+                    RadioButton radio = findViewById(R.id.Fr_M);
+                    radio.setChecked(true);
+                }
+                if (matiere.getMaths() == 1L){
+                    RadioButton radio = findViewById(R.id.Mt_R);
+                    radio.setChecked(true);
+                }
+                if (matiere.getMaths() == 2L){
+                    RadioButton radio = findViewById(R.id.Mt_M);
+                    radio.setChecked(true);
+                }
+                if (matiere.getPhysique() == 1L){
+                    RadioButton radio = findViewById(R.id.Ph_R);
+                    radio.setChecked(true);
+                }
+                if (matiere.getPhysique() == 2L){
+                    RadioButton radio = findViewById(R.id.Ph_M);
+                    radio.setChecked(true);
+                }
+                if (matiere.getChemie() == 1L){
+                    RadioButton radio = findViewById(R.id.Ch_R);
+                    radio.setChecked(true);
+                }
+                if (matiere.getChemie() == 2L){
+                    RadioButton radio = findViewById(R.id.Ch_M);
+                    radio.setChecked(true);
+                }
+                if (matiere.getHistoire() == 1L){
+                    RadioButton radio = findViewById(R.id.Hi_R);
+                    radio.setChecked(true);
+                }
+                if (matiere.getHistoire() == 2L){
+                    RadioButton radio = findViewById(R.id.Hi_M);
+                    radio.setChecked(true);
+                }
+                if (matiere.getGeographie() == 1L){
+                    RadioButton radio = findViewById(R.id.Ge_R);
+                    radio.setChecked(true);
+                }
+                if (matiere.getGeographie() == 2L){
+                    RadioButton radio = findViewById(R.id.Ge_M);
+                    radio.setChecked(true);
+                }
+                if (matiere.getAnglais() == 1L){
+                    RadioButton radio = findViewById(R.id.An_R);
+                    radio.setChecked(true);
+                }
+                if (matiere.getAnglais() == 2L){
+                    RadioButton radio = findViewById(R.id.An_M);
+                    radio.setChecked(true);
+                }
+                if (matiere.getAllemand() == 1L){
+                    RadioButton radio = findViewById(R.id.An_R);
+                    radio.setChecked(true);
+                }
+                if (matiere.getAllemand() == 2L){
+                    RadioButton radio = findViewById(R.id.Al_M);
+                    radio.setChecked(true);
+                }
+                if (matiere.getEspagnol() == 1L){
+                    RadioButton radio = findViewById(R.id.Es_R);
+                    radio.setChecked(true);
+                }
+                if (matiere.getEspagnol() == 2L){
+                    RadioButton radio = findViewById(R.id.Es_M);
+                    radio.setChecked(true);
+                }
+                Button Save = findViewById(R.id.Save);
+                Save.setText("Mise à jour");
+                Save.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setlayout(R.layout.recherche);
+                        LayoutRecherche();
+                    }
+
+                });
+            }
+
+        }
+
+        public void LayoutMessagerie(){
+            if (getLayout() == R.layout.messagerie) {
+                ImageButton retour = (ImageButton) findViewById(R.id.retour2);
+
+                retour.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setlayout(R.layout.recherche);
+                        LayoutRecherche();
+                    }
+                });
+
+                FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
+                RecyclerViewFragment fragment2 = new RecyclerViewFragment(bdd, activity, R.layout.messagerie_result,varLayout);
+
+                transaction2.replace(R.id.sample_content_fragment, fragment2);
+                transaction2.commit();
+                barrebas();
+            }
+        }
+        public void LayoutChat(){
+            if (getLayout() == R.layout.chat) {
+                ImageButton retour = (ImageButton) findViewById(R.id.retour3);
+
+                retour.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setlayout(R.layout.messagerie);
+                        LayoutMessagerie();
+                    }
+                });
+                FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
+                RecyclerViewFragment fragment3 = new RecyclerViewFragment(bdd, activity, R.layout.chat_result,varLayout);
+
+                transaction3.replace(R.id.sample_content_fragment, fragment3);
+                transaction3.commit();
+
+            }
+        }
     }
 
 
@@ -452,19 +525,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        final varLayout layout;
-        layout = new varLayout(R.layout.connection);
-        setContentView(layout.getLayout());
+        activity = this;
+        varLayout = new varLayout(R.layout.connection);
+        setContentView(varLayout.getLayout());
         getSupportActionBar().hide();
-        layout.LayoutConnection();
-        layout.LayoutInscription();
-        layout.LayoutRecherche();
-        layout.LayoutMatiere();
+        varLayout.LayoutConnection();
+        varLayout.LayoutInscription();
+        varLayout.LayoutRecherche();
+        varLayout.LayoutMatiere();
+        varLayout.LayoutReglage();
+        varLayout.LayoutMessagerie();
+        varLayout.LayoutChat();
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        photoActivity();
-        creatOnclickPrendrePhoto();
         if(currentUser != null){
             reload();
         }
@@ -528,4 +602,6 @@ public class MainActivity extends AppCompatActivity {
         matieresRef.addListenerForSingleValueEvent(matieresEvent);
 
     }
+
+
 }
