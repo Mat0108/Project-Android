@@ -16,10 +16,15 @@ public class User {
     private String Mail;
     private String Nom;
     private String Adresse;
+
+    private ArrayList<String> message = new ArrayList<String>();
     public User(String mail,  String nom, String adresse) {
         Mail = mail;
         Nom = nom;
         Adresse = adresse;
+
+
+
     }
     public User(){
 
@@ -28,6 +33,8 @@ public class User {
         Mail = mail;
         Nom = nom;
         Adresse = adresse;
+        message.add("dsfvcxw");
+        message.add("sddgvc");
     }
     public void setAll2(User user){
         Mail = user.getMail();
@@ -40,13 +47,22 @@ public class User {
     public void setNom(String nom) {Nom = nom;}
     public String getAdresse() {return Adresse;}
     public void setAdresse(String adresse) {Adresse = adresse; }
-
+    public ArrayList<String> getMessage() {return message;}
+    public void setMessage(ArrayList<String> message) {this.message = message;}
+    public void addMessage(String text){
+        this.message.add(text);
+    }
+    public void printMessage(){
+        for (int i = 0; i < this.message.size(); i++) {
+            Log.d("message", message.get(i));
+        }
+    }
     @Override
     public String toString() {
         return "User{" +
                 "Mail='" + Mail + '\'' +
                 ", Nom='" + Nom + '\'' +
-                ", Adresse='" + Adresse + '\'' +
+                ", Adresse='" + Adresse + '\''+
                 '}';
     }
 
@@ -66,4 +82,5 @@ public class User {
             return false;
         }
     }
+
 }

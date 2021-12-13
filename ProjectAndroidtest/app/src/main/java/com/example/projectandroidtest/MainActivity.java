@@ -36,6 +36,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -43,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     public User user = new User();
     public String pass;
     public BDD bdd = new BDD();
+    public ArrayList<String> uid = new ArrayList<String>();
     public User globallastclik = new User("test","test","test");
 
     public varLayout varLayout;
@@ -203,14 +206,18 @@ public class MainActivity extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("TAG", "signInWithEmail:success");
                                 FirebaseUser mUser = mAuth.getCurrentUser();
+                                Log.d("test",mAuth.getUid());
                                 updateUI(mUser);
                                 user.setMail(mUser.getEmail());
                                 for (int i = 0; i < bdd.getSize(); i++) {
                                     if (bdd.getUsers().get(i).compareMail(user.getMail())){
                                         user.setAll2(bdd.getUsers().get(i));
                                         matiere.setAll2(bdd.getMatieres().get(i));
+                                        getMessage(uid.get(i));
+                                        user.printMessage();
                                     }
                                 }
+
                                 setlayout(R.layout.recherche);
                                 LayoutRecherche();
                             } else {
@@ -225,7 +232,23 @@ public class MainActivity extends AppCompatActivity {
 
             // [END sign_in_with_email]
         }
+        public void getMessage(String id){
+            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
+            DatabaseReference friendsRef = usersRef.child(id).child("message");
+           ValueEventListener eventListener = new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                        String message = ds.getValue(String.class);
+                        user.addMessage(message);
+                    }
+                }
 
+                @Override
+                public void onCancelled(DatabaseError databaseError) {}
+            };
+            friendsRef.addListenerForSingleValueEvent(eventListener);
+        }
         public void LayoutRecherche() {
             if (getLayout() == R.layout.recherche) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -550,7 +573,7 @@ public class MainActivity extends AppCompatActivity {
         }
         EditText Mail = (EditText) findViewById(R.id.connectionmail);
         EditText Password = (EditText) findViewById(R.id.connectionpassword);
-        Mail.setText("test@test.com");
+        Mail.setText("armin@test.com");
         Password.setText("test1234");
 
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
@@ -561,6 +584,7 @@ public class MainActivity extends AppCompatActivity {
                         String name = ds.child("nom").getValue(String.class);
                         String mail = ds.child("mail").getValue(String.class);
                         String adresse = ds.child("adresse").getValue(String.class);
+                        uid.add(ds.getKey());
                         User user = new User(mail, name, adresse);
                         bdd.addUsers(user);
                 }
@@ -569,6 +593,8 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {}
         };
         usersRef.addListenerForSingleValueEvent(usersEvent);
+
+
         DatabaseReference matieresRef = FirebaseDatabase.getInstance().getReference().child("matieres");
         ValueEventListener matieresEvent = new ValueEventListener() {
             @Override
