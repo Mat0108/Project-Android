@@ -1,11 +1,20 @@
 package com.example.projectandroidtest;
 
+import static android.provider.MediaStore.ACTION_IMAGE_CAPTURE;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +22,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -31,6 +42,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference mDatabase;
@@ -39,6 +55,61 @@ public class MainActivity extends AppCompatActivity {
     public String pass = new String();
     public BDD bdd = new BDD();
     public User globallastclik = new User("test","test","test");
+    private ImageButton btnPrendrePhoto;
+    private ImageView imgAffichePhoto;
+    private String photoPath = null;
+
+    private static final int RETOUR_PRENDRE_PHOTO = 1;
+
+    private void photoActivity(){//récupération des objets graphiques et gérer les evenements
+        btnPrendrePhoto = (ImageButton)findViewById(R.id.btnPrendrePhoto);
+        imgAffichePhoto  = (ImageView)findViewById(R.id.imgAffichePhoto);
+    }
+
+    private void creatOnclickPrendrePhoto(){
+        btnPrendrePhoto.setOnClickListener(new ImageButton.OnClickListener(){
+
+            @Override
+            public void onClick(View view) {
+                prendreUnePhoto();
+            }
+        });
+
+    }
+
+    private void prendreUnePhoto(){//accès appareil photo et a la memoire
+        Intent intent = new Intent(ACTION_IMAGE_CAPTURE);
+        if(intent.resolveActivity(getPackageManager()) != null ){//on verifie l'accés à lappareil photo et si il y en a un
+            //creation nom de fichier
+            String time = new SimpleDateFormat( "yyyyMMdd_HHmmss").format(new Date());
+            File photoDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);//direction du fichier
+            try{
+                File photoFile = File.createTempFile("photo"+time, ".jpg",photoDir);
+                photoPath = photoFile.getAbsolutePath();//on enregistre le chemin complet
+                Uri photoUri = FileProvider.getUriForFile( MainActivity.this,  MainActivity.this.getApplicationContext().getPackageName()+".provider", photoFile);
+                intent.putExtra(MediaStore.EXTRA_OUTPUT,photoUri);
+                startActivityForResult(intent,  RETOUR_PRENDRE_PHOTO);
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+
+
+
+        }
+
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==RETOUR_PRENDRE_PHOTO && resultCode==RESULT_OK){
+            //si le code de retour est bon, on affiche l'image
+            Bitmap image= BitmapFactory.decodeFile(photoPath);
+            imgAffichePhoto.setImageBitmap(image);
+
+        }
+    }
+
+
 
     private void updateUI(FirebaseUser user) {
     }
@@ -292,7 +363,7 @@ public class MainActivity extends AppCompatActivity {
 
                 Button inscription = (Button) findViewById(R.id.inscription_bouton_confiramtion);
                 Button retour = (Button) findViewById(R.id.retour);
-                
+                Button image = (Button) findViewById(R.id.inscription_ajouter_image);
                 retour.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -305,6 +376,14 @@ public class MainActivity extends AppCompatActivity {
                 EditText Password_confirmed = (EditText) findViewById(R.id.inscriptionpassword2);
                 EditText Adresse = (EditText) findViewById(R.id.incriptionadresse);
                 EditText Email = (EditText) findViewById(R.id.inscriptionmail);
+
+                image.setOnClickListener(new View.OnClickListener() {
+                                             @Override
+                                             public void onClick(View v) {
+                                                 setlayout(R.layout.appareil_photo);
+                                                 LayoutInscription();
+                                             }
+                                         });
 
                 inscription.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -384,6 +463,8 @@ public class MainActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance().getReference();
         FirebaseUser currentUser = mAuth.getCurrentUser();
+        photoActivity();
+        creatOnclickPrendrePhoto();
         if(currentUser != null){
             reload();
         }

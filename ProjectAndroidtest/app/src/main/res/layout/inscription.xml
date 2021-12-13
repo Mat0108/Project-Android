@@ -93,10 +93,9 @@
         android:id="@+id/linearLayout4"
         android:layout_width="346dp"
         android:layout_height="422dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="125dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/linearLayout3">
 
