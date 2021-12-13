@@ -36,7 +36,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -56,12 +60,8 @@ public class MainActivity extends AppCompatActivity {
 
     public Activity activity ;
 
-    private void updateUI(FirebaseUser user) {
-    }
-
-    private void reload() {
-    }
-
+    private void updateUI(FirebaseUser user) {}
+    private void reload() {}
     private void createAccount(String email, String password) {
         // [START create_user_with_email]
         mAuth.createUserWithEmailAndPassword(email, password)
@@ -90,7 +90,6 @@ public class MainActivity extends AppCompatActivity {
         // [END create_user_with_email]
 
     }
-
     public void OnClickMatiere() {
 
         RadioGroup Fr = findViewById(R.id.Fr_Group);
@@ -215,6 +214,7 @@ public class MainActivity extends AppCompatActivity {
                                         matiere.setAll2(bdd.getMatieres().get(i));
                                         getMessage(uid.get(i));
                                         user.printMessage();
+                                        CreateMessage(user,bdd.getUsers().get(4),uid.get(i),uid.get(4));
                                     }
                                 }
 
@@ -248,6 +248,19 @@ public class MainActivity extends AppCompatActivity {
                 public void onCancelled(DatabaseError databaseError) {}
             };
             friendsRef.addListenerForSingleValueEvent(eventListener);
+        }
+        public void CreateMessage(User user, User user2,String uid,String uid2){
+            Message message = new Message(user,user2);
+            message.addMessage1("Bonjour j'aurai besoin d'aide en maths");
+            message.addMessage1("Je suis dispo jeudi a partir de 16h");
+            message.addMessage2("Bonjour, je suis dispo jeudi soir et vendredi soir");
+            message.addMessage2("Est que jeudi à 17h chez vous va ? si oui quel est votre adresse ? ");
+            DateFormat dateFormat = new SimpleDateFormat("HHmmss");
+            Date date = new Date();
+            String id = dateFormat.format(date).toString();
+            mDatabase.child("message").child(id).setValue(message);
+            mDatabase.child("users").child(uid).child("message").child(id).setValue(id);
+            mDatabase.child("users").child(uid2).child("message").child(id).setValue(id);
         }
         public void LayoutRecherche() {
             if (getLayout() == R.layout.recherche) {

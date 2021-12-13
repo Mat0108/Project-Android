@@ -6,8 +6,8 @@ public class Message {
     protected String uid;
     protected User user1;
     protected User user2;
-    protected ArrayList<String> message1;
-    protected ArrayList<String> message2;
+    protected ArrayList<String> message1 = new ArrayList<String>();
+    protected ArrayList<String> message2 = new ArrayList<String>();
 
     public String getUid() {return uid;}
     public void setUid(String uid) {this.uid = uid;}
@@ -19,4 +19,13 @@ public class Message {
     public void setMessage1(ArrayList<String> message1) {this.message1 = message1;}
     public ArrayList<String> getMessage2() {return message2;}
     public void setMessage2(ArrayList<String> message2) {this.message2 = message2;}
+    public void addMessage1(String message){this.message1.add(message);}
+    public void addMessage2(String message){this.message2.add(message);}
+    public Message(User user1, User user2) {
+        this.user1 = user1;
+        this.user2 = user2;
+    }
+    public Message(){
+
+    }
 }
