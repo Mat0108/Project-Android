@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     public BDD bdd = new BDD();
     public ArrayList<String> uid = new ArrayList<String>();
     public User globallastclik = new User("test","test","test");
+    public ArrayList<Message> listemessage = new ArrayList<Message>();
 
     public varLayout varLayout;
 
@@ -212,9 +213,9 @@ public class MainActivity extends AppCompatActivity {
                                     if (bdd.getUsers().get(i).compareMail(user.getMail())){
                                         user.setAll2(bdd.getUsers().get(i));
                                         matiere.setAll2(bdd.getMatieres().get(i));
-                                        getMessage(uid.get(i));
+                                        user.setMessage(listemessage);
                                         user.printMessage();
-                                        CreateMessage(user,bdd.getUsers().get(4),uid.get(i),uid.get(4));
+                                        //CreateMessage(user,bdd.getUsers().get(6),uid.get(i),uid.get(6));
                                     }
                                 }
 
@@ -232,23 +233,7 @@ public class MainActivity extends AppCompatActivity {
 
             // [END sign_in_with_email]
         }
-        public void getMessage(String id){
-            DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
-            DatabaseReference friendsRef = usersRef.child(id).child("message");
-           ValueEventListener eventListener = new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for(DataSnapshot ds : dataSnapshot.getChildren()) {
-                        String message = ds.getValue(String.class);
-                        user.addMessage(message);
-                    }
-                }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {}
-            };
-            friendsRef.addListenerForSingleValueEvent(eventListener);
-        }
         public void CreateMessage(User user, User user2,String uid,String uid2){
             Message message = new Message(user,user2);
             message.addMessage1("Bonjour j'aurai besoin d'aide en maths");
@@ -265,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
         public void LayoutRecherche() {
             if (getLayout() == R.layout.recherche) {
                 FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                RecyclerViewFragment fragment = new RecyclerViewFragment(bdd,activity,R.layout.recherche_result,varLayout);
+                RecyclerViewFragment fragment = new RecyclerViewFragment(bdd,activity,R.layout.recherche_result,varLayout,user);
                 transaction.replace(R.id.sample_content_fragment, fragment);
                 transaction.commit();
 
@@ -532,7 +517,7 @@ public class MainActivity extends AppCompatActivity {
                 });
 
                 FragmentTransaction transaction2 = getSupportFragmentManager().beginTransaction();
-                RecyclerViewFragment fragment2 = new RecyclerViewFragment(bdd, activity, R.layout.messagerie_result,varLayout);
+                RecyclerViewFragment fragment2 = new RecyclerViewFragment(bdd, activity, R.layout.messagerie_result,varLayout,user);
 
                 transaction2.replace(R.id.sample_content_fragment, fragment2);
                 transaction2.commit();
@@ -552,10 +537,27 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
-                RecyclerViewFragment fragment3 = new RecyclerViewFragment(bdd, activity, R.layout.chat_result,varLayout);
-
+                RecyclerViewFragment fragment3 = new RecyclerViewFragment(activity, R.layout.chat_result,varLayout,user,bdd.getUsers().get(getUserid()));
                 transaction3.replace(R.id.sample_content_fragment, fragment3);
                 transaction3.commit();
+
+                TextView text2 = (TextView) findViewById(R.id.Chat_text);
+                Button chat = (Button) findViewById(R.id.Chat_button);
+                chat.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.d("test","test");
+                        Message message = fragment3.getMessages();
+                        if (message.getMessage1().size()>message.getMessage2().size()){
+                            String text = message.getMessage1().get(message.getMessage1().size()-1);
+                            text = text+text2.getText();
+                            message.getMessage1().set(message.getMessage1().size()-1,text);
+                            Log.d("test",message.getMessage1().get(message.getMessage1().size()-1));
+                            fragment3.updateDataset(message,message.getMessage1().size()+message.getMessage2().size()-1);
+                        }
+
+                    }
+                });
 
             }
         }
@@ -644,6 +646,22 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {}
         };
         matieresRef.addListenerForSingleValueEvent(matieresEvent);
+        DatabaseReference messageRef = FirebaseDatabase.getInstance().getReference().child("message");
+        ValueEventListener  messageEvent = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                for (DataSnapshot ds : dataSnapshot.getChildren()) {
+                    Message message = ds.getValue(Message.class);
+                    message.setUid(ds.getKey());
+                    listemessage.add(message);
+                }
+
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {}
+        };
+        messageRef.addListenerForSingleValueEvent( messageEvent);
 
     }
 

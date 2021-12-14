@@ -17,7 +17,7 @@ public class User {
     private String Nom;
     private String Adresse;
 
-    private ArrayList<String> message = new ArrayList<String>();
+    private ArrayList<Message> message = new ArrayList<Message>();
     public User(String mail,  String nom, String adresse) {
         Mail = mail;
         Nom = nom;
@@ -33,8 +33,7 @@ public class User {
         Mail = mail;
         Nom = nom;
         Adresse = adresse;
-        message.add("dsfvcxw");
-        message.add("sddgvc");
+
     }
     public void setAll2(User user){
         Mail = user.getMail();
@@ -47,14 +46,18 @@ public class User {
     public void setNom(String nom) {Nom = nom;}
     public String getAdresse() {return Adresse;}
     public void setAdresse(String adresse) {Adresse = adresse; }
-    public ArrayList<String> getMessage() {return message;}
-    public void setMessage(ArrayList<String> message) {this.message = message;}
-    public void addMessage(String text){
-        this.message.add(text);
+    public void setMessage(ArrayList<Message> messages) {
+        for (int i=0;i<messages.size();i++){
+            if (this.compare(messages.get(i).getUser1()) || this.compare(messages.get(i).getUser2()) ){
+                message.add(messages.get(i));
+            }
+        }
     }
+    public void addMessage(Message text){this.message.add(text);}
+    public ArrayList<Message> getMessage(){return this.message;}
     public void printMessage(){
         for (int i = 0; i < this.message.size(); i++) {
-            Log.d("message", message.get(i));
+            Log.d("message", message.get(i).toString());
         }
     }
     @Override
@@ -76,6 +79,14 @@ public class User {
     }
     public boolean compareMail(String mail){
         if (Mail.equals(mail)){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+    public boolean compareNom(String nom){
+        if (Nom.equals(nom)){
             return true;
         }
         else{
