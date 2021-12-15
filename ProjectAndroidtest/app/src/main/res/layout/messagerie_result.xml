@@ -41,7 +41,7 @@
         android:id="@+id/message2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="1 nouveau message"
+        android:text="1 nouveau messages"
         android:textColor="@color/TEXT"
         android:textSize="16sp"
         android:translationX="90dp"

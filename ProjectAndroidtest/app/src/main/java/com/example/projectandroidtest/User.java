@@ -1,23 +1,15 @@
 package com.example.projectandroidtest;
 
-import android.provider.ContactsContract;
 import android.util.Log;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
-import java.util.Objects;
 
 public class User {
     private String Mail;
     private String Nom;
     private String Adresse;
 
-    private ArrayList<Message> message = new ArrayList<Message>();
+    private ArrayList<Messages> messages = new ArrayList<Messages>();
     public User(String mail,  String nom, String adresse) {
         Mail = mail;
         Nom = nom;
@@ -46,18 +38,18 @@ public class User {
     public void setNom(String nom) {Nom = nom;}
     public String getAdresse() {return Adresse;}
     public void setAdresse(String adresse) {Adresse = adresse; }
-    public void setMessage(ArrayList<Message> messages) {
+    public void setMessage(ArrayList<Messages> messages) {
         for (int i=0;i<messages.size();i++){
             if (this.compare(messages.get(i).getUser1()) || this.compare(messages.get(i).getUser2()) ){
-                message.add(messages.get(i));
+                this.messages.add(messages.get(i));
             }
         }
     }
-    public void addMessage(Message text){this.message.add(text);}
-    public ArrayList<Message> getMessage(){return this.message;}
+    public void addMessage(Messages text){this.messages.add(text);}
+    public ArrayList<Messages> getMessage(){return this.messages;}
     public void printMessage(){
-        for (int i = 0; i < this.message.size(); i++) {
-            Log.d("message", message.get(i).toString());
+        for (int i = 0; i < this.messages.size(); i++) {
+            Log.d("message", messages.get(i).toString());
         }
     }
     @Override

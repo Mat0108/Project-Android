@@ -10,5 +10,5 @@
         android:layout_width="300dp"
         android:layout_height="match_parent"
         android:background="#00BCD4"
-        android:text="Text message ................. ......................................................" />
+        android:text="Text messages ................. ......................................................" />
 </RelativeLayout>

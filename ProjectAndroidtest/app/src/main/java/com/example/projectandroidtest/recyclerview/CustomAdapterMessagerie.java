@@ -24,6 +24,7 @@ package com.example.projectandroidtest.recyclerview;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,12 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.projectandroidtest.Message;
+import com.example.projectandroidtest.Messages;
 import com.example.projectandroidtest.R;
+import com.example.projectandroidtest.User;
+
+import java.util.ArrayList;
 
 /**
  * Provide views to RecyclerView with data from mDataSet.
@@ -40,9 +46,8 @@ import com.example.projectandroidtest.R;
 public class CustomAdapterMessagerie extends RecyclerView.Adapter<CustomAdapterMessagerie.ViewHolder> {
 
 
-    private final String[] mDataSet;
-    private final String[] mDataSet2;
-    private final String[] mDataset3;
+    private ArrayList<Messages> mDataSet;
+    private User user;
 
     // BEGIN_INCLUDE(recyclerViewSampleViewHolder)
     /**
@@ -81,15 +86,10 @@ public class CustomAdapterMessagerie extends RecyclerView.Adapter<CustomAdapterM
     }
     // END_INCLUDE(recyclerViewSampleViewHolder)
 
-    /**
-     * Initialize the dataset of the Adapter.
-     *
-     * @param dataSet String[] containing the data to populate views to be used by RecyclerView.
-     */
-    public CustomAdapterMessagerie(String[] dataSet, String[] dataSet2, String[] dataSet3) {
-        mDataSet = dataSet;
-        mDataSet2 = dataSet2;
-        mDataset3 = dataSet3;
+
+    public CustomAdapterMessagerie(User user,User user2) {
+        this.mDataSet = user.getMessage();
+        this.user = user2;
     }
 
     // BEGIN_INCLUDE(recyclerViewOnCreateViewHolder)
@@ -115,14 +115,20 @@ public class CustomAdapterMessagerie extends RecyclerView.Adapter<CustomAdapterM
 
         // Get element from your dataset at this position and replace the contents of the view
         // with that element
-        viewHolder.getName2().setText(mDataSet[position]);
-        viewHolder.getMessages().setText(mDataSet2[position]);
-        viewHolder.getPoint().setText(mDataset3[position]);
-        if(mDataset3[position].contains(".")){
+        if (mDataSet.get(position).getUser1().compare(user)){
+            viewHolder.getName2().setText(mDataSet.get(position).getUser1().getNom());
+        }
+        else{
+            viewHolder.getName2().setText(mDataSet.get(position).getUser2().getNom());
+        }
+
+        viewHolder.getMessages().setText(mDataSet.get(position).getMessage().get(mDataSet.get(position).getMessage().size()-1).getMessage());
+        viewHolder.getPoint().setText("");
+        /*if(mDataset3[position].contains(".")){
             viewHolder.getName2().setTextColor(Color.parseColor("#FFFFFF"));
             viewHolder.getMessages().setTextColor(Color.parseColor("#FFFFFF"));
 
-        }
+        }*/
         viewHolder.getFont().setImageResource(R.drawable.messagerieresult);
         viewHolder.getPhoto().setImageResource(R.drawable.recherchephoto);
         viewHolder.getMask().setImageResource(R.drawable.recherchemask);
@@ -132,7 +138,7 @@ public class CustomAdapterMessagerie extends RecyclerView.Adapter<CustomAdapterM
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataSet.length;
+        return mDataSet.size();
     }
 
 }

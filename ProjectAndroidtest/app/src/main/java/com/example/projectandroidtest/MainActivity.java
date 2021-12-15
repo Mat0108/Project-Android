@@ -3,14 +3,11 @@ package com.example.projectandroidtest;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -23,7 +20,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-import com.example.projectandroidtest.recyclerview.ItemClickSupport;
 import com.example.projectandroidtest.recyclerview.RecyclerViewFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -36,7 +32,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     public BDD bdd = new BDD();
     public ArrayList<String> uid = new ArrayList<String>();
     public User globallastclik = new User("test","test","test");
-    public ArrayList<Message> listemessage = new ArrayList<Message>();
+    public ArrayList<Messages> listemessage = new ArrayList<Messages>();
 
     public varLayout varLayout;
 
@@ -215,7 +210,7 @@ public class MainActivity extends AppCompatActivity {
                                         matiere.setAll2(bdd.getMatieres().get(i));
                                         user.setMessage(listemessage);
                                         user.printMessage();
-                                        //CreateMessage(user,bdd.getUsers().get(6),uid.get(i),uid.get(6));
+                                       // CreateMessage(user,bdd.getUsers().get(4),uid.get(i),uid.get(4));
                                     }
                                 }
 
@@ -235,15 +230,22 @@ public class MainActivity extends AppCompatActivity {
         }
 
         public void CreateMessage(User user, User user2,String uid,String uid2){
-            Message message = new Message(user,user2);
-            message.addMessage1("Bonjour j'aurai besoin d'aide en maths");
-            message.addMessage1("Je suis dispo jeudi a partir de 16h");
-            message.addMessage2("Bonjour, je suis dispo jeudi soir et vendredi soir");
-            message.addMessage2("Est que jeudi à 17h chez vous va ? si oui quel est votre adresse ? ");
+            Messages messages = new Messages(user,user2);
+            messages.addMessage1("Bonjour j'aurai besoin d'aide en maths");
+            messages.addMessage2("Bonjour, je suis dispo jeudi soir et vendredi soir");
+            messages.addMessage1("Je suis dispo jeudi a partir de 16h");
+            messages.addMessage2("Est que jeudi à 17h chez vous va ? si oui quel est votre adresse ? ");
+            messages.addMessage1("Mon adresse est : .... ");
+            messages.addMessage2("D'accord");
+            messages.addMessage2("Est que vous pourriez m'aider en physique ? ");
+            messages.addMessage1("D'acc");
+            messages.addMessage1("Merci pour l'aide, j'ai eu 15 à mon controle ! ");
+            messages.addMessage2("Bonjour j'aurai besoin de nouveau d'aide en physique ");
+            messages.addMessage1("Je suis dispo la semaien prochaine le mardi et mercredi soir");
             DateFormat dateFormat = new SimpleDateFormat("HHmmss");
             Date date = new Date();
             String id = dateFormat.format(date).toString();
-            mDatabase.child("message").child(id).setValue(message);
+            mDatabase.child("message").child(id).setValue(messages);
             mDatabase.child("users").child(uid).child("message").child(id).setValue(id);
             mDatabase.child("users").child(uid2).child("message").child(id).setValue(id);
         }
@@ -527,7 +529,13 @@ public class MainActivity extends AppCompatActivity {
         public void LayoutChat(){
             if (getLayout() == R.layout.chat) {
                 TextView text = (TextView) findViewById(R.id.Contact);
-                text.setText(bdd.getUsers().get(getUserid()).getNom());
+                if(user.getMessage().get(getUserid()).getUser1().compare(user)){
+                    text.setText(user.getMessage().get(getUserid()).getUser2().getNom());
+                }
+                else{
+                    text.setText(user.getMessage().get(getUserid()).getUser1().getNom());
+                }
+
                 ImageButton retour = (ImageButton) findViewById(R.id.retour3);
                 retour.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -537,7 +545,9 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
-                RecyclerViewFragment fragment3 = new RecyclerViewFragment(activity, R.layout.chat_result,varLayout,user,bdd.getUsers().get(getUserid()));
+                RecyclerViewFragment fragment3 = new RecyclerViewFragment(bdd,activity, R.layout.chat_result,varLayout,user);
+                Log.d("test",bdd.getUsers().get(getUserid()).toString());
+                fragment3.setUser2(bdd.getUsers().get(getUserid()));
                 transaction3.replace(R.id.sample_content_fragment, fragment3);
                 transaction3.commit();
 
@@ -547,14 +557,8 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Log.d("test","test");
-                        Message message = fragment3.getMessages();
-                        if (message.getMessage1().size()>message.getMessage2().size()){
-                            String text = message.getMessage1().get(message.getMessage1().size()-1);
-                            text = text+text2.getText();
-                            message.getMessage1().set(message.getMessage1().size()-1,text);
-                            Log.d("test",message.getMessage1().get(message.getMessage1().size()-1));
-                            fragment3.updateDataset(message,message.getMessage1().size()+message.getMessage2().size()-1);
-                        }
+                        Messages messages = fragment3.getMessages();
+
 
                     }
                 });
@@ -646,15 +650,16 @@ public class MainActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {}
         };
         matieresRef.addListenerForSingleValueEvent(matieresEvent);
+
         DatabaseReference messageRef = FirebaseDatabase.getInstance().getReference().child("message");
         ValueEventListener  messageEvent = new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
-                    Message message = ds.getValue(Message.class);
-                    message.setUid(ds.getKey());
-                    listemessage.add(message);
+                    Messages messages = ds.getValue(Messages.class);
+                    messages.setUid(ds.getKey());
+                    listemessage.add(messages);
                 }
 
             }

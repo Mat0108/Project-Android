@@ -29,11 +29,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RadioButton;
-import android.widget.TextView;
 
 import com.example.projectandroidtest.BDD;
 import com.example.projectandroidtest.MainActivity;
 import com.example.projectandroidtest.Message;
+import com.example.projectandroidtest.Messages;
 import com.example.projectandroidtest.R;
 import com.example.projectandroidtest.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,10 +41,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
 
 
 /**
@@ -63,24 +60,28 @@ public class RecyclerViewFragment extends Fragment {
     private BDD bdds = new BDD();
     private Activity activity;
     private User user = new User("","","");
+
     private User user2 = new User("","","");
     private int layout;
-    private Message messages = new Message();
+    private Messages messages = new Messages();
 
-    public Message getMessages() {
+    public Messages getMessages() {
         return messages;
     }
 
-    public void setMessages(Message messages) {
+    public void setMessages(Messages messages) {
         this.messages = messages;
     }
 
     public User getUser() {return user;}
     public void setUser(User user) {this.user = user;}
+    public User getUser2() {return user2;}
+    public void setUser2(User user) {this.user2 = user;}
     public int getDATASET_COUNT() {return DATASET_COUNT;}
     public void setDATASET_COUNT(int DATASET_COUNT) {
         this.DATASET_COUNT = DATASET_COUNT;
     }
+
 
     protected LayoutManagerType mCurrentLayoutManagerType;
 
@@ -97,6 +98,7 @@ public class RecyclerViewFragment extends Fragment {
     protected String[] mDataset2;
     protected String[] mDataset3;
     protected String[] mDataset4;
+    protected ArrayList<Message> mDataset5;
 
 
 
@@ -114,13 +116,6 @@ public class RecyclerViewFragment extends Fragment {
         this.layout = layout;
         this.varLayout = varLayout;
         this.user = user;
-    }
-    public RecyclerViewFragment(Activity activity,int layout,MainActivity.varLayout varLayout,User user, User user2){
-        this.activity = activity;
-        this.layout = layout;
-        this.varLayout = varLayout;
-        this.user = user;
-        this.user2 = user2;
     }
 
     @Override
@@ -154,14 +149,14 @@ public class RecyclerViewFragment extends Fragment {
             mCurrentLayoutManagerType = LayoutManagerType.GRID_LAYOUT_MANAGER;
         }
         if(layout == R.layout.messagerie_result){
-            mAdapterM = new CustomAdapterMessagerie(mDataset,mDataset2,mDataset3);
+            mAdapterM = new CustomAdapterMessagerie(user,user2);
             mRecyclerView.setAdapter(mAdapterM);
             this.configureOnClickRecyclerView(R.layout.messagerie_result);
             mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
 
         }
         if(layout == R.layout.chat_result){
-            mAdapterC = new CustomAdapterChat(mDataset4);
+            mAdapterC = new CustomAdapterChat(mDataset5,user);
             mRecyclerView.setAdapter(mAdapterC);
             mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
 
@@ -261,53 +256,14 @@ public class RecyclerViewFragment extends Fragment {
         mDataset2 = new String[DATASET_COUNT];
         mDataset3 = new String[DATASET_COUNT];
         if (layout == R.layout.chat_result){
-
-            ArrayList<Message> message = user.getMessage();
-            String nom = new String();
-            nom = user2.getNom();
-            int val = 0;
-
-            for (int i=0;i<message.size();i++){
-                if(message.get(i).getUser1().compareNom(nom) || message.get(i).getUser2().compareNom(nom)){
-                    messages = message.get(i);
+            ArrayList<Messages> listemessage = user.getMessage();
+            for (int i = 0;i<listemessage.size();i++){
+                if(listemessage.get(i).getUser1().compare(user2) || listemessage.get(i).getUser2().compare(user2)){
+                    mDataset5= listemessage.get(i).getMessage();
                 }
-
-            }
-
-            mDataset4 = new String[messages.getMessage1().size()+messages.getMessage2().size()];
-
-            for (int i=0;i<messages.getMessage1().size();i++){
-                mDataset4[i*2]=messages.getMessage1().get(i);
-
-
-            }
-            for (int i=0;i<messages.getMessage2().size();i++){
-                    mDataset4[i*2+1]=messages.getMessage2().get(i);
             }
         }
-        if (layout == R.layout.messagerie_result){
-            ArrayList<Message> message = user.getMessage();
 
-            for (int i = 0;i<DATASET_COUNT;i++){
-                if (i<message.size()){
-
-                    mDataset[i] = message.get(i).checknom(user);
-                    String text = message.get(i).checklast(user);
-                    if(text.length() > 35){
-                        text = text.substring(0,35);
-                        text = text+" ...";
-                    }
-                    mDataset2[i] = text;
-                    mDataset3[i] = "";
-                }
-                else{
-                    mDataset[i] = "utilisateur";
-                    mDataset2[i] = "merci";
-                    mDataset3[i] = "";
-                }
-
-            }
-        }
         if (layout == R.layout.recherche_result)
         {
             for (int i = 0; i < DATASET_COUNT; i++) {
@@ -341,25 +297,6 @@ public class RecyclerViewFragment extends Fragment {
             }
         }
         mAdapterR.notifyDataSetChanged();
-    }
-    public void updateDataset(Message message,int position){
-        mDataset4 = new String[messages.getMessage1().size()+messages.getMessage2().size()];
-
-
-        for (int i=0;i<messages.getMessage1().size();i++){
-            mDataset4[i*2]=messages.getMessage1().get(i);
-
-
-        }
-        for (int i=0;i<messages.getMessage2().size();i++){
-            mDataset4[i*2+1]=messages.getMessage2().get(i);
-
-        }
-        for (int i=0;i<messages.getMessage2().size();i++){
-            Log.d("mdataset",mDataset4[i*2+1]);
-
-        }
-        mAdapterC.notifyItemChanged(position);
     }
     public void print(String[] Dataset){
         for (int i = 0; i<Dataset.length;i++){
