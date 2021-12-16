@@ -233,8 +233,10 @@ public class RecyclerViewFragment extends Fragment {
                                 }
                             }
                             if (layout == R.layout.messagerie_result){
+                                ArrayList<Message> message = user.getMessage().get(position).getMessage();
                                 varLayout.setlayout(R.layout.chat);
                                 varLayout.setUserid(position);
+                                varLayout.setMessages(message);
                                 varLayout.LayoutChat();
 
                             }
@@ -256,12 +258,7 @@ public class RecyclerViewFragment extends Fragment {
         mDataset2 = new String[DATASET_COUNT];
         mDataset3 = new String[DATASET_COUNT];
         if (layout == R.layout.chat_result){
-            ArrayList<Messages> listemessage = user.getMessage();
-            for (int i = 0;i<listemessage.size();i++){
-                if(listemessage.get(i).getUser1().compare(user2) || listemessage.get(i).getUser2().compare(user2)){
-                    mDataset5= listemessage.get(i).getMessage();
-                }
-            }
+            mDataset5= varLayout.getMessages();
         }
 
         if (layout == R.layout.recherche_result)

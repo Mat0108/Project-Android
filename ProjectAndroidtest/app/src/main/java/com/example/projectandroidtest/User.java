@@ -39,11 +39,7 @@ public class User {
     public String getAdresse() {return Adresse;}
     public void setAdresse(String adresse) {Adresse = adresse; }
     public void setMessage(ArrayList<Messages> messages) {
-        for (int i=0;i<messages.size();i++){
-            if (this.compare(messages.get(i).getUser1()) || this.compare(messages.get(i).getUser2()) ){
-                this.messages.add(messages.get(i));
-            }
-        }
+        this.messages = messages;
     }
     public void addMessage(Messages text){this.messages.add(text);}
     public ArrayList<Messages> getMessage(){return this.messages;}

@@ -44,19 +44,13 @@ public class MainActivity extends AppCompatActivity {
     public User user = new User();
     public String pass;
     public BDD bdd = new BDD();
-    public ArrayList<String> uid = new ArrayList<String>();
-    public User globallastclik = new User("test","test","test");
-    public ArrayList<Messages> listemessage = new ArrayList<Messages>();
-
+    public ArrayList<String> uid = new ArrayList<>();
+    public ArrayList<Messages> listemessage = new ArrayList<>();
     public varLayout varLayout;
-
-    public MainActivity.varLayout getVarLayout() {return varLayout;}
-
-    public void setVarLayout(MainActivity.varLayout varLayout) {this.varLayout = varLayout;}
-
     public Activity activity ;
 
-    private void updateUI(FirebaseUser user) {}
+
+
     private void reload() {}
     private void createAccount(String email, String password) {
         // [START create_user_with_email]
@@ -68,16 +62,13 @@ public class MainActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("TAG", "createUserWithEmail:success");
 
-                            FirebaseUser mUser = mAuth.getCurrentUser();
-                            updateUI(mUser);
-
 
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("TAG", "createUserWithEmail:failure", task.getException());
                             Toast.makeText(MainActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
-                            updateUI(null);
+
                         }
                     }
                 });
@@ -138,6 +129,7 @@ public class MainActivity extends AppCompatActivity {
     public class varLayout {
         protected int layout;
         protected int userid;
+        protected ArrayList<Message> messages;
 
 
 
@@ -152,6 +144,11 @@ public class MainActivity extends AppCompatActivity {
         }
         public int getUserid() {return userid;}
         public void setUserid(int userid) {this.userid = userid;}
+
+        public ArrayList<Message> getMessages() {return messages;}
+
+        public void setMessages(ArrayList<Message> messages) {this.messages = messages;}
+
         @Override
         public String toString() {
             return "varLayout{" +
@@ -163,9 +160,9 @@ public class MainActivity extends AppCompatActivity {
             return this.layout;
         }
         public void barrebas(){
-            Button recherche = (Button) findViewById(R.id.bRecherche);
-            Button reglage = (Button) findViewById(R.id.bReglage);
-            Button messagerie = (Button) findViewById(R.id.bMessagerie);
+            Button recherche =  findViewById(R.id.bRecherche);
+            Button reglage = findViewById(R.id.bReglage);
+            Button messagerie =  findViewById(R.id.bMessagerie);
             recherche.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -202,7 +199,6 @@ public class MainActivity extends AppCompatActivity {
                                 Log.d("TAG", "signInWithEmail:success");
                                 FirebaseUser mUser = mAuth.getCurrentUser();
                                 Log.d("test",mAuth.getUid());
-                                updateUI(mUser);
                                 user.setMail(mUser.getEmail());
                                 for (int i = 0; i < bdd.getSize(); i++) {
                                     if (bdd.getUsers().get(i).compareMail(user.getMail())){
@@ -210,7 +206,7 @@ public class MainActivity extends AppCompatActivity {
                                         matiere.setAll2(bdd.getMatieres().get(i));
                                         user.setMessage(listemessage);
                                         user.printMessage();
-                                       // CreateMessage(user,bdd.getUsers().get(4),uid.get(i),uid.get(4));
+                                        //CreateMessage(user,bdd.getUsers().get(2),uid.get(i),uid.get(2));
                                     }
                                 }
 
@@ -220,7 +216,6 @@ public class MainActivity extends AppCompatActivity {
                                 // If sign in fails, display a message to the user.
                                 Log.d("TAG", "signInWithEmail:failure", task.getException());
                                 Toast.makeText(MainActivity.this, "user not found",Toast.LENGTH_SHORT).show();
-                                updateUI(null);
 
                             }
                         }
@@ -244,7 +239,7 @@ public class MainActivity extends AppCompatActivity {
             messages.addMessage1("Je suis dispo la semaien prochaine le mardi et mercredi soir");
             DateFormat dateFormat = new SimpleDateFormat("HHmmss");
             Date date = new Date();
-            String id = dateFormat.format(date).toString();
+            String id = dateFormat.format(date);
             mDatabase.child("message").child(id).setValue(messages);
             mDatabase.child("users").child(uid).child("message").child(id).setValue(id);
             mDatabase.child("users").child(uid2).child("message").child(id).setValue(id);
@@ -258,9 +253,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                Spinner choix = (Spinner) findViewById(R.id.choix);
-                String matiere[] = {"Francais","Maths","Physique","Chemie","Histoire","Geographie","Anglais","Espagnol","Allemand"};
-
+                Spinner choix = findViewById(R.id.choix);
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(MainActivity.this,
                         R.array.Matiere, R.layout.spinner);
                 adapter.setDropDownViewResource(R.layout.spinnerdropdown);
@@ -284,7 +277,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                 });
-                Button back = (Button) findViewById(R.id.rechercheback);
+                Button back =findViewById(R.id.rechercheback);
                 back.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -301,9 +294,9 @@ public class MainActivity extends AppCompatActivity {
 
         public void LayoutConnection() {
             if (getLayout() == R.layout.connection) {
-                EditText Mail = (EditText) findViewById(R.id.connectionmail);
-                EditText Password = (EditText) findViewById(R.id.connectionpassword);
-                Button connection = (Button) findViewById(R.id.connectionbutton);
+                EditText Mail = findViewById(R.id.connectionmail);
+                EditText Password = findViewById(R.id.connectionpassword);
+                Button connection = findViewById(R.id.connectionbutton);
                 connection.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -317,7 +310,7 @@ public class MainActivity extends AppCompatActivity {
                             }
                         }
                     });
-                Button inscription = (Button) findViewById(R.id.inscriptionbutton);
+                Button inscription = findViewById(R.id.inscriptionbutton);
                 inscription.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -333,8 +326,8 @@ public class MainActivity extends AppCompatActivity {
         public void LayoutInscription() {
             if (getLayout() == R.layout.inscription) {
 
-                Button inscription = (Button) findViewById(R.id.inscription_bouton_confiramtion);
-                ImageButton retour = (ImageButton) findViewById(R.id.retour);
+                Button inscription = findViewById(R.id.inscription_bouton_confiramtion);
+                ImageButton retour = findViewById(R.id.retour);
                 
                 retour.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -343,11 +336,11 @@ public class MainActivity extends AppCompatActivity {
                         LayoutConnection();
                     }
                 });
-                EditText Nom = (EditText) findViewById(R.id.editTextTextPassword);
-                EditText Password = (EditText) findViewById(R.id.inscriptionpassword1);
-                EditText Password_confirmed = (EditText) findViewById(R.id.inscriptionpassword2);
-                EditText Adresse = (EditText) findViewById(R.id.incriptionadresse);
-                EditText Email = (EditText) findViewById(R.id.inscriptionmail);
+                EditText Nom =  findViewById(R.id.editTextTextPassword);
+                EditText Password = findViewById(R.id.inscriptionpassword1);
+                EditText Password_confirmed = findViewById(R.id.inscriptionpassword2);
+                EditText Adresse =  findViewById(R.id.incriptionadresse);
+                EditText Email = findViewById(R.id.inscriptionmail);
 
                 inscription.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -376,21 +369,14 @@ public class MainActivity extends AppCompatActivity {
 
 
                         }
-
-                        //compte test
-                        //String email = "test@test.com";
-                        //String password = "test1234";
-
-
-
-                    }
+                                            }
                 });
             }
         }
 
         public void LayoutMatiere(){
             if (getLayout() == R.layout.matiere){
-                Button Save = (Button) findViewById(R.id.Save);
+                Button Save = findViewById(R.id.Save);
                 Save.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -411,7 +397,7 @@ public class MainActivity extends AppCompatActivity {
 
         public void LayoutReglage(){
             if (getLayout() == R.layout.matiere){
-                ImageButton retour = (ImageButton) findViewById(R.id.retour4);
+                ImageButton retour = findViewById(R.id.retour4);
                 retour.setVisibility(View.VISIBLE);
                 retour.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -508,7 +494,7 @@ public class MainActivity extends AppCompatActivity {
 
         public void LayoutMessagerie(){
             if (getLayout() == R.layout.messagerie) {
-                ImageButton retour = (ImageButton) findViewById(R.id.retour2);
+                ImageButton retour =  findViewById(R.id.retour2);
 
                 retour.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -528,7 +514,7 @@ public class MainActivity extends AppCompatActivity {
         }
         public void LayoutChat(){
             if (getLayout() == R.layout.chat) {
-                TextView text = (TextView) findViewById(R.id.Contact);
+                TextView text = findViewById(R.id.Contact);
                 if(user.getMessage().get(getUserid()).getUser1().compare(user)){
                     text.setText(user.getMessage().get(getUserid()).getUser2().getNom());
                 }
@@ -536,7 +522,7 @@ public class MainActivity extends AppCompatActivity {
                     text.setText(user.getMessage().get(getUserid()).getUser1().getNom());
                 }
 
-                ImageButton retour = (ImageButton) findViewById(R.id.retour3);
+                ImageButton retour =findViewById(R.id.retour3);
                 retour.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -547,12 +533,11 @@ public class MainActivity extends AppCompatActivity {
                 FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
                 RecyclerViewFragment fragment3 = new RecyclerViewFragment(bdd,activity, R.layout.chat_result,varLayout,user);
                 Log.d("test",bdd.getUsers().get(getUserid()).toString());
-                fragment3.setUser2(bdd.getUsers().get(getUserid()));
                 transaction3.replace(R.id.sample_content_fragment, fragment3);
                 transaction3.commit();
 
-                TextView text2 = (TextView) findViewById(R.id.Chat_text);
-                Button chat = (Button) findViewById(R.id.Chat_button);
+                TextView text2 =  findViewById(R.id.Chat_text);
+                Button chat =  findViewById(R.id.Chat_button);
                 chat.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -590,8 +575,8 @@ public class MainActivity extends AppCompatActivity {
         if(currentUser != null){
             reload();
         }
-        EditText Mail = (EditText) findViewById(R.id.connectionmail);
-        EditText Password = (EditText) findViewById(R.id.connectionpassword);
+        EditText Mail =  findViewById(R.id.connectionmail);
+        EditText Password =findViewById(R.id.connectionpassword);
         Mail.setText("armin@test.com");
         Password.setText("test1234");
 
@@ -657,10 +642,16 @@ public class MainActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
+
+                    String id = ds.getKey();
+                    Log.d("test",id);
+                    Log.d("test2",ds.toString());
                     Messages messages = ds.getValue(Messages.class);
-                    messages.setUid(ds.getKey());
+
                     listemessage.add(messages);
+
                 }
+
 
             }
             @Override
