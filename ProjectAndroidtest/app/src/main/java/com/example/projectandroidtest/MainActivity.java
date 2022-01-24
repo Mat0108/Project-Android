@@ -38,6 +38,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
@@ -590,7 +592,22 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         Log.d("test",text2.getText().toString());
-                        fragment3.Addmessage(text2.getText().toString());
+                        Message message = new Message(user,text2.getText().toString());
+                        Log.d("message 30",message.toString());
+                        fragment3.Addmessage(message);
+                        String uid = varLayout.getMessage().getUid();
+                        String size = String.valueOf(varLayout.getMessage().getMessage().size()-1);
+                        Log.d("test2",size);
+                        Log.d("test3", mDatabase.child("message").child(uid).child("message").child(size).toString());
+                        /*
+                        Map<String, Object> childUpdates = new HashMap<>();
+                        childUpdates.put("/message/" + varLayout.getMessage().getUid()+"/message/", message);
+
+                        mDatabase.updateChildren(childUpdates);
+                        */
+                        Log.d("data",mDatabase.toString());
+                        mDatabase.child("message").child(uid).child("message").child(size).setValue(message);
+
                         setlayout(R.layout.chat);
                         LayoutChat();
 

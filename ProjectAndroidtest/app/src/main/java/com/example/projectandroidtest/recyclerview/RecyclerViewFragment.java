@@ -103,7 +103,7 @@ public class RecyclerViewFragment extends Fragment {
     protected String[] mDataset2;
     protected String[] mDataset3;
     protected String[] mDataset4;
-    protected ArrayList<Message> mDataset5;
+    protected Messages mDataset5;
 
 
 
@@ -289,7 +289,7 @@ public class RecyclerViewFragment extends Fragment {
         mDataset2 = new String[DATASET_COUNT];
         mDataset3 = new String[DATASET_COUNT];
         if (layout == R.layout.chat_result){
-            mDataset5 = varLayout.getMessages();
+            mDataset5 = varLayout.getMessage();
         }
 
         if (layout == R.layout.recherche_result)
@@ -326,9 +326,8 @@ public class RecyclerViewFragment extends Fragment {
         }
         mAdapterR.notifyDataSetChanged();
     }
-    public void Addmessage(String text){
-        Message message = new Message(user,text);
-        mDataset5.add(message);
+    public void Addmessage(Message message){
+        mDataset5.addMessage(message);
         mAdapterC.notifyDataSetChanged();
     }
     public void print(String[] Dataset){

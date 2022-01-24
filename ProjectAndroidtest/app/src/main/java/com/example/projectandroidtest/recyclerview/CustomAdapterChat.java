@@ -46,7 +46,7 @@ import java.util.ArrayList;
 public class CustomAdapterChat extends RecyclerView.Adapter<CustomAdapterChat.ViewHolder> {
     private static final String TAG = "CustomAdapter";
 
-    private ArrayList<Message> mDataSet;
+    private Messages mDataSet;
     private User user;
 
     // BEGIN_INCLUDE(recyclerViewSampleViewHolder)
@@ -78,7 +78,7 @@ public class CustomAdapterChat extends RecyclerView.Adapter<CustomAdapterChat.Vi
     }
     // END_INCLUDE(recyclerViewSampleViewHolder)
 
-    public CustomAdapterChat(ArrayList<Message> mDataSet, User user) {
+    public CustomAdapterChat(Messages mDataSet, User user) {
         this.mDataSet = mDataSet;
         this.user = user;
     }
@@ -109,13 +109,15 @@ public class CustomAdapterChat extends RecyclerView.Adapter<CustomAdapterChat.Vi
         // Get element from your dataset at this position and replace the contents of the view
         // with that element
         ViewGroup.LayoutParams layoutParams = viewHolder.getLayout().getLayoutParams();
-        layoutParams.height = (int) ((mDataSet.get(position).getMessage().length()/68.0)*50+50);
+
+        layoutParams.height = (int) ((mDataSet.getMessage().get(position).getMessage().length()/68.0)*50+50);
         viewHolder.getLayout().setLayoutParams(layoutParams);
-        if (mDataSet.get(position).getUser().compare(user)){
+
+        if (mDataSet.getMessage().get(position).getUser().compare(user)){
             //viewHolder.getLayout().setLayoutParams(layoutParams);
             viewHolder.getChat().setBackgroundColor(Color.parseColor("#7DABA9"));
 
-            viewHolder.getChat().setText(mDataSet.get(position).getMessage());
+            viewHolder.getChat().setText(mDataSet.getMessage().get(position).getMessage());
             ViewGroup.MarginLayoutParams layoutParams1 = (ViewGroup.MarginLayoutParams) viewHolder.getLayout().getLayoutParams();
             layoutParams1.setMargins(270, 0,0,60);
             viewHolder.getLayout().setLayoutParams(layoutParams1);
@@ -123,7 +125,7 @@ public class CustomAdapterChat extends RecyclerView.Adapter<CustomAdapterChat.Vi
         }
         else{
             viewHolder.getChat().setBackgroundColor(Color.parseColor("#80AB7D"));
-            viewHolder.getChat().setText(mDataSet.get(position).getMessage());
+            viewHolder.getChat().setText(mDataSet.getMessage().get(position).getMessage());
             ViewGroup.MarginLayoutParams layoutParams1 = (ViewGroup.MarginLayoutParams) viewHolder.getLayout().getLayoutParams();
             layoutParams1.setMargins(0, 0,0,60);
             viewHolder.getLayout().setLayoutParams(layoutParams1);
@@ -136,7 +138,7 @@ public class CustomAdapterChat extends RecyclerView.Adapter<CustomAdapterChat.Vi
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataSet.size();
+        return mDataSet.getMessage().size();
     }
 
 }

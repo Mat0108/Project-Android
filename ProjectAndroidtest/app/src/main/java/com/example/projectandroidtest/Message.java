@@ -17,4 +17,12 @@ public class Message {
     public Message() {
 
     }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "user" + user.toString() +
+                ", message='" + message + '\'' +
+                '}';
+    }
 }
