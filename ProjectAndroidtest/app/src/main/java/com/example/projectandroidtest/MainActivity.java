@@ -131,6 +131,7 @@ public class MainActivity extends AppCompatActivity {
     public class varLayout {
         protected int layout;
         protected int userid;
+        protected Messages message;
         protected ArrayList<Message> messages;
 
 
@@ -148,8 +149,9 @@ public class MainActivity extends AppCompatActivity {
         public void setUserid(int userid) {this.userid = userid;}
 
         public ArrayList<Message> getMessages() {return messages;}
-
         public void setMessages(ArrayList<Message> messages) {this.messages = messages;}
+        public Messages getMessage() {return message;}
+        public void setMessage(Messages message) {this.message = message;}
 
         @Override
         public String toString() {
@@ -534,13 +536,13 @@ public class MainActivity extends AppCompatActivity {
                 });
                 FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
                 RecyclerViewFragment fragment3 = new RecyclerViewFragment(bdd,activity, R.layout.chat_result,varLayout,user);
-                fragment3.setPosition();
                 Log.d("test",bdd.getUsers().get(getUserid()).toString());
                 transaction3.replace(R.id.sample_content_fragment, fragment3);
                 transaction3.commit();
 
+                Log.d("uid",message.getUid());
                 TextView text2 =  findViewById(R.id.Chat_text);
-                Button chat =  findViewById(R.id.Chat_button);
+                ImageButton chat =  findViewById(R.id.Chat_button);
                 chat.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -583,13 +585,14 @@ public class MainActivity extends AppCompatActivity {
 
                 text2.requestFocus();
                 imm.showSoftInput(text2, 0);
-                Button chat =  findViewById(R.id.Chat_button);
+                ImageButton chat =  findViewById(R.id.Chat_button);
                 chat.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.d("test","test");
-                        Messages messages = fragment3.getMessages();
-
+                        Log.d("test",text2.getText().toString());
+                        fragment3.Addmessage(text2.getText().toString());
+                        setlayout(R.layout.chat);
+                        LayoutChat();
 
                     }
                 });
@@ -694,7 +697,7 @@ public class MainActivity extends AppCompatActivity {
                     Log.d("test",id);
                     Log.d("test2",ds.toString());
                     Messages messages = ds.getValue(Messages.class);
-
+                    messages.setUid(id);
                     listemessage.add(messages);
 
                 }

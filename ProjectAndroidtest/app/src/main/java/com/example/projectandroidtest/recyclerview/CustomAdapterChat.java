@@ -114,6 +114,7 @@ public class CustomAdapterChat extends RecyclerView.Adapter<CustomAdapterChat.Vi
         if (mDataSet.get(position).getUser().compare(user)){
             //viewHolder.getLayout().setLayoutParams(layoutParams);
             viewHolder.getChat().setBackgroundColor(Color.parseColor("#7DABA9"));
+
             viewHolder.getChat().setText(mDataSet.get(position).getMessage());
             ViewGroup.MarginLayoutParams layoutParams1 = (ViewGroup.MarginLayoutParams) viewHolder.getLayout().getLayoutParams();
             layoutParams1.setMargins(270, 0,0,60);

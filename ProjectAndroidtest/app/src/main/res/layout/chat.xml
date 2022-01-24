@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/FONT">
+    android:background="@color/FONT"
+    android:backgroundTint="@color/FONT">
 
     <ImageButton
         android:id="@+id/retour3"
@@ -70,21 +71,19 @@
         android:layout_marginEnd="1dp"
         android:layout_marginRight="1dp"
         android:layout_marginBottom="2dp"
-        android:translationY="80dp"></FrameLayout>
+        android:backgroundTint="@color/FONT"
+        android:translationY="80dp">
 
-    <Button
+    </FrameLayout>
+
+    <ImageButton
         android:id="@+id/Chat_button"
-        android:layout_width="375dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="#1A716E6E"
-        android:text="Button"
-        android:translationX="20dp"
+        android:backgroundTint="@color/FONT"
         android:translationY="600dp"
-
-        android:visibility="visible"
-
-        app:iconTint="#8F4343"
-        app:rippleColor="#33FFFFFF" />
+        app:srcCompat="@drawable/chatbas"
+        tools:ignore="SpeakableTextPresentCheck" />
 
 
 </RelativeLayout>

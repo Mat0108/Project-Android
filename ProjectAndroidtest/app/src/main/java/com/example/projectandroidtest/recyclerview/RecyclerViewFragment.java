@@ -266,6 +266,7 @@ public class RecyclerViewFragment extends Fragment {
                                 varLayout.setlayout(R.layout.chat);
                                 varLayout.setUserid(position);
                                 varLayout.setMessages(message);
+                                varLayout.setMessage(user.getMessage().get(position));
                                 varLayout.LayoutChat();
 
                             }
@@ -288,7 +289,7 @@ public class RecyclerViewFragment extends Fragment {
         mDataset2 = new String[DATASET_COUNT];
         mDataset3 = new String[DATASET_COUNT];
         if (layout == R.layout.chat_result){
-            mDataset5= varLayout.getMessages();
+            mDataset5 = varLayout.getMessages();
         }
 
         if (layout == R.layout.recherche_result)
@@ -324,6 +325,11 @@ public class RecyclerViewFragment extends Fragment {
             }
         }
         mAdapterR.notifyDataSetChanged();
+    }
+    public void Addmessage(String text){
+        Message message = new Message(user,text);
+        mDataset5.add(message);
+        mAdapterC.notifyDataSetChanged();
     }
     public void print(String[] Dataset){
         for (int i = 0; i<Dataset.length;i++){

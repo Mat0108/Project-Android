@@ -74,25 +74,25 @@
         app:srcCompat="@drawable/chatbas"
         tools:ignore="ImageContrastCheck" />
 
-    <Button
-        android:id="@+id/Chat_button"
-        android:layout_width="64dp"
-        android:layout_height="wrap_content"
-        android:text="Button"
-        android:translationX="350dp"
-        android:translationY="320dp"
-        android:visibility="visible" />
-
     <EditText
         android:id="@+id/Chat_text"
         android:layout_width="321dp"
         android:layout_height="36dp"
         android:background="#00000000"
         android:hint='"Entrez votre text"'
-        android:text="test"
+        android:text="mon portable est "
         android:translationX="40dp"
         android:translationY="325dp"
         tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+    <ImageButton
+        android:id="@+id/Chat_button"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:translationX="370dp"
+        android:translationY="324dp"
+        app:srcCompat="@drawable/chatfleche"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
 
 
 </RelativeLayout>
