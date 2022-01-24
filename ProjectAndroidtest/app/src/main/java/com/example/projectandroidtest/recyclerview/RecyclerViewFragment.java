@@ -28,6 +28,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 
 import com.example.projectandroidtest.BDD;
@@ -88,6 +89,10 @@ public class RecyclerViewFragment extends Fragment {
     protected RadioButton mLinearLayoutRadioButton;
     protected RadioButton mGridLayoutRadioButton;
 
+    public RecyclerView getmRecyclerView() {
+        return mRecyclerView;
+    }
+
     protected RecyclerView mRecyclerView;
     protected CustomAdapterRecherche mAdapterR;
     protected CustomAdapterMessagerie mAdapterM;
@@ -138,7 +143,6 @@ public class RecyclerViewFragment extends Fragment {
         // to the way ListView would layout elements. The RecyclerView.LayoutManager defines how
         // elements are laid out.
         mLayoutManager = new LinearLayoutManager(getActivity());
-
         mCurrentLayoutManagerType = LayoutManagerType.GRID_LAYOUT_MANAGER;
 
 
@@ -151,14 +155,18 @@ public class RecyclerViewFragment extends Fragment {
         if(layout == R.layout.messagerie_result){
             mAdapterM = new CustomAdapterMessagerie(user,user2);
             mRecyclerView.setAdapter(mAdapterM);
+
             this.configureOnClickRecyclerView(R.layout.messagerie_result);
             mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+
 
         }
         if(layout == R.layout.chat_result){
             mAdapterC = new CustomAdapterChat(mDataset5,user);
             mRecyclerView.setAdapter(mAdapterC);
             mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
+
+
 
 
 
@@ -207,6 +215,27 @@ public class RecyclerViewFragment extends Fragment {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.scrollToPosition(scrollPosition);
     }
+    public void setPosition(){
+    // scroll to last item to get the view of last item
+        final LinearLayoutManager layoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+        final RecyclerView.Adapter adapter = mRecyclerView.getAdapter();
+        final int lastItemPosition = adapter.getItemCount() - 1;
+
+        layoutManager.scrollToPositionWithOffset(lastItemPosition, 0);
+        mRecyclerView.post(new Runnable() {
+            @Override
+            public void run() {
+                // then scroll to specific offset
+                View target = layoutManager.findViewByPosition(lastItemPosition);
+                if (target != null) {
+                    int offset = mRecyclerView.getMeasuredHeight() - target.getMeasuredHeight();
+                    layoutManager.scrollToPositionWithOffset(lastItemPosition, offset);
+                }
+            }
+        });
+    }
+
+
 
     @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
@@ -245,6 +274,7 @@ public class RecyclerViewFragment extends Fragment {
 
 
     }
+
     /**
      * Generates Strings for RecyclerView's adapter. This data would usually come
      * from a local content provider or remote server.

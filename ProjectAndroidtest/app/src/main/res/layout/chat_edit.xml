@@ -52,39 +52,47 @@
         android:translationY="2dp"
         app:srcCompat="@drawable/chatmask" />
 
-    <ImageView
-        android:id="@+id/chatbas"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="chatbas"
-        android:translationY="600dp"
-        app:srcCompat="@drawable/chatbas"
-        tools:ignore="ImageContrastCheck" />
-
     <FrameLayout
         android:id="@+id/sample_content_fragment"
         android:layout_width="410dp"
-        android:layout_height="506dp"
+        android:layout_height="253dp"
         android:layout_marginStart="1dp"
         android:layout_marginLeft="1dp"
         android:layout_marginEnd="1dp"
         android:layout_marginRight="1dp"
         android:layout_marginBottom="2dp"
-        android:translationY="80dp"></FrameLayout>
+        android:translationY="70dp">
+
+    </FrameLayout>
+
+    <ImageView
+        android:id="@+id/chatbas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="chatbas"
+        android:translationY="320dp"
+        app:srcCompat="@drawable/chatbas"
+        tools:ignore="ImageContrastCheck" />
 
     <Button
         android:id="@+id/Chat_button"
-        android:layout_width="375dp"
+        android:layout_width="64dp"
         android:layout_height="wrap_content"
-        android:backgroundTint="#1A716E6E"
         android:text="Button"
-        android:translationX="20dp"
-        android:translationY="600dp"
+        android:translationX="350dp"
+        android:translationY="320dp"
+        android:visibility="visible" />
 
-        android:visibility="visible"
-
-        app:iconTint="#8F4343"
-        app:rippleColor="#33FFFFFF" />
+    <EditText
+        android:id="@+id/Chat_text"
+        android:layout_width="321dp"
+        android:layout_height="36dp"
+        android:background="#00000000"
+        android:hint='"Entrez votre text"'
+        android:text="test"
+        android:translationX="40dp"
+        android:translationY="325dp"
+        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
 
 </RelativeLayout>

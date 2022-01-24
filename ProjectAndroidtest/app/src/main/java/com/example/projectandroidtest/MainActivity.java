@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -532,11 +534,55 @@ public class MainActivity extends AppCompatActivity {
                 });
                 FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
                 RecyclerViewFragment fragment3 = new RecyclerViewFragment(bdd,activity, R.layout.chat_result,varLayout,user);
+                fragment3.setPosition();
                 Log.d("test",bdd.getUsers().get(getUserid()).toString());
                 transaction3.replace(R.id.sample_content_fragment, fragment3);
                 transaction3.commit();
 
                 TextView text2 =  findViewById(R.id.Chat_text);
+                Button chat =  findViewById(R.id.Chat_button);
+                chat.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setlayout(R.layout.chat_edit);
+                        LayoutChatEdit();
+
+
+                    }
+                });
+
+            }
+        }
+        public void LayoutChatEdit(){
+            if (getLayout() == R.layout.chat_edit) {
+                TextView text = findViewById(R.id.Contact);
+                if(user.getMessage().get(getUserid()).getUser1().compare(user)){
+                    text.setText(user.getMessage().get(getUserid()).getUser2().getNom());
+                }
+                else{
+                    text.setText(user.getMessage().get(getUserid()).getUser1().getNom());
+                }
+
+                ImageButton retour =findViewById(R.id.retour3);
+                retour.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setlayout(R.layout.messagerie);
+                        LayoutMessagerie();
+                    }
+                });
+                FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
+                RecyclerViewFragment fragment3 = new RecyclerViewFragment(bdd,activity, R.layout.chat_result,varLayout,user);
+
+                Log.d("test",bdd.getUsers().get(getUserid()).toString());
+                transaction3.replace(R.id.sample_content_fragment, fragment3);
+                transaction3.commit();
+
+                EditText text2 = (EditText) findViewById(R.id.Chat_text);
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                text2.requestFocus();
+                imm.showSoftInput(text2, 0);
                 Button chat =  findViewById(R.id.Chat_button);
                 chat.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -551,6 +597,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
 
 
 
