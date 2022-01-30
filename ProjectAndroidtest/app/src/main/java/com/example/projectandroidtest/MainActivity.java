@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         public void setMessages(ArrayList<Message> messages) {this.messages = messages;}
         public Messages getMessage() {return message;}
         public void setMessage(Messages message) {this.message = message;}
-
+        public void addMessages(Message lemessage){this.messages.add(lemessage);}
         @Override
         public String toString() {
             return "varLayout{" +
@@ -242,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
             messages.addMessage1("D'acc");
             messages.addMessage1("Merci pour l'aide, j'ai eu 15 à mon controle ! ");
             messages.addMessage2("Bonjour j'aurai besoin de nouveau d'aide en physique ");
-            messages.addMessage1("Je suis dispo la semaien prochaine le mardi et mercredi soir");
+            messages.addMessage1("Je suis dispo la semaine prochaine le mardi et mercredi soir");
             DateFormat dateFormat = new SimpleDateFormat("HHmmss");
             Date date = new Date();
             String id = dateFormat.format(date);
@@ -527,7 +527,6 @@ public class MainActivity extends AppCompatActivity {
                 else{
                     text.setText(user.getMessage().get(getUserid()).getUser1().getNom());
                 }
-
                 ImageButton retour =findViewById(R.id.retour3);
                 retour.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -557,10 +556,24 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
+        public void UpdateMessage(Messages messages,Message message){
+            messages.addMessage(message);
+            messages.getMessage().toString();
+            Map<String, Object> messageUpdates = new HashMap<>();
+            String size = String.valueOf(messages.getMessage().size()-1);
+            Log.d("UpdateMessage","message/"+messages.getUid()+"/message/"+size);
+
+            //messageUpdates.put("message/"+messages.getUid()+"/message/"+size,message);
+            //mDatabase.updateChildren(messageUpdates);
+            //mDatabase.child("message").child(messages.getUid()).removeValue();
+            //mDatabase.child("message").child(messages.getUid()).setValue(messages);
+            //mDatabase.child("message").child(messages.getUid()).child("message").child(size).setValue(message);
+            Log.d("UpdateMessage",mDatabase.child("message").child(messages.getUid()).child("message").child(size).toString());
+        }
         public void LayoutChatEdit(){
             if (getLayout() == R.layout.chat_edit) {
                 TextView text = findViewById(R.id.Contact);
-                if(user.getMessage().get(getUserid()).getUser1().compare(user)){
+                if(user.getMessage().get(getUserid()).getUser1().compare(user)) {
                     text.setText(user.getMessage().get(getUserid()).getUser2().getNom());
                 }
                 else{
@@ -577,36 +590,21 @@ public class MainActivity extends AppCompatActivity {
                 });
                 FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
                 RecyclerViewFragment fragment3 = new RecyclerViewFragment(bdd,activity, R.layout.chat_result,varLayout,user);
-
-                Log.d("test",bdd.getUsers().get(getUserid()).toString());
                 transaction3.replace(R.id.sample_content_fragment, fragment3);
                 transaction3.commit();
 
+
                 EditText text2 = (EditText) findViewById(R.id.Chat_text);
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-
                 text2.requestFocus();
                 imm.showSoftInput(text2, 0);
+
                 ImageButton chat =  findViewById(R.id.Chat_button);
                 chat.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Log.d("test",text2.getText().toString());
                         Message message = new Message(user,text2.getText().toString());
-                        Log.d("message 30",message.toString());
-                        fragment3.Addmessage(message);
-                        String uid = varLayout.getMessage().getUid();
-                        String size = String.valueOf(varLayout.getMessage().getMessage().size()-1);
-                        Log.d("test2",size);
-                        Log.d("test3", mDatabase.child("message").child(uid).child("message").child(size).toString());
-                        /*
-                        Map<String, Object> childUpdates = new HashMap<>();
-                        childUpdates.put("/message/" + varLayout.getMessage().getUid()+"/message/", message);
-
-                        mDatabase.updateChildren(childUpdates);
-                        */
-                        Log.d("data",mDatabase.toString());
-                        mDatabase.child("message").child(uid).child("message").child(size).setValue(message);
+                        UpdateMessage(user.getMessage().get(getUserid()),message);
 
                         setlayout(R.layout.chat);
                         LayoutChat();
