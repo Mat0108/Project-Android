@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         public void setMessages(ArrayList<Message> messages) {this.messages = messages;}
         public Messages getMessage() {return message;}
         public void setMessage(Messages message) {this.message = message;}
-        public void addMessages(Message lemessage){this.messages.add(lemessage);}
+        public void addMessage(Message lemessage){this.message.addMessage(lemessage);}
         @Override
         public String toString() {
             return "varLayout{" +
@@ -341,6 +341,14 @@ public class MainActivity extends AppCompatActivity {
                         setlayout(R.layout.connection);
                         LayoutConnection();
                     }
+                });
+                Button photo = findViewById(R.id.inscription_ajouter_image);
+                photo.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setlayout(R.layout.appareil_photo);
+                    }
+
                 });
                 EditText Nom =  findViewById(R.id.editTextTextPassword);
                 EditText Password = findViewById(R.id.inscriptionpassword1);
@@ -556,19 +564,43 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
-        public void UpdateMessage(Messages messages,Message message){
-            messages.addMessage(message);
+        public void UpdateMessage(Messages messages2,Message message){
+            Log.d("UpdateMessage",messages2.toString());
+            messages2.addMessage(message);
+            Log.d("UpdateMessage",String.valueOf(messages2.getMessage().size()));
+            String size = String.valueOf(messages2.getMessage().size()-1);
+//            mDatabase.child("message").child(messages2.getUid()).child("message").child(size).setValue(message);
+//            mDatabase.child("message").child(messages2.getUid()).child("message").child()
+            /*messages.addMessage(message);
             messages.getMessage().toString();
             Map<String, Object> messageUpdates = new HashMap<>();
             String size = String.valueOf(messages.getMessage().size()-1);
             Log.d("UpdateMessage","message/"+messages.getUid()+"/message/"+size);
-
+            */
             //messageUpdates.put("message/"+messages.getUid()+"/message/"+size,message);
             //mDatabase.updateChildren(messageUpdates);
             //mDatabase.child("message").child(messages.getUid()).removeValue();
             //mDatabase.child("message").child(messages.getUid()).setValue(messages);
-            //mDatabase.child("message").child(messages.getUid()).child("message").child(size).setValue(message);
-            Log.d("UpdateMessage",mDatabase.child("message").child(messages.getUid()).child("message").child(size).toString());
+            //mDatabase.child("message").child(id).setValue(messages);
+            //Log.d("UpdateMessage",mDatabase.child("message").child(messages.getUid()).child("message").child(size).toString());
+
+
+            /* Messages messages = new Messages(user,new User("test@test.com","matthieu","test"));
+            messages.addMessage1("Bonjour j'aurai besoin d'aide en maths");
+            messages.addMessage2("Bonjour, je suis dispo jeudi soir et vendredi soir");
+            messages.addMessage1("Je suis dispo jeudi a partir de 16h");
+            messages.addMessage2("Est que jeudi à 17h chez vous va ? si oui quel est votre adresse ? ");
+            messages.addMessage1("Mon adresse est : .... ");
+            messages.addMessage2("D'accord");
+            messages.addMessage2("Est que vous pourriez m'aider en physique ? ");
+            messages.addMessage1("D'acc");
+            messages.addMessage1("Merci pour l'aide, j'ai eu 15 à mon controle ! ");
+            messages.addMessage2("Bonjour j'aurai besoin de nouveau d'aide en physique ");
+            messages.addMessage1("Je suis dispo la semaine prochaine le mardi et mercredi soir");
+            DateFormat dateFormat = new SimpleDateFormat("HHmmss");
+            Date date = new Date();
+            String id = dateFormat.format(date);
+            mDatabase.child("message").child(id).setValue(messages);*/
         }
         public void LayoutChatEdit(){
             if (getLayout() == R.layout.chat_edit) {
@@ -603,8 +635,8 @@ public class MainActivity extends AppCompatActivity {
                 chat.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Message message = new Message(user,text2.getText().toString());
-                        UpdateMessage(user.getMessage().get(getUserid()),message);
+                        Message lemessage = new Message(user,text2.getText().toString());
+                        UpdateMessage(message,lemessage);
 
                         setlayout(R.layout.chat);
                         LayoutChat();
