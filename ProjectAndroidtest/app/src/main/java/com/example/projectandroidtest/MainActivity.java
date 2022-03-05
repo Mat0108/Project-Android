@@ -210,7 +210,13 @@ public class MainActivity extends AppCompatActivity {
                                     if (bdd.getUsers().get(i).compareMail(user.getMail())){
                                         user.setAll2(bdd.getUsers().get(i));
                                         matiere.setAll2(bdd.getMatieres().get(i));
-                                        user.setMessage(listemessage);
+                                        ArrayList<Messages> liste = new ArrayList<Messages>();
+                                        for (int j = 0;j<listemessage.size();j++){
+                                            if (listemessage.get(j).getUser1().compareMail(user.getMail()) || listemessage.get(j).getUser2().compareMail(user.getMail()) ){
+                                                liste.add(listemessage.get(j));
+                                            }
+                                        }
+                                        user.setMessage(liste);
                                         user.printMessage();
                                         //CreateMessage(user,bdd.getUsers().get(2),uid.get(i),uid.get(2));
                                     }
@@ -564,44 +570,6 @@ public class MainActivity extends AppCompatActivity {
 
             }
         }
-        public void UpdateMessage(Messages messages2,Message message){
-            Log.d("UpdateMessage",messages2.toString());
-            messages2.addMessage(message);
-            Log.d("UpdateMessage",String.valueOf(messages2.getMessage().size()));
-            String size = String.valueOf(messages2.getMessage().size()-1);
-//            mDatabase.child("message").child(messages2.getUid()).child("message").child(size).setValue(message);
-//            mDatabase.child("message").child(messages2.getUid()).child("message").child()
-            /*messages.addMessage(message);
-            messages.getMessage().toString();
-            Map<String, Object> messageUpdates = new HashMap<>();
-            String size = String.valueOf(messages.getMessage().size()-1);
-            Log.d("UpdateMessage","message/"+messages.getUid()+"/message/"+size);
-            */
-            //messageUpdates.put("message/"+messages.getUid()+"/message/"+size,message);
-            //mDatabase.updateChildren(messageUpdates);
-            //mDatabase.child("message").child(messages.getUid()).removeValue();
-            //mDatabase.child("message").child(messages.getUid()).setValue(messages);
-            //mDatabase.child("message").child(id).setValue(messages);
-            //Log.d("UpdateMessage",mDatabase.child("message").child(messages.getUid()).child("message").child(size).toString());
-
-
-            /* Messages messages = new Messages(user,new User("test@test.com","matthieu","test"));
-            messages.addMessage1("Bonjour j'aurai besoin d'aide en maths");
-            messages.addMessage2("Bonjour, je suis dispo jeudi soir et vendredi soir");
-            messages.addMessage1("Je suis dispo jeudi a partir de 16h");
-            messages.addMessage2("Est que jeudi à 17h chez vous va ? si oui quel est votre adresse ? ");
-            messages.addMessage1("Mon adresse est : .... ");
-            messages.addMessage2("D'accord");
-            messages.addMessage2("Est que vous pourriez m'aider en physique ? ");
-            messages.addMessage1("D'acc");
-            messages.addMessage1("Merci pour l'aide, j'ai eu 15 à mon controle ! ");
-            messages.addMessage2("Bonjour j'aurai besoin de nouveau d'aide en physique ");
-            messages.addMessage1("Je suis dispo la semaine prochaine le mardi et mercredi soir");
-            DateFormat dateFormat = new SimpleDateFormat("HHmmss");
-            Date date = new Date();
-            String id = dateFormat.format(date);
-            mDatabase.child("message").child(id).setValue(messages);*/
-        }
         public void LayoutChatEdit(){
             if (getLayout() == R.layout.chat_edit) {
                 TextView text = findViewById(R.id.Contact);
@@ -627,16 +595,20 @@ public class MainActivity extends AppCompatActivity {
 
 
                 EditText text2 = (EditText) findViewById(R.id.Chat_text);
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                /*InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 text2.requestFocus();
                 imm.showSoftInput(text2, 0);
-
+*/
                 ImageButton chat =  findViewById(R.id.Chat_button);
                 chat.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Message lemessage = new Message(user,text2.getText().toString());
-                        UpdateMessage(message,lemessage);
+                        Message lemessage = new Message(user.ReturnUser(),text2.getText().toString());
+                       // UpdateMessage(message,lemessage);
+                        message.addMessage(lemessage);
+                        String size = String.valueOf(message.getMessage().size()-1);
+                        mDatabase.child("message").child(message.getUid()).child("message").child(size).setValue(lemessage);
+
 
                         setlayout(R.layout.chat);
                         LayoutChat();
@@ -674,8 +646,11 @@ public class MainActivity extends AppCompatActivity {
         }
         EditText Mail =  findViewById(R.id.connectionmail);
         EditText Password =findViewById(R.id.connectionpassword);
-        Mail.setText("armin@test.com");
-        Password.setText("test1234");
+        //compte Armin
+        //Mail.setText("armin@test.com");
+        //Password.setText("test1234");
+        Mail.setText("matthieubarnabe@gmail.com");
+        Password.setText("Paris0108");
 
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
         ValueEventListener usersEvent = new ValueEventListener() {

@@ -89,6 +89,7 @@ public class CustomAdapterMessagerie extends RecyclerView.Adapter<CustomAdapterM
 
     public CustomAdapterMessagerie(User user,User user2) {
         this.mDataSet = user.getMessage();
+        user.printMessage();
         this.user = user2;
     }
 
@@ -114,12 +115,17 @@ public class CustomAdapterMessagerie extends RecyclerView.Adapter<CustomAdapterM
 
 
         // Get element from your dataset at this position and replace the contents of the view
-        // with that element
+        // with that element*
+        Log.d("testvalue1",String.valueOf(mDataSet.get(position).getUser1().compare(user)));
+        Log.d("testvalue2",String.valueOf(mDataSet.get(position).getUser2().compare(user)));
+        if (mDataSet.get(position).getUser1().compare(user) || mDataSet.get(position).getUser2().compare(user) ){
+            Log.d("testvalue","test");
+        }
         if (mDataSet.get(position).getUser1().compare(user)){
-            viewHolder.getName2().setText(mDataSet.get(position).getUser1().getNom());
+            viewHolder.getName2().setText(mDataSet.get(position).getUser2().getNom());
         }
         else{
-            viewHolder.getName2().setText(mDataSet.get(position).getUser2().getNom());
+            viewHolder.getName2().setText(mDataSet.get(position).getUser1().getNom());
         }
 
         viewHolder.getMessages().setText(mDataSet.get(position).getMessage().get(mDataSet.get(position).getMessage().size()-1).getMessage());

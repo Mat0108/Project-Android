@@ -81,5 +81,10 @@ public class User {
             return false;
         }
     }
+    public User ReturnUser(){
+        User newuser = new User();
+        newuser.setAll2(this);
+        return newuser;
+    }
 
 }
