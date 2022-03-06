@@ -5,10 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -204,7 +206,6 @@ public class MainActivity extends AppCompatActivity {
                                 // Sign in success, update UI with the signed-in user's information
                                 Log.d("TAG", "signInWithEmail:success");
                                 FirebaseUser mUser = mAuth.getCurrentUser();
-                                Log.d("test",mAuth.getUid());
                                 user.setMail(mUser.getEmail());
                                 for (int i = 0; i < bdd.getSize(); i++) {
                                     if (bdd.getUsers().get(i).compareMail(user.getMail())){
@@ -551,11 +552,10 @@ public class MainActivity extends AppCompatActivity {
                 });
                 FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
                 RecyclerViewFragment fragment3 = new RecyclerViewFragment(bdd,activity, R.layout.chat_result,varLayout,user);
-                Log.d("test",bdd.getUsers().get(getUserid()).toString());
+
                 transaction3.replace(R.id.sample_content_fragment, fragment3);
                 transaction3.commit();
 
-                Log.d("uid",message.getUid());
                 TextView text2 =  findViewById(R.id.Chat_text);
                 ImageButton chat =  findViewById(R.id.Chat_button);
                 chat.setOnClickListener(new View.OnClickListener() {
@@ -593,23 +593,19 @@ public class MainActivity extends AppCompatActivity {
                 transaction3.replace(R.id.sample_content_fragment, fragment3);
                 transaction3.commit();
 
-
                 EditText text2 = (EditText) findViewById(R.id.Chat_text);
-                /*InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 text2.requestFocus();
                 imm.showSoftInput(text2, 0);
-*/
+
                 ImageButton chat =  findViewById(R.id.Chat_button);
                 chat.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Message lemessage = new Message(user.ReturnUser(),text2.getText().toString());
-                       // UpdateMessage(message,lemessage);
                         message.addMessage(lemessage);
                         String size = String.valueOf(message.getMessage().size()-1);
                         mDatabase.child("message").child(message.getUid()).child("message").child(size).setValue(lemessage);
-
-
                         setlayout(R.layout.chat);
                         LayoutChat();
 
@@ -646,11 +642,15 @@ public class MainActivity extends AppCompatActivity {
         }
         EditText Mail =  findViewById(R.id.connectionmail);
         EditText Password =findViewById(R.id.connectionpassword);
-        //compte Armin
-        //Mail.setText("armin@test.com");
-        //Password.setText("test1234");
-        Mail.setText("matthieubarnabe@gmail.com");
-        Password.setText("Paris0108");
+        int test = 0;
+        if (test == 0){
+            Mail.setText("armin@test.com");
+            Password.setText("test1234");
+        }else{
+            Mail.setText("matthieubarnabe@gmail.com");
+            Password.setText("Paris0108");
+        }
+
 
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference().child("users");
         ValueEventListener usersEvent = new ValueEventListener() {
@@ -716,8 +716,7 @@ public class MainActivity extends AppCompatActivity {
                 for (DataSnapshot ds : dataSnapshot.getChildren()) {
 
                     String id = ds.getKey();
-                    Log.d("test",id);
-                    Log.d("test2",ds.toString());
+
                     Messages messages = ds.getValue(Messages.class);
                     messages.setUid(id);
                     listemessage.add(messages);

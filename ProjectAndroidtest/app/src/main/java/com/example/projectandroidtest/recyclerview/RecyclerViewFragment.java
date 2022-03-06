@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -160,15 +161,12 @@ public class RecyclerViewFragment extends Fragment {
             mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
 
 
+
         }
         if(layout == R.layout.chat_result){
             mAdapterC = new CustomAdapterChat(mDataset5,user);
             mRecyclerView.setAdapter(mAdapterC);
             mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
-
-
-
-
 
 
         }
@@ -194,8 +192,14 @@ public class RecyclerViewFragment extends Fragment {
 
         // If a layout manager has already been set, get current scroll position.
         if (mRecyclerView.getLayoutManager() != null) {
-            scrollPosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager())
-                    .findFirstCompletelyVisibleItemPosition();
+            if(layout == R.layout.chat_result){
+                scrollPosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager())
+                        .findLastVisibleItemPosition();
+            }else{
+                scrollPosition = ((LinearLayoutManager) mRecyclerView.getLayoutManager())
+                        .findFirstCompletelyVisibleItemPosition();
+            }
+
         }
 
         switch (layoutManagerType) {
@@ -213,26 +217,29 @@ public class RecyclerViewFragment extends Fragment {
         }
 
         mRecyclerView.setLayoutManager(mLayoutManager);
+        if(layout == R.layout.chat_result){
+            this.setPosition();
+
+        }
+
         mRecyclerView.scrollToPosition(scrollPosition);
     }
     public void setPosition(){
     // scroll to last item to get the view of last item
         final LinearLayoutManager layoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
         final RecyclerView.Adapter adapter = mRecyclerView.getAdapter();
-        final int lastItemPosition = adapter.getItemCount() - 1;
-
-        layoutManager.scrollToPositionWithOffset(lastItemPosition, 0);
-        mRecyclerView.post(new Runnable() {
+        final int lastItemPosition = adapter.getItemCount()-1;
+        Log.d("lastItemPosition",String.valueOf(lastItemPosition));
+        Log.d("setPosition","test");
+        mRecyclerView.smoothScrollToPosition(lastItemPosition);
+        mRecyclerView.scrollToPosition(lastItemPosition);
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                // then scroll to specific offset
-                View target = layoutManager.findViewByPosition(lastItemPosition);
-                if (target != null) {
-                    int offset = mRecyclerView.getMeasuredHeight() - target.getMeasuredHeight();
-                    layoutManager.scrollToPositionWithOffset(lastItemPosition, offset);
-                }
+                mRecyclerView.smoothScrollToPosition(lastItemPosition);
             }
-        });
+        }, 5); //sometime not working, need some delay
+
     }
 
 

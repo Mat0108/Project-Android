@@ -90,7 +90,7 @@ public class CustomAdapterMessagerie extends RecyclerView.Adapter<CustomAdapterM
     public CustomAdapterMessagerie(User user,User user2) {
         this.mDataSet = user.getMessage();
         user.printMessage();
-        this.user = user2;
+        this.user = user;
     }
 
     // BEGIN_INCLUDE(recyclerViewOnCreateViewHolder)
@@ -116,8 +116,6 @@ public class CustomAdapterMessagerie extends RecyclerView.Adapter<CustomAdapterM
 
         // Get element from your dataset at this position and replace the contents of the view
         // with that element*
-        Log.d("testvalue1",String.valueOf(mDataSet.get(position).getUser1().compare(user)));
-        Log.d("testvalue2",String.valueOf(mDataSet.get(position).getUser2().compare(user)));
         if (mDataSet.get(position).getUser1().compare(user) || mDataSet.get(position).getUser2().compare(user) ){
             Log.d("testvalue","test");
         }
@@ -127,12 +125,19 @@ public class CustomAdapterMessagerie extends RecyclerView.Adapter<CustomAdapterM
         else{
             viewHolder.getName2().setText(mDataSet.get(position).getUser1().getNom());
         }
+        Log.d("onBindViewHolder",mDataSet.get(position).getMessage().get(mDataSet.get(position).getMessage().size()-1).getUser().toString());
+        Log.d("onBindViewHolder2",String.valueOf(user.compare(mDataSet.get(position).getMessage().get(mDataSet.get(position).getMessage().size()-1).getUser())));
 
-        viewHolder.getMessages().setText(mDataSet.get(position).getMessage().get(mDataSet.get(position).getMessage().size()-1).getMessage());
-        viewHolder.getPoint().setText("");
-        /*if(mDataset3[position].contains(".")){
+        if (!user.compare(mDataSet.get(position).getMessage().get(mDataSet.get(position).getMessage().size()-1).getUser())){
+            viewHolder.getPoint().setText(".");
             viewHolder.getName2().setTextColor(Color.parseColor("#FFFFFF"));
-            viewHolder.getMessages().setTextColor(Color.parseColor("#FFFFFF"));
+        }else{
+            viewHolder.getPoint().setText("");
+        }
+        viewHolder.getMessages().setText(mDataSet.get(position).getMessage().get(mDataSet.get(position).getMessage().size()-1).getMessage());
+
+        /*if(mDataset3[position].contains(".")){
+
 
         }*/
         viewHolder.getFont().setImageResource(R.drawable.messagerieresult);
