@@ -139,7 +139,7 @@ public class CustomAdapterChat extends RecyclerView.Adapter<CustomAdapterChat.Vi
             DateFormat dateFormat = new SimpleDateFormat("EEEEE dd MMMMM yyyy");
             Date date = new Date();
             String texte = dateFormat.format(date) + "\n\n Debut de votre discussion avec "+user2.getNom();
-            
+
             viewHolder.getChat().setText(texte);
             viewHolder.getChat().setBackgroundColor(Color.parseColor("#80AB7D"));
             ViewGroup.MarginLayoutParams layoutParams1 = (ViewGroup.MarginLayoutParams) viewHolder.getLayout().getLayoutParams();
