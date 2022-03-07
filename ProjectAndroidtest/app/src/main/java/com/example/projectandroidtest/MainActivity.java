@@ -41,6 +41,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
@@ -135,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
     public class varLayout {
         protected int layout;
         protected int userid;
+        protected User Newuser;
         protected Messages message;
         protected ArrayList<Message> messages;
 
@@ -151,6 +153,10 @@ public class MainActivity extends AppCompatActivity {
         }
         public int getUserid() {return userid;}
         public void setUserid(int userid) {this.userid = userid;}
+
+        public User getNewuser() {return Newuser;}
+
+        public void setNewuser(User newuser) {Newuser = newuser;}
 
         public ArrayList<Message> getMessages() {return messages;}
         public void setMessages(ArrayList<Message> messages) {this.messages = messages;}
@@ -218,7 +224,6 @@ public class MainActivity extends AppCompatActivity {
                                             }
                                         }
                                         user.setMessage(liste);
-                                        user.printMessage();
                                         //CreateMessage(user,bdd.getUsers().get(2),uid.get(i),uid.get(2));
                                     }
                                 }
@@ -237,25 +242,25 @@ public class MainActivity extends AppCompatActivity {
             // [END sign_in_with_email]
         }
 
-        public void CreateMessage(User user, User user2,String uid,String uid2){
+        public void CreateMessage(User user, User user2){
+            String localuid = "";
+            String localuid2 = "";
+            for (int i = 0;i<bdd.getUsers().size();i++){
+                if(user.compare(bdd.getUsers().get(i))){
+                    localuid = uid.get(i);
+                }
+                if (user2.compare(bdd.getUsers().get(i))){
+                    localuid2 = uid.get(i);
+                }
+            }
+
             Messages messages = new Messages(user,user2);
-            messages.addMessage1("Bonjour j'aurai besoin d'aide en maths");
-            messages.addMessage2("Bonjour, je suis dispo jeudi soir et vendredi soir");
-            messages.addMessage1("Je suis dispo jeudi a partir de 16h");
-            messages.addMessage2("Est que jeudi à 17h chez vous va ? si oui quel est votre adresse ? ");
-            messages.addMessage1("Mon adresse est : .... ");
-            messages.addMessage2("D'accord");
-            messages.addMessage2("Est que vous pourriez m'aider en physique ? ");
-            messages.addMessage1("D'acc");
-            messages.addMessage1("Merci pour l'aide, j'ai eu 15 à mon controle ! ");
-            messages.addMessage2("Bonjour j'aurai besoin de nouveau d'aide en physique ");
-            messages.addMessage1("Je suis dispo la semaine prochaine le mardi et mercredi soir");
             DateFormat dateFormat = new SimpleDateFormat("HHmmss");
             Date date = new Date();
             String id = dateFormat.format(date);
             mDatabase.child("message").child(id).setValue(messages);
-            mDatabase.child("users").child(uid).child("message").child(id).setValue(id);
-            mDatabase.child("users").child(uid2).child("message").child(id).setValue(id);
+            mDatabase.child("users").child(localuid).child("message").child(id).setValue(id);
+            mDatabase.child("users").child(localuid2).child("message").child(id).setValue(id);
         }
         public void LayoutRecherche() {
             if (getLayout() == R.layout.recherche) {
@@ -550,11 +555,58 @@ public class MainActivity extends AppCompatActivity {
                         LayoutMessagerie();
                     }
                 });
-                FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
-                RecyclerViewFragment fragment3 = new RecyclerViewFragment(bdd,activity, R.layout.chat_result,varLayout,user);
 
-                transaction3.replace(R.id.sample_content_fragment, fragment3);
-                transaction3.commit();
+                if(user.getMessage().get(getUserid()).getMessage().size() != 0){
+                    FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
+                    RecyclerViewFragment fragment3 = new RecyclerViewFragment(bdd,activity, R.layout.chat_result,varLayout,user);
+
+                    transaction3.replace(R.id.sample_content_fragment, fragment3);
+                    transaction3.commit();
+                }else{
+                    TextView texte = findViewById(R.id.inittext);
+                    DateFormat dateFormat = new SimpleDateFormat("EEEEEEEEEE dd MMMMMMMMMM yyyy", Locale.FRENCH);
+                    Date date = new Date();
+                    String localtexte = "                           "+dateFormat.format(date) + "\n\n          Debut de votre discussion avec "+text.getText();
+                    texte.setText(localtexte);
+                    Log.d("CustomAdapterChat",localtexte);
+                }
+
+
+                TextView text2 =  findViewById(R.id.Chat_text);
+                ImageButton chat =  findViewById(R.id.Chat_button);
+                chat.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setlayout(R.layout.chat_edit);
+                        LayoutChatEdit();
+
+
+                    }
+                });
+
+            }
+        }
+        public void LayoutNewChat(){
+            if (getLayout() == R.layout.chat) {
+                TextView text = findViewById(R.id.Contact);
+
+                text.setText(getNewuser().getNom());
+
+                ImageButton retour =findViewById(R.id.retour3);
+                retour.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        setlayout(R.layout.messagerie);
+                        LayoutMessagerie();
+                    }
+                });
+                TextView texte = findViewById(R.id.inittext);
+                DateFormat dateFormat = new SimpleDateFormat("EEEEEEEEEE dd MMMMMMMMMM yyyy", Locale.FRENCH);
+                Date date = new Date();
+                String localtexte = "                           "+dateFormat.format(date) + "\n\n          Debut de votre discussion avec "+text.getText();
+                texte.setText(localtexte);
+                Log.d("CustomAdapterChat",localtexte);
+
 
                 TextView text2 =  findViewById(R.id.Chat_text);
                 ImageButton chat =  findViewById(R.id.Chat_button);
@@ -588,10 +640,13 @@ public class MainActivity extends AppCompatActivity {
                         LayoutMessagerie();
                     }
                 });
-                FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
-                RecyclerViewFragment fragment3 = new RecyclerViewFragment(bdd,activity, R.layout.chat_result,varLayout,user);
-                transaction3.replace(R.id.sample_content_fragment, fragment3);
-                transaction3.commit();
+                if(user.getMessage().get(getUserid()).getMessage().size() != 0){
+                    FragmentTransaction transaction3 = getSupportFragmentManager().beginTransaction();
+                    RecyclerViewFragment fragment3 = new RecyclerViewFragment(bdd,activity, R.layout.chat_result,varLayout,user);
+                    transaction3.replace(R.id.sample_content_fragment, fragment3);
+                    transaction3.commit();
+                }
+
 
                 EditText text2 = (EditText) findViewById(R.id.Chat_text);
                 InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

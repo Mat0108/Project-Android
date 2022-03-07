@@ -31,6 +31,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
+import android.widget.Toast;
 
 import com.example.projectandroidtest.BDD;
 import com.example.projectandroidtest.MainActivity;
@@ -164,7 +165,7 @@ public class RecyclerViewFragment extends Fragment {
 
         }
         if(layout == R.layout.chat_result){
-            mAdapterC = new CustomAdapterChat(mDataset5,user);
+            mAdapterC = new CustomAdapterChat(mDataset5,user,user2);
             mRecyclerView.setAdapter(mAdapterC);
             mCurrentLayoutManagerType = LayoutManagerType.LINEAR_LAYOUT_MANAGER;
 
@@ -225,20 +226,22 @@ public class RecyclerViewFragment extends Fragment {
         mRecyclerView.scrollToPosition(scrollPosition);
     }
     public void setPosition(){
-    // scroll to last item to get the view of last item
-        final LinearLayoutManager layoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
-        final RecyclerView.Adapter adapter = mRecyclerView.getAdapter();
-        final int lastItemPosition = adapter.getItemCount()-1;
-        Log.d("lastItemPosition",String.valueOf(lastItemPosition));
-        Log.d("setPosition","test");
-        mRecyclerView.smoothScrollToPosition(lastItemPosition);
-        mRecyclerView.scrollToPosition(lastItemPosition);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mRecyclerView.smoothScrollToPosition(lastItemPosition);
-            }
-        }, 5); //sometime not working, need some delay
+        if (mDataset5.getMessage().size() != 0)
+        {
+            // scroll to last item to get the view of last item
+            final LinearLayoutManager layoutManager = (LinearLayoutManager) mRecyclerView.getLayoutManager();
+            final RecyclerView.Adapter adapter = mRecyclerView.getAdapter();
+            final int lastItemPosition = adapter.getItemCount()-1;
+            mRecyclerView.smoothScrollToPosition(lastItemPosition);
+            mRecyclerView.scrollToPosition(lastItemPosition);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    mRecyclerView.smoothScrollToPosition(lastItemPosition);
+                }
+            }, 5); //sometime not working, need some delay
+
+        }
 
     }
 
@@ -259,10 +262,27 @@ public class RecyclerViewFragment extends Fragment {
                         public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                             if (layout == R.layout.recherche_result){
                                 if (position < bdds.getSize()) {
-                                    user.setAll2(bdds.getUsers().get(position));
-                                    varLayout.setlayout(R.layout.messagerie);
+                                    user2.setAll2(bdds.getUsers().get(position));
+                                    boolean condition = false;
 
-                                    varLayout.LayoutMessagerie();
+                                    for (int i = 0; i<user.getMessage().size();i++){
+                                       if((user.getMessage().get(i).getUser1().compare(user) && user.getMessage().get(i).getUser2().compare(user2) ) || (
+                                                user.getMessage().get(i).getUser1().compare(user2) && user.getMessage().get(i).getUser2().compare(user))){
+                                           Toast.makeText(getContext(), "Vous avez deja une discussion avec cette personne",
+                                                    Toast.LENGTH_SHORT).show();
+                                           condition = true;
+
+                                       }
+                                    }
+                                    if (condition == false){
+                                        varLayout.CreateMessage(user,user2);
+                                        varLayout.setNewuser(user2);
+                                        varLayout.setlayout(R.layout.chat);
+                                        varLayout.LayoutNewChat();
+                                    }
+
+//
+
 
 
 
@@ -270,10 +290,11 @@ public class RecyclerViewFragment extends Fragment {
                             }
                             if (layout == R.layout.messagerie_result){
                                 ArrayList<Message> message = user.getMessage().get(position).getMessage();
-                                varLayout.setlayout(R.layout.chat);
                                 varLayout.setUserid(position);
+
                                 varLayout.setMessages(message);
                                 varLayout.setMessage(user.getMessage().get(position));
+                                varLayout.setlayout(R.layout.chat);
                                 varLayout.LayoutChat();
 
                             }

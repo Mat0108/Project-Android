@@ -89,7 +89,6 @@ public class CustomAdapterMessagerie extends RecyclerView.Adapter<CustomAdapterM
 
     public CustomAdapterMessagerie(User user,User user2) {
         this.mDataSet = user.getMessage();
-        user.printMessage();
         this.user = user;
     }
 
@@ -116,25 +115,27 @@ public class CustomAdapterMessagerie extends RecyclerView.Adapter<CustomAdapterM
 
         // Get element from your dataset at this position and replace the contents of the view
         // with that element*
-        if (mDataSet.get(position).getUser1().compare(user) || mDataSet.get(position).getUser2().compare(user) ){
-            Log.d("testvalue","test");
-        }
+
         if (mDataSet.get(position).getUser1().compare(user)){
             viewHolder.getName2().setText(mDataSet.get(position).getUser2().getNom());
         }
         else{
             viewHolder.getName2().setText(mDataSet.get(position).getUser1().getNom());
         }
-        Log.d("onBindViewHolder",mDataSet.get(position).getMessage().get(mDataSet.get(position).getMessage().size()-1).getUser().toString());
-        Log.d("onBindViewHolder2",String.valueOf(user.compare(mDataSet.get(position).getMessage().get(mDataSet.get(position).getMessage().size()-1).getUser())));
-
-        if (!user.compare(mDataSet.get(position).getMessage().get(mDataSet.get(position).getMessage().size()-1).getUser())){
-            viewHolder.getPoint().setText(".");
-            viewHolder.getName2().setTextColor(Color.parseColor("#FFFFFF"));
-        }else{
+        if (mDataSet.get(position).getMessage().size() != 0){
+            if (!user.compare(mDataSet.get(position).getMessage().get(mDataSet.get(position).getMessage().size()-1).getUser())){
+                viewHolder.getPoint().setText(".");
+                viewHolder.getName2().setTextColor(Color.parseColor("#FFFFFF"));
+            }else{
+                viewHolder.getPoint().setText("");
+            }
+            viewHolder.getMessages().setText(mDataSet.get(position).getMessage().get(mDataSet.get(position).getMessage().size()-1).getMessage());
+        }
+        else{
+            viewHolder.getMessages().setText("Nouvelles discussions");
             viewHolder.getPoint().setText("");
         }
-        viewHolder.getMessages().setText(mDataSet.get(position).getMessage().get(mDataSet.get(position).getMessage().size()-1).getMessage());
+
 
         /*if(mDataset3[position].contains(".")){
 

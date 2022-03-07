@@ -38,7 +38,10 @@ import com.example.projectandroidtest.Messages;
 import com.example.projectandroidtest.R;
 import com.example.projectandroidtest.User;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Provide views to RecyclerView with data from mDataSet.
@@ -48,6 +51,7 @@ public class CustomAdapterChat extends RecyclerView.Adapter<CustomAdapterChat.Vi
 
     private Messages mDataSet;
     private User user;
+    private User user2;
 
     // BEGIN_INCLUDE(recyclerViewSampleViewHolder)
     /**
@@ -78,9 +82,10 @@ public class CustomAdapterChat extends RecyclerView.Adapter<CustomAdapterChat.Vi
     }
     // END_INCLUDE(recyclerViewSampleViewHolder)
 
-    public CustomAdapterChat(Messages mDataSet, User user) {
+    public CustomAdapterChat(Messages mDataSet, User user, User user2) {
         this.mDataSet = mDataSet;
         this.user = user;
+        this.user2 = user2;
     }
 
 
@@ -104,32 +109,44 @@ public class CustomAdapterChat extends RecyclerView.Adapter<CustomAdapterChat.Vi
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+        if (mDataSet.getMessage().size() != 0){
+            // Get element from your dataset at this position and replace the contents of the view
+            // with that element
+            ViewGroup.LayoutParams layoutParams = viewHolder.getLayout().getLayoutParams();
 
+            layoutParams.height = (int) ((mDataSet.getMessage().get(position).getMessage().length()/68.0)*50+50);
+            viewHolder.getLayout().setLayoutParams(layoutParams);
 
-        // Get element from your dataset at this position and replace the contents of the view
-        // with that element
-        ViewGroup.LayoutParams layoutParams = viewHolder.getLayout().getLayoutParams();
+            if (mDataSet.getMessage().get(position).getUser().compare(user)){
+                //viewHolder.getLayout().setLayoutParams(layoutParams);
+                viewHolder.getChat().setBackgroundColor(Color.parseColor("#7DABA9"));
 
-        layoutParams.height = (int) ((mDataSet.getMessage().get(position).getMessage().length()/68.0)*50+50);
-        viewHolder.getLayout().setLayoutParams(layoutParams);
+                viewHolder.getChat().setText(mDataSet.getMessage().get(position).getMessage());
+                ViewGroup.MarginLayoutParams layoutParams1 = (ViewGroup.MarginLayoutParams) viewHolder.getLayout().getLayoutParams();
+                layoutParams1.setMargins(270, 0,0,60);
+                viewHolder.getLayout().setLayoutParams(layoutParams1);
 
-        if (mDataSet.getMessage().get(position).getUser().compare(user)){
-            //viewHolder.getLayout().setLayoutParams(layoutParams);
-            viewHolder.getChat().setBackgroundColor(Color.parseColor("#7DABA9"));
+            }
+            else{
+                viewHolder.getChat().setBackgroundColor(Color.parseColor("#80AB7D"));
+                viewHolder.getChat().setText(mDataSet.getMessage().get(position).getMessage());
+                ViewGroup.MarginLayoutParams layoutParams1 = (ViewGroup.MarginLayoutParams) viewHolder.getLayout().getLayoutParams();
+                layoutParams1.setMargins(0, 0,0,60);
+                viewHolder.getLayout().setLayoutParams(layoutParams1);
+            }
 
-            viewHolder.getChat().setText(mDataSet.getMessage().get(position).getMessage());
+        }else{
+            DateFormat dateFormat = new SimpleDateFormat("EEEEE dd MMMMM yyyy");
+            Date date = new Date();
+            String texte = dateFormat.format(date) + "\n\n Debut de votre discussion avec "+user2.getNom();
+            
+            viewHolder.getChat().setText(texte);
+            viewHolder.getChat().setBackgroundColor(Color.parseColor("#80AB7D"));
             ViewGroup.MarginLayoutParams layoutParams1 = (ViewGroup.MarginLayoutParams) viewHolder.getLayout().getLayoutParams();
             layoutParams1.setMargins(270, 0,0,60);
             viewHolder.getLayout().setLayoutParams(layoutParams1);
+        }
 
-        }
-        else{
-            viewHolder.getChat().setBackgroundColor(Color.parseColor("#80AB7D"));
-            viewHolder.getChat().setText(mDataSet.getMessage().get(position).getMessage());
-            ViewGroup.MarginLayoutParams layoutParams1 = (ViewGroup.MarginLayoutParams) viewHolder.getLayout().getLayoutParams();
-            layoutParams1.setMargins(0, 0,0,60);
-            viewHolder.getLayout().setLayoutParams(layoutParams1);
-        }
 
 
     }
