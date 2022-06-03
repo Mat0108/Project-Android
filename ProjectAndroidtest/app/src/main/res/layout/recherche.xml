@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/FONT">
+
+
+    <ImageView
+        android:id="@+id/recherchehaut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/recherchemenu"
+        android:src="@drawable/recherchehaut"
+
+        />
+
+    <ImageView
+        android:id="@+id/recherchebas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/recherchemenu"
+        android:src="@drawable/barrebas"
+        android:translationY="600dp" />
+
+    <Button
+        android:id="@+id/bRecherche"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:translationX="45dp"
+        android:translationY="620dp"
+        android:visibility="visible"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/bReglage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:translationX="160dp"
+        android:translationY="620dp"
+        android:visibility="visible"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/bMessagerie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#00000000"
+        android:translationX="270dp"
+        android:translationY="620dp"
+        android:visibility="visible"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Button
+        android:id="@+id/rechercheback"
+        android:layout_width="53dp"
+        android:layout_height="58dp"
+        android:background="#00000000"
+        android:contentDescription="@string/recherchemenu"
+        android:visibility="visible"
+        tools:ignore="DuplicateSpeakableTextCheck"
+        tools:srcCompat="@drawable/recherchehautclick" />
+
+    <FrameLayout
+        android:id="@+id/sample_content_fragment"
+        android:layout_width="410dp"
+        android:layout_height="470dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginLeft="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginRight="1dp"
+        android:layout_marginBottom="2dp"
+        android:translationY="140dp">
+
+    </FrameLayout>
+
+    <Spinner
+        android:id="@+id/choix"
+        android:layout_width="188dp"
+        android:layout_height="38dp"
+        android:popupBackground="@color/SELECTED"
+        android:translationX="50dp"
+        android:translationY="80dp"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/recherchebutton"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible" />
+
+
+</RelativeLayout>
+
+

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/recycler_1"
+    android:layout_width="196dp"
+    android:layout_height="172dp"
+    android:gravity="center_vertical">
+
+
+    <ImageView
+        android:id="@+id/font"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="result"
+        app:srcCompat="@drawable/rechercheresult" />
+
+    <ImageView
+        android:id="@+id/photo"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:contentDescription="photo"
+        android:translationX="9dp"
+        android:translationY="21dp"
+        app:srcCompat="@drawable/recherchephoto" />
+
+    <ImageView
+        android:id="@+id/mask"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:contentDescription="photo"
+        android:translationX="9dp"
+        android:translationY="21dp"
+        app:srcCompat="@drawable/recherchemask" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="73dp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/element_text"
+        android:textColor="@color/TEXT"
+        android:translationX="6dp"
+        android:translationY="102dp" />
+
+    <TextView
+        android:id="@+id/matiere"
+        android:layout_width="100dp"
+        android:layout_height="129dp"
+        android:gravity="center_horizontal"
+        android:text="Matière 1\nMatière 2"
+        android:textColor="@color/TEXT"
+        android:translationX="80dp"
+        android:translationY="20dp" />
+
+</FrameLayout>
